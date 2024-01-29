@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    [SerializeField]
+    InventoryManager inventoryManager;
 
     private void Start()
     {
@@ -16,5 +18,18 @@ public class Player : Entity
             return;
 
         entity.ModifyHealth(-damage);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.GetComponent<Item>())
+        {
+            if(inventoryManager.FindEmptyInventorySlot() != null)
+            {
+                inventoryManager.FindEmptyInventorySlot().FillSlot(collision.collider.GetComponent<Item>());
+                Destroy(collision.gameObject);
+            }
+            
+        }
     }
 }

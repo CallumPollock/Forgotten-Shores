@@ -18,7 +18,7 @@ public class Entity : MonoBehaviour
     public float dropChance;
 
     //When the mouse hovers over the GameObject, it turns to this color (red)
-    Color m_MouseOverColor = new Color(0.5f,0.5f,0.5f);
+    Color m_MouseOverColor = new Color(0.5f, 0.5f, 0.5f);
 
     //This stores the GameObject’s original color
     Color m_OriginalColor = new Color(1f, 1f, 1f);
@@ -43,18 +43,33 @@ public class Entity : MonoBehaviour
 
         health = Mathf.Clamp(health + val, 0, maxHealth);
 
-        //damageIndicator.SetDamageValue(val);
+        StartCoroutine(CreateDamageIndicator(val));
 
         if (health <= 0)
         {
             OnDeath();
         }
-            
+
 
         if (val < 0 && resource != null)
             if (Random.value <= dropChance)
                 DropResource();
     }
+
+    IEnumerator CreateDamageIndicator(int damage)
+    {
+        DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
+        newDmgIndicator.SetDamageValue(damage);
+        Vector2 randomPos = Random.insideUnitCircle * 0.3f;
+        newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y, -6f);
+
+        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*30f);
+
+        yield return new WaitForSeconds(0.3f);
+        Destroy(newDmgIndicator.gameObject);
+
+    }
+
 
     public virtual void OnDeath()
     {
