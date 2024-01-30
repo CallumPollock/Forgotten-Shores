@@ -16,14 +16,14 @@ public class DamageIndicator : MonoBehaviour
 
     public void SetDamageValue(int damage)
     {
-        text.enabled = true;
+
         text.text = damage.ToString();
-        StartCoroutine(Timer());
+        StartCoroutine(DestroyOnDelay());
     }
 
-    IEnumerator Timer()
+    IEnumerator DestroyOnDelay()
     {
-        yield return new WaitForSeconds(1f);
-        text.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
     }
 }

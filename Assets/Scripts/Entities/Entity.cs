@@ -4,17 +4,18 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
+    [Header("Stats")]
     public int health;
     public int maxHealth;
     public int damage;
-    //GameObject dmgIndicatorPrefab;
-    //public DamageIndicator damageIndicator;
+    public int defence;
+    
 
     public Sprite deathSprite;
 
-    public GameObject resource;
+    public List<GameObject> resource = new List<GameObject>();
     public float dropChance;
 
     //When the mouse hovers over the GameObject, it turns to this color (red)
@@ -38,12 +39,13 @@ public class Entity : MonoBehaviour
 
     public virtual void ModifyHealth(int val)
     {
-        if (health <= 0)
-            return;
+
+        if (val < 0)
+            val = Mathf.Min(val + defence, 0);
 
         health = Mathf.Clamp(health + val, 0, maxHealth);
 
-        StartCoroutine(CreateDamageIndicator(val));
+        CreateDamageIndicator(val);
 
         if (health <= 0)
         {
@@ -51,12 +53,12 @@ public class Entity : MonoBehaviour
         }
 
 
-        if (val < 0 && resource != null)
+        if (val < 0 && resource.Count >= 0)
             if (Random.value <= dropChance)
                 DropResource();
     }
 
-    IEnumerator CreateDamageIndicator(int damage)
+    void CreateDamageIndicator(int damage)
     {
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
         newDmgIndicator.SetDamageValue(damage);
@@ -65,21 +67,21 @@ public class Entity : MonoBehaviour
 
         newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*30f);
 
-        yield return new WaitForSeconds(0.3f);
-        Destroy(newDmgIndicator.gameObject);
-
     }
 
 
     public virtual void OnDeath()
     {
+        defence = 100;
         if (deathSprite != null)
             spriteRenderer.sprite = deathSprite;
+        else
+            Destroy(gameObject);
     }
 
     void DropResource()
     {
-        GameObject resourceDrop = Instantiate(resource);
+        GameObject resourceDrop = Instantiate(resource[Random.Range(0,resource.Count-1)]);
         resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.8f;
     }
 

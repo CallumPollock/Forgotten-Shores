@@ -7,11 +7,6 @@ public class Player : Entity
     [SerializeField]
     InventoryManager inventoryManager;
 
-    private void Start()
-    {
-        damage = 1;
-    }
-
     public void PlayerInteractWith(Entity entity)
     {
         if (entity == this)
@@ -22,11 +17,10 @@ public class Player : Entity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.GetComponent<Item>())
+        if(collision.collider.GetComponent<DroppedItem>())
         {
-            if(inventoryManager.FindEmptyInventorySlot() != null)
+            if(inventoryManager.TryAddToInventory(collision.collider.GetComponent<DroppedItem>().item))
             {
-                inventoryManager.FindEmptyInventorySlot().FillSlot(collision.collider.GetComponent<Item>());
                 Destroy(collision.gameObject);
             }
             
