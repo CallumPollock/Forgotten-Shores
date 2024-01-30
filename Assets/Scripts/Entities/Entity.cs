@@ -81,8 +81,8 @@ public abstract class Entity : MonoBehaviour
 
     void DropResource()
     {
-        GameObject resourceDrop = Instantiate(resource[Random.Range(0,resource.Count-1)]);
-        resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.8f;
+        GameObject resourceDrop = Instantiate(resource[Random.Range(0,resource.Count)]);
+        resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
     }
 
      void OnMouseOver()

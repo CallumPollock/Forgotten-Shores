@@ -117,8 +117,10 @@ MonoBehaviour:
   health: 5
   maxHealth: 5
   damage: 1
+  defence: 0
   deathSprite: {fileID: 0}
-  resource: {fileID: 0}
+  resource:
+  - {fileID: 0}
   dropChance: 0
   inventoryManager: {fileID: 0}
 --- !u!50 &2136010154463821745
@@ -133,10 +135,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -147,7 +149,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &3159956697931115742
 PolygonCollider2D:
   m_ObjectHideFlags: 0

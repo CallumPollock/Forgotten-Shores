@@ -57,5 +57,28 @@ public class PlayerController : MonoBehaviour
             inventoryScreen.SetActive(!inventoryScreen.activeSelf);
         }
 
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+            SwitchItem(1);
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+            SwitchItem(-1);
+
+    }
+
+    void SwitchItem(int x)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).gameObject.activeSelf)
+            {
+                if (i + x < 0 || i + x > transform.childCount - 1)
+                    return;
+                transform.GetChild(i).gameObject.SetActive(false);
+                transform.GetChild(i + x).gameObject.SetActive(true);
+                return;
+            }
+            if(i == transform.childCount-1)
+                transform.GetChild(i).gameObject.SetActive(true);
+
+        }
     }
 }

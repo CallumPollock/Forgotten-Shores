@@ -21,7 +21,10 @@ public class Player : Entity
         {
             if(inventoryManager.TryAddToInventory(collision.collider.GetComponent<DroppedItem>().item))
             {
-                Destroy(collision.gameObject);
+                collision.transform.parent = transform;
+                collision.transform.localPosition = new Vector2(0.67f, 0f);
+                collision.gameObject.SetActive(false);
+                
             }
             
         }

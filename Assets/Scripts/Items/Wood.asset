@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   description: 
-  icon: {fileID: -2925636670977820526, guid: a414fe9bca07bd54ea2315ea33860f02, type: 3}
+  icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
   droppedObject: {fileID: 7002911441533744731, guid: 9f1900a30087f8a4f9fa72220f37b48b, type: 3}
+  recipe: []
