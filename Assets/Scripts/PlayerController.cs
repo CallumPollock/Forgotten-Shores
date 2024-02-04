@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            inventoryScreen.SetActive(!inventoryScreen.activeSelf);
+            ToggleInventory();
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
@@ -62,6 +62,11 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
             SwitchItem(-1);
 
+    }
+
+    public void ToggleInventory()
+    {
+        inventoryScreen.SetActive(!inventoryScreen.activeSelf);
     }
 
     void SwitchItem(int x)

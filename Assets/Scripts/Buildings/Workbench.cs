@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Workbench : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Interaction(Player player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        player.OpenCraftingMenu();
     }
 }

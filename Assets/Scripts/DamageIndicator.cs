@@ -16,6 +16,10 @@ public class DamageIndicator : MonoBehaviour
 
     public void SetDamageValue(int damage)
     {
+        if (damage < 0)
+            text.color = Color.red;
+        else if (damage > 0)
+            text.color = Color.green;
 
         text.text = damage.ToString();
         StartCoroutine(DestroyOnDelay());

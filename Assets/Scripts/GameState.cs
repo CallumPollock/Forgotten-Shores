@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameState : MonoBehaviour
 {
@@ -21,4 +23,18 @@ public class GameState : MonoBehaviour
 
 
     public GameObject damageIndicator;
+    float gameTime = 0f;
+    float gameSpeed = 0.001f;
+    public Image darknessOverlay;
+
+    public TextMeshProUGUI timeUIText;
+
+    private void Update()
+    {
+        gameTime += Time.deltaTime * gameSpeed;
+        if (gameTime >= 0.9f) gameTime = 0f;
+        darknessOverlay.color = new Color(0f,0f,0f,gameTime);
+
+        timeUIText.text = Mathf.Round((gameTime * 23) + 1).ToString();
+    }
 }

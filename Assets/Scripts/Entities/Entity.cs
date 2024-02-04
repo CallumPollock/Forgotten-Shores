@@ -11,6 +11,7 @@ public abstract class Entity : MonoBehaviour
     public int maxHealth;
     public int damage;
     public int defence;
+    public float speed;
     
 
     public Sprite deathSprite;
@@ -63,7 +64,7 @@ public abstract class Entity : MonoBehaviour
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
         newDmgIndicator.SetDamageValue(damage);
         Vector2 randomPos = Random.insideUnitCircle * 0.3f;
-        newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y, -6f);
+        newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+0.3f, -6f);
 
         newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*30f);
 
