@@ -116,6 +116,7 @@ public abstract class Entity : MonoBehaviour
     {
         GameObject resourceDrop = Instantiate(resource[Random.Range(0,resource.Count)]);
         resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
+        resourceDrop.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
     }
 
      void OnMouseOver()
