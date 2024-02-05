@@ -11,8 +11,10 @@ public class Player : Entity
     InventoryManager inventoryManager;
     [SerializeField] Image eButton;
     [SerializeField] TextMeshProUGUI ePromptText;
+    [SerializeField] TextMeshProUGUI levelUI, experienceUI;
     PlayerController playerController;
     Building nearBuilding;
+    int level, experience, experienceToNextLevel;
 
     private void Awake()
     {
@@ -32,6 +34,25 @@ public class Player : Entity
         playerController.ToggleInventory();
     }
 
+    public void IncreaseExp(int amount)
+    {
+        experience += amount;
+
+        if (experience >= experienceToNextLevel)
+        {
+            SetLevel(level + 1);
+        }
+        experienceUI.text = experience + "/" + experienceToNextLevel;
+    }
+
+    private void SetLevel(int value)
+    {
+        level = value;
+        experience = experience - experienceToNextLevel;
+        experienceToNextLevel = (int)(50f * (Mathf.Pow(level + 1, 2) - (5 * (level + 1)) + 8));
+        levelUI.text = level.ToString();
+    }
+
     private void Update()
     {
         if (nearBuilding != null)
@@ -43,13 +64,23 @@ public class Player : Entity
     {
         if(collision.GetComponent<DroppedItem>())
         {
-            if(inventoryManager.TryAddToInventory(collision.GetComponent<DroppedItem>().item))
+            if(collision.GetComponent<DroppedItem>().item != null)
             {
-                collision.transform.parent = transform;
-                collision.transform.localPosition = new Vector2(0.67f, 0.87f);
-                collision.gameObject.SetActive(false);
-                
+                if (inventoryManager.TryAddToInventory(collision.GetComponent<DroppedItem>().item))
+                {
+                    collision.transform.parent = transform;
+                    collision.transform.localPosition = new Vector2(0.37f, 0.87f);
+                    collision.gameObject.SetActive(false);
+
+                }
             }
+            else
+            {
+                IncreaseExp(10);
+                Destroy(collision.gameObject);
+            }
+
+            
             
         }
         else if (collision.GetComponent<Building>())

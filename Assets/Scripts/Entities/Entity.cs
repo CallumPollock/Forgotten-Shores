@@ -19,6 +19,10 @@ public abstract class Entity : MonoBehaviour
     public List<GameObject> resource = new List<GameObject>();
     public float dropChance;
 
+    [Header("Follow Player")]
+    public Transform target;
+    public float maxSightDistance;
+    public float followDistance;
     //When the mouse hovers over the GameObject, it turns to this color (red)
     Color m_MouseOverColor = new Color(0.5f, 0.5f, 0.5f);
 
@@ -36,6 +40,34 @@ public abstract class Entity : MonoBehaviour
 
         //damageIndicator = Instantiate(dmgIndicatorPrefab).GetComponent<DamageIndicator>();
         //damageIndicator.name = this.name + ".dmgIndicator";
+    }
+
+    private void Update()
+    {
+        if(maxSightDistance != 0)
+        {
+            RaycastHit2D[] sight = Physics2D.CircleCastAll(transform.position, maxSightDistance, Vector2.zero);
+
+            foreach (RaycastHit2D hit in sight)
+            {
+                if (hit.collider.GetComponent<Player>())
+                {
+                    target = hit.collider.transform;
+                    if (Vector2.Distance(transform.position, target.position) > followDistance)
+                        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
+
+                }
+            }
+        }
+
+        if (transform.parent != null)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 direction = mousePosition - transform.position;
+            float angle = Vector2.SignedAngle(Vector2.right, direction);
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
     }
 
     public virtual void ModifyHealth(int val)
@@ -89,12 +121,14 @@ public abstract class Entity : MonoBehaviour
      void OnMouseOver()
     {
         // Change the color of the GameObject to red when the mouse is over GameObject
-        spriteRenderer.color = m_MouseOverColor;
+        if (spriteRenderer != null)
+            spriteRenderer.color = m_MouseOverColor;
     }
 
     void OnMouseExit()
     {
         // Reset the color of the GameObject back to normal
-        spriteRenderer.color = m_OriginalColor;
+        if (spriteRenderer != null)
+            spriteRenderer.color = m_OriginalColor;
     }
 }

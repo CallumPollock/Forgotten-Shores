@@ -237,12 +237,16 @@ MonoBehaviour:
   maxHealth: 15
   damage: 0
   defence: 0
-  speed: 0.3
+  speed: -0.3
   deathSprite: {fileID: 0}
   resource:
   - {fileID: 1612002607533152377, guid: 9bc8f90b48afb7f42944eed45abfb4d3, type: 3}
   - {fileID: 4736184807742997607, guid: 3242ec4f131390043aab1ae31bbec160, type: 3}
   dropChance: 0.8
+  followsPlayer: 1
+  target: {fileID: 0}
+  maxSightDistance: 2
+  followDistance: 0
 --- !u!61 &741442519692281461
 BoxCollider2D:
   m_ObjectHideFlags: 0
