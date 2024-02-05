@@ -9,6 +9,9 @@ public class Item : ScriptableObject
     public Sprite icon;
     public GameObject droppedObject;
 
+    public int stack = 1;
+    public int maxStack = 1;
+
     //public Item[] recipe;
 
     [Serializable]

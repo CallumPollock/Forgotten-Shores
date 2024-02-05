@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject inventoryScreen;
 
+    [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] Transform equippedItem;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -26,6 +29,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 direction = mousePosition - transform.position;
+        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        equippedItem.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
         Vector2 movement;
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -41,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            
+            equippedItem.position = Vector2.MoveTowards(transform.position, mousePosition, 0.1f);
             if (hit.collider != null)
             {
                 if (hit.collider.GetComponent<Entity>())
@@ -58,9 +68,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
-            SwitchItem(1);
+            inventoryManager.ChangeEquippedItem(1);
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-            SwitchItem(-1);
+            inventoryManager.ChangeEquippedItem(-1);
+
 
     }
 
@@ -69,21 +80,5 @@ public class PlayerController : MonoBehaviour
         inventoryScreen.SetActive(!inventoryScreen.activeSelf);
     }
 
-    void SwitchItem(int x)
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if(transform.GetChild(i).gameObject.activeSelf)
-            {
-                if (i + x < 0 || i + x > transform.childCount - 1)
-                    return;
-                transform.GetChild(i).gameObject.SetActive(false);
-                transform.GetChild(i + x).gameObject.SetActive(true);
-                return;
-            }
-            if(i == transform.childCount-1)
-                transform.GetChild(i).gameObject.SetActive(true);
-
-        }
-    }
+   
 }

@@ -15,3 +15,6 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 553f5f5b3c818ee4c950145f4e65da9b, type: 3}
   droppedObject: {fileID: 1612002607533152377, guid: 9bc8f90b48afb7f42944eed45abfb4d3, type: 3}
+  stack: 1
+  maxStack: 100
+  recipe: []

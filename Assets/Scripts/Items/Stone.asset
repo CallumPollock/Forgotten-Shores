@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   description: 
-  icon: {fileID: 5731472663744810064, guid: a414fe9bca07bd54ea2315ea33860f02, type: 3}
+  icon: {fileID: 21300000, guid: 2d6bc17e4b5a0b94f81f570d0a74cd54, type: 3}
   droppedObject: {fileID: 0}
+  stack: 100
+  maxStack: 100
   recipe: []

@@ -207,7 +207,7 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   damage: 0
-  defence: 0
+  defence: 2147483647
   speed: 6
   deathSprite: {fileID: 0}
   resource: []
@@ -215,4 +215,5 @@ MonoBehaviour:
   target: {fileID: 0}
   maxSightDistance: 0.2
   followDistance: 0
+  dropsExperience: 1
   item: {fileID: 11400000, guid: 13e8c414ce623fb42a8ebd1495cdf979, type: 2}

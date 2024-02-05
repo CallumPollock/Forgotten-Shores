@@ -23,6 +23,8 @@ public abstract class Entity : MonoBehaviour
     public Transform target;
     public float maxSightDistance;
     public float followDistance;
+
+    [SerializeField] bool dropsExperience = true;
     //When the mouse hovers over the GameObject, it turns to this color (red)
     Color m_MouseOverColor = new Color(0.5f, 0.5f, 0.5f);
 
@@ -58,15 +60,6 @@ public abstract class Entity : MonoBehaviour
 
                 }
             }
-        }
-
-        if (transform.parent != null)
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector2 direction = mousePosition - transform.position;
-            float angle = Vector2.SignedAngle(Vector2.right, direction);
-            transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
 
@@ -105,6 +98,7 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void OnDeath()
     {
+        Instantiate(GameState.instance.experienceGem);
         defence = 100;
         if (deathSprite != null)
             spriteRenderer.sprite = deathSprite;

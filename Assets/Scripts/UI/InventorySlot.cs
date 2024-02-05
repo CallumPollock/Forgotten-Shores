@@ -8,34 +8,29 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField]Image icon;
     [SerializeField]TextMeshProUGUI amount;
-    int stackCount = 0;
-    public Item item;
 
 
-    public void FillSlot(Item newItem)
+    public void FillSlot(Sprite itemIcon, int stackSize)
     {
-        item = newItem;
-        icon.sprite = item.icon;
+        icon.sprite = itemIcon;
         icon.gameObject.SetActive(true);
-        stackCount++;
-        amount.text = stackCount.ToString();
+        if (stackSize <= 1)
+            amount.text = "";
+        else
+            amount.text = stackSize.ToString();
     }
 
     public void EmptySlot()
     {
         icon.gameObject.SetActive(false);
         icon.sprite = null;
-        stackCount = 0;
     }
 
-    public void IncreaseStackAmount(int value)
+    public void UpdateStack(int stackSize)
     {
-        stackCount += value;
-        amount.text = stackCount.ToString();
-    }
-
-    public int GetStackCount()
-    {
-        return stackCount;
+        if (stackSize <= 1)
+            amount.text = "";
+        else
+            amount.text = stackSize.ToString();
     }
 }

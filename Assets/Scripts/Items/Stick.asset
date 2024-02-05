@@ -15,6 +15,8 @@ MonoBehaviour:
   description: Useful for jabbing things. Otherwise not very useful.
   icon: {fileID: 21300000, guid: 980b15fc2df0e2d4aadebc8033064444, type: 3}
   droppedObject: {fileID: 4541160944194841727, guid: 506e82b02edcb394a9495ad733c9c654, type: 3}
+  stack: 1
+  maxStack: 1
   recipe:
   - ingredient: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
     amount: 1

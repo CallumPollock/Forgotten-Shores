@@ -23,6 +23,7 @@ public class GameState : MonoBehaviour
 
 
     public GameObject damageIndicator;
+    public GameObject experienceGem;
     float gameTime = 0f;
     float gameSpeed = 0.001f;
     public Image darknessOverlay;
