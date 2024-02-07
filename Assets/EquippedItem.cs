@@ -5,9 +5,20 @@ using UnityEngine;
 public class EquippedItem : MonoBehaviour
 {
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] Player player;
+
+
+    private void Awake()
     {
+        player = GetComponentInParent<Player>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<Entity>())
+        {
+            player.PlayerInteractWith(collision.GetComponent<Entity>());
+        }    
         
     }
 }

@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] Transform equippedItem;
 
+    [SerializeField] Collider2D weaponHitbox;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = mousePosition - transform.position;
         float angle = Vector2.SignedAngle(Vector2.right, direction);
         equippedItem.transform.eulerAngles = new Vector3(0, 0, angle);
-
+        Debug.DrawLine(equippedItem.transform.position, mousePosition);
 
         Vector2 movement;
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -51,16 +53,26 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            equippedItem.position = Vector2.MoveTowards(transform.position, mousePosition, 0.1f);
+            weaponHitbox.enabled = true;
             if (hit.collider != null)
             {
                 if (hit.collider.GetComponent<Entity>())
                 {
                     Debug.Log("Click on " + hit.collider.name);
-                    player.PlayerInteractWith(hit.collider.GetComponent<Entity>());
+                    
                 }
             }
         }
+
+        if(weaponHitbox.enabled)
+        {
+            if (Vector2.Distance(equippedItem.transform.position, transform.position) < 0.3f)
+                equippedItem.position = Vector2.Lerp(equippedItem.position, mousePosition, Time.deltaTime*2f);
+            else
+                weaponHitbox.enabled = false;
+        }
+        else
+            equippedItem.position = Vector2.Lerp(equippedItem.position, transform.position, Time.deltaTime*5f);
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {

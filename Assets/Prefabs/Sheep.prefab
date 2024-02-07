@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5459720460354553912}
   - component: {fileID: 4423417228940164811}
   - component: {fileID: 741442519692281461}
+  - component: {fileID: 3185929117149869954}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -243,10 +244,7 @@ MonoBehaviour:
   - {fileID: 1612002607533152377, guid: 9bc8f90b48afb7f42944eed45abfb4d3, type: 3}
   - {fileID: 4736184807742997607, guid: 3242ec4f131390043aab1ae31bbec160, type: 3}
   dropChance: 0.8
-  followsPlayer: 1
-  target: {fileID: 0}
-  maxSightDistance: 2
-  followDistance: 0
+  dropsExperience: 1
 --- !u!61 &741442519692281461
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -292,3 +290,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.382187, y: 0.648136}
   m_EdgeRadius: 0
+--- !u!114 &3185929117149869954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3727252869616856073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  maxSightDistance: 2
+  followDistance: 0
+  speed: -0.3

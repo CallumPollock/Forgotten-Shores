@@ -18,11 +18,7 @@ public abstract class Entity : MonoBehaviour
 
     public List<GameObject> resource = new List<GameObject>();
     public float dropChance;
-
-    [Header("Follow Player")]
-    public Transform target;
-    public float maxSightDistance;
-    public float followDistance;
+    
 
     [SerializeField] bool dropsExperience = true;
     //When the mouse hovers over the GameObject, it turns to this color (red)
@@ -42,25 +38,6 @@ public abstract class Entity : MonoBehaviour
 
         //damageIndicator = Instantiate(dmgIndicatorPrefab).GetComponent<DamageIndicator>();
         //damageIndicator.name = this.name + ".dmgIndicator";
-    }
-
-    private void Update()
-    {
-        if(maxSightDistance != 0)
-        {
-            RaycastHit2D[] sight = Physics2D.CircleCastAll(transform.position, maxSightDistance, Vector2.zero);
-
-            foreach (RaycastHit2D hit in sight)
-            {
-                if (hit.collider.GetComponent<Player>())
-                {
-                    target = hit.collider.transform;
-                    if (Vector2.Distance(transform.position, target.position) > followDistance)
-                        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
-
-                }
-            }
-        }
     }
 
     public virtual void ModifyHealth(int val)
