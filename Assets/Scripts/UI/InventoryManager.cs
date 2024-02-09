@@ -19,25 +19,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    /*public bool TryAddToInventory(Item item)
-    {
-        foreach(InventorySlot slot in slots)
-        {
-            if (slot.item == item)
-            {
-                slot.IncreaseStackAmount(1);
-                return true;
- 
-            }
-            else if (slot.GetStackCount() == 0)
-            {
-                slot.FillSlot(item);
-                return true;
-            }
-        }
-        return false;
-    }*/
-
     public void ChangeEquippedItem(int x)
     {
         if (inventory.Count <= 0)
@@ -51,7 +32,7 @@ public class InventoryManager : MonoBehaviour
     {
         foreach(Item invItem in inventory)
         {
-            if (invItem == newItem)
+            if (invItem.itemID == newItem.itemID)
             {
                 invItem.stack = Mathf.Min(invItem.maxStack, invItem.stack + newItem.stack);
                 slots[inventory.IndexOf(invItem)].UpdateStack(invItem.stack);
@@ -62,7 +43,7 @@ public class InventoryManager : MonoBehaviour
         if (inventory.Count < slots.Count)
         {
             slots[inventory.Count].FillSlot(newItem.icon, newItem.stack);
-            inventory.Add(newItem);
+            inventory.Add(Object.Instantiate(newItem));
             return true;
         }
         else

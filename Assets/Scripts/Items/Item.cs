@@ -9,8 +9,11 @@ public class Item : ScriptableObject
     public Sprite icon;
     public GameObject droppedObject;
 
-    public int stack = 1;
+    public int stack;
     public int maxStack = 1;
+    public bool placeable;
+
+    public string itemID = System.Guid.NewGuid().ToString();
 
     //public Item[] recipe;
 

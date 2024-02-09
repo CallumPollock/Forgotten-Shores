@@ -121,8 +121,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
-    oldSize: {x: 1.79, y: 0.47}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.47, y: 1.79}
     newSize: {x: 1.79, y: 0.47}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -130,23 +130,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.31, y: 0.114999995}
-      - {x: 1.29, y: 0.235}
-      - {x: 1.04, y: 0.235}
-      - {x: 1, y: 0.225}
-      - {x: 0.79999995, y: 0.105}
-      - {x: 0.07, y: 0.095}
-      - {x: 0, y: 0.005}
-      - {x: 0, y: -0.205}
-      - {x: 0.01, y: -0.235}
-      - {x: 0.42, y: -0.235}
-      - {x: 1.26, y: -0.205}
-      - {x: 1.41, y: -0.235}
-      - {x: 1.64, y: -0.235}
-      - {x: 1.73, y: -0.225}
-      - {x: 1.79, y: -0.175}
-      - {x: 1.79, y: 0.065}
-      - {x: 1.7199999, y: 0.114999995}
+    - - {x: 0.235, y: 1.16}
+      - {x: 0.235, y: 1.76}
+      - {x: 0.185, y: 1.79}
+      - {x: -0.065, y: 1.79}
+      - {x: -0.114999995, y: 1.7199999}
+      - {x: -0.114999995, y: 1.31}
+      - {x: -0.235, y: 1.29}
+      - {x: -0.235, y: 1.04}
+      - {x: -0.225, y: 1}
+      - {x: -0.105, y: 0.79999995}
+      - {x: -0.095, y: 0.07}
+      - {x: 0.015, y: 0}
+      - {x: 0.205, y: 0}
+      - {x: 0.235, y: 0.07}
+      - {x: 0.235, y: 0.45}
+      - {x: 0.21499999, y: 0.84999996}
   m_UseDelaunayMesh: 0
 --- !u!114 &3954878314054011286
 MonoBehaviour:
@@ -160,16 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a895f2f9475c046832b5a0b4cffc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  damage: 0
-  defence: -2147483648
-  speed: 6
-  deathSprite: {fileID: 0}
-  resource: []
-  dropChance: 0
   target: {fileID: 0}
   maxSightDistance: 0.2
   followDistance: 0
-  dropsExperience: 1
+  speed: 6
   item: {fileID: 0}
+  itemInstance: {fileID: 0}
+  stackSize: 1

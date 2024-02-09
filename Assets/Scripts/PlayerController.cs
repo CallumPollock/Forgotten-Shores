@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InventoryManager inventoryManager;
     [SerializeField] Transform equippedItem;
 
-    [SerializeField] Collider2D weaponHitbox;
+    [SerializeField] Hand leftHand, rightHand;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,13 +31,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 direction = mousePosition - transform.position;
-        float angle = Vector2.SignedAngle(Vector2.right, direction);
-        equippedItem.transform.eulerAngles = new Vector3(0, 0, angle);
-        Debug.DrawLine(equippedItem.transform.position, mousePosition);
-
         Vector2 movement;
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -53,26 +46,13 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            weaponHitbox.enabled = true;
-            if (hit.collider != null)
-            {
-                if (hit.collider.GetComponent<Entity>())
-                {
-                    Debug.Log("Click on " + hit.collider.name);
-                    
-                }
-            }
+            leftHand.Hit();
+            
         }
-
-        if(weaponHitbox.enabled)
+        if(Input.GetMouseButtonDown(1))
         {
-            if (Vector2.Distance(equippedItem.transform.position, transform.position) < 0.3f)
-                equippedItem.position = Vector2.Lerp(equippedItem.position, mousePosition, Time.deltaTime*2f);
-            else
-                weaponHitbox.enabled = false;
+            rightHand.Hit();
         }
-        else
-            equippedItem.position = Vector2.Lerp(equippedItem.position, transform.position, Time.deltaTime*5f);
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -83,8 +63,6 @@ public class PlayerController : MonoBehaviour
             inventoryManager.ChangeEquippedItem(1);
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
             inventoryManager.ChangeEquippedItem(-1);
-
-
     }
 
     public void ToggleInventory()

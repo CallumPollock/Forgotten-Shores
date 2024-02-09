@@ -89,18 +89,4 @@ public abstract class Entity : MonoBehaviour
         resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
         resourceDrop.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
     }
-
-     void OnMouseOver()
-    {
-        // Change the color of the GameObject to red when the mouse is over GameObject
-        if (spriteRenderer != null)
-            spriteRenderer.color = m_MouseOverColor;
-    }
-
-    void OnMouseExit()
-    {
-        // Reset the color of the GameObject back to normal
-        if (spriteRenderer != null)
-            spriteRenderer.color = m_OriginalColor;
-    }
 }
