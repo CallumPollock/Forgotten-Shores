@@ -11,7 +11,9 @@ public class Item : ScriptableObject
 
     public int stack;
     public int maxStack = 1;
-    public bool placeable;
+
+    public enum ItemType { normal, placeable, spear}
+    public ItemType itemType;
 
     public string itemID = System.Guid.NewGuid().ToString();
 
