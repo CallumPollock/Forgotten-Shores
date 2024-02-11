@@ -6,23 +6,32 @@ using UnityEngine;
 public class DroppedItem : FollowTarget
 {
     public Item item;
-    public Item itemInstance;
+    //public Item itemInstance;
     public int stackSize = 1;
     private SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    private void Start()
     {
-        if(itemInstance == null && item != null)
+        if(item != null)
         {
-            itemInstance = Object.Instantiate(item);
+            if (item.GetInstanceID() >= 0)
+            {
+                item = Instantiate(item);
+            }
         }
+        
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
 
     }
 
-    public void UpdateSprite(Sprite sprite)
+    public void SetAsNewItem(Item newItem)
     {
-        spriteRenderer.sprite = sprite;
+        item = Instantiate(newItem);
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null) 
+            spriteRenderer.sprite = item.icon;
     }
 }

@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IDropHandler
 {
     [SerializeField]Image icon;
-    [SerializeField]TextMeshProUGUI amount;
+    [SerializeField] GameObject itemDraggable;
 
-
-    public void FillSlot(Sprite itemIcon, int stackSize)
+    public Item GetItem()
     {
-        icon.sprite = itemIcon;
-        icon.gameObject.SetActive(true);
-        if (stackSize <= 1)
-            amount.text = "";
-        else
-            amount.text = stackSize.ToString();
+        if (GetComponentInChildren<DraggableItem>())
+            return GetComponentInChildren<DraggableItem>().item;
+        else return null;
+    }
+    public void CreateItemInSlot(Item item)
+    {
+        DraggableItem newDraggableItem = Instantiate(itemDraggable).GetComponent<DraggableItem>();
+        newDraggableItem.SetItem(item);
+        newDraggableItem.transform.SetParent(transform, false);
     }
 
-    public void EmptySlot()
-    {
-        icon.gameObject.SetActive(false);
-        icon.sprite = null;
-    }
 
-    public void UpdateStack(int stackSize)
+    public virtual void OnDrop(PointerEventData eventData)
     {
-        if (stackSize <= 1)
-            amount.text = "";
-        else
-            amount.text = stackSize.ToString();
+        GameObject dropped = eventData.pointerDrag;
+        DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
+        if (transform.GetComponentInChildren<DraggableItem>())
+        {
+            transform.GetComponentInChildren<DraggableItem>().transform.SetParent(draggableItem.parentAfterDrag);
+        }
+        
+        draggableItem.parentAfterDrag = transform;
     }
 }

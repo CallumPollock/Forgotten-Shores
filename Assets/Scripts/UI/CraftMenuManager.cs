@@ -32,11 +32,11 @@ public class CraftMenuManager : MonoBehaviour
             newRecipeButton.transform.SetParent(viewport.transform, false);
             newRecipeButton.GetComponent<Button>().onClick.AddListener(delegate { UpdatePreview(recipe); });
 
-            foreach(Item.Recipe ingredient in recipe.recipe)
+            foreach(Item.Ingredient ingredient in recipe.recipe)
             {
                 GameObject newIngredient = Instantiate(ingredientObject);
-                newIngredient.GetComponentInChildren<Image>().sprite = ingredient.ingredient.icon;
-                newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.ingredient.name + " (" + ingredient.amount + ")";
+                newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
+                newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
                 newIngredient.transform.SetParent(newRecipeButton.recipeContainer);
             }
         }
@@ -53,11 +53,11 @@ public class CraftMenuManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item.Recipe ingredient in itemSelection.recipe)
+        foreach (Item.Ingredient ingredient in itemSelection.recipe)
         {
             GameObject newIngredient = Instantiate(ingredientObject);
-            newIngredient.GetComponentInChildren<Image>().sprite = ingredient.ingredient.icon;
-            newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.ingredient.name + " (" + ingredient.amount + ")";
+            newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
+            newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
             newIngredient.transform.SetParent(recipePreviewContainer);
         }
     }

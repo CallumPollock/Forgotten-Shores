@@ -17,4 +17,6 @@ MonoBehaviour:
   droppedObject: {fileID: 1612002607533152377, guid: 9bc8f90b48afb7f42944eed45abfb4d3, type: 3}
   stack: 1
   maxStack: 100
+  itemType: 0
+  itemID: f5db5647-42f8-4e62-90d9-2f92527d27f8
   recipe: []

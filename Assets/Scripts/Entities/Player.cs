@@ -15,6 +15,7 @@ public class Player : Entity
     PlayerController playerController;
     Building nearBuilding;
     int level, experience, experienceToNextLevel;
+    [SerializeField] SpriteRenderer headgear;
 
     private void Awake()
     {
@@ -98,5 +99,10 @@ public class Player : Entity
             eButton.gameObject.SetActive(false);
             nearBuilding = null;
         }
+    }
+
+    public void EquipHat(Sprite hat)
+    {
+        headgear.sprite = hat;
     }
 }

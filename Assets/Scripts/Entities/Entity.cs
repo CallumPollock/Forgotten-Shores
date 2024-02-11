@@ -16,7 +16,7 @@ public abstract class Entity : MonoBehaviour
 
     public Sprite deathSprite;
 
-    public List<GameObject> resource = new List<GameObject>();
+    public List<Item> resource = new List<Item>();
     public float dropChance;
     
 
@@ -85,7 +85,9 @@ public abstract class Entity : MonoBehaviour
 
     void DropResource()
     {
-        GameObject resourceDrop = Instantiate(resource[Random.Range(0,resource.Count)]);
+        DroppedItem resourceDrop = Instantiate(GameState.instance.droppedItem).GetComponent<DroppedItem>();
+        resourceDrop.SetAsNewItem(resource[Random.Range(0, resource.Count-1)]);
+        
         resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
         resourceDrop.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
     }

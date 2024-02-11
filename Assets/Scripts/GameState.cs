@@ -22,6 +22,7 @@ public class GameState : MonoBehaviour
     }
 
 
+    public GameObject droppedItem;
     public GameObject damageIndicator;
     public GameObject experienceGem;
     float gameTime = 0f;
@@ -29,6 +30,8 @@ public class GameState : MonoBehaviour
     public Image darknessOverlay;
 
     public TextMeshProUGUI timeUIText;
+
+    public Player player;
 
     private void Update()
     {

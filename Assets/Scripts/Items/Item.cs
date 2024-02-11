@@ -20,11 +20,11 @@ public class Item : ScriptableObject
     //public Item[] recipe;
 
     [Serializable]
-    public struct Recipe
+    public struct Ingredient
     {
-        public Item ingredient;
+        public Item item;
         public int amount;
     }
 
-    public Recipe[] recipe;
+    public Ingredient[] recipe;
 }

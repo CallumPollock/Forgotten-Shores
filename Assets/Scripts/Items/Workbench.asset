@@ -17,6 +17,8 @@ MonoBehaviour:
   droppedObject: {fileID: 0}
   stack: 1
   maxStack: 1
+  itemType: 0
+  itemID: 3da50a5e-69de-4c47-ae66-3a305bd7b34d
   recipe:
-  - ingredient: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
+  - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
     amount: 4

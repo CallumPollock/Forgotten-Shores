@@ -17,8 +17,10 @@ MonoBehaviour:
   droppedObject: {fileID: 1253369940733220186, guid: 49d91eac09be4364a8b07c06cdf01d20, type: 3}
   stack: 1
   maxStack: 1
+  itemType: 0
+  itemID: f971eb19-0dba-4449-9afa-44c3d64e948c
   recipe:
-  - ingredient: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
+  - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
     amount: 1
-  - ingredient: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
     amount: 1

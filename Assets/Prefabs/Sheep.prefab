@@ -241,8 +241,8 @@ MonoBehaviour:
   speed: -0.3
   deathSprite: {fileID: 0}
   resource:
-  - {fileID: 1612002607533152377, guid: 9bc8f90b48afb7f42944eed45abfb4d3, type: 3}
-  - {fileID: 4736184807742997607, guid: 3242ec4f131390043aab1ae31bbec160, type: 3}
+  - {fileID: 11400000, guid: 13e8c414ce623fb42a8ebd1495cdf979, type: 2}
+  - {fileID: 11400000, guid: a3535e02fe92658469d52472397f9cc5, type: 2}
   dropChance: 0.8
   dropsExperience: 1
 --- !u!61 &741442519692281461

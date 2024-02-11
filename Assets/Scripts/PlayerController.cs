@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             ToggleInventory();
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        /*if(Input.GetKeyDown(KeyCode.Q))
         {
             inventoryManager.DropItem();
         }
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
             inventoryManager.ChangeEquippedItem(1);
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-            inventoryManager.ChangeEquippedItem(-1);
+            inventoryManager.ChangeEquippedItem(-1);*/
     }
 
     public void ToggleInventory()
