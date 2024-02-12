@@ -7,7 +7,6 @@ public class Item : ScriptableObject
 {
     public string description;
     public Sprite icon;
-    public GameObject droppedObject;
 
     public int stack;
     public int maxStack = 1;

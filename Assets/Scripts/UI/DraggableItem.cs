@@ -5,15 +5,33 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public Item item;
+    [SerializeField] Item item;
     public Image image;
     public TextMeshProUGUI amountText;
     [HideInInspector] public Transform parentAfterDrag;
 
+    [SerializeField] GameObject tooltip;
+    [SerializeField] TextMeshProUGUI tooltipTitle, tooltipDescription;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        tooltip.SetActive(true);
+        tooltipTitle.text = item.name;
+        tooltipDescription.text = item.description;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tooltip.SetActive(false);
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (GetComponentInParent<InventorySlot>())
+            GetComponentInParent<InventorySlot>().OnItemRemovedFromSlot();
+
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
@@ -29,8 +47,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
-        if (GetComponentInParent<EquipmentSlot>())
-            GameState.instance.player.EquipHat(item.icon);
     }
 
     public void SetItem(Item itemToSetTo)
@@ -40,6 +56,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         UpdateStack();
     }
+
+    public Item GetItem() { return item; }
 
     public void UpdateStack()
     {
@@ -55,9 +73,5 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         image = GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
