@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 677796108472408056}
   - component: {fileID: 5459720460354553912}
   - component: {fileID: 4423417228940164811}
-  - component: {fileID: 741442519692281461}
   - component: {fileID: 3185929117149869954}
   m_Layer: 0
   m_Name: Sheep
@@ -33,7 +32,8 @@ Transform:
   m_LocalPosition: {x: -1.3683, y: 2.2769, z: 0}
   m_LocalScale: {x: 0.11959925, y: 0.11959925, z: 0.11959925}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8745596134707479268}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &677796108472408056
@@ -245,13 +245,61 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3535e02fe92658469d52472397f9cc5, type: 2}
   dropChance: 0.8
   dropsExperience: 1
---- !u!61 &741442519692281461
-BoxCollider2D:
+--- !u!114 &3185929117149869954
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3727252869616856073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  maxSightDistance: 2
+  followDistance: 0
+  speed: -0.3
+--- !u!1 &6022105387775775964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8745596134707479268}
+  - component: {fileID: 7546338260509776781}
+  m_Layer: 6
+  m_Name: Collision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8745596134707479268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022105387775775964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1296258534614859233}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7546338260509776781
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6022105387775775964}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -290,19 +338,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.382187, y: 0.648136}
   m_EdgeRadius: 0
---- !u!114 &3185929117149869954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3727252869616856073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  maxSightDistance: 2
-  followDistance: 0
-  speed: -0.3

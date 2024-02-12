@@ -24,8 +24,9 @@ public class InventoryManager : MonoBehaviour
     public void ChangeEquippedItem(int x)
     {
 
-        currentEquippedIndex = Mathf.Clamp(currentEquippedIndex + x, 0, slots.Count - 1);
+        currentEquippedIndex = Mathf.Clamp(currentEquippedIndex + x, 0, 5);
 
+        if (slots[currentEquippedIndex].GetDraggable() == null) return;
         if (slots[currentEquippedIndex].GetDraggable().GetItem() == null) return;
 
         playerEquippedSprite.sprite = slots[currentEquippedIndex].GetDraggable().GetItem().icon;

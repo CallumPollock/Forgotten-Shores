@@ -17,6 +17,10 @@ public class CraftMenuManager : MonoBehaviour
     [SerializeField] Image previewIcon;
     [SerializeField] Transform recipePreviewContainer;
 
+    [SerializeField] InventoryManager InventoryManager;
+
+    [SerializeField] Button craftButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,11 @@ public class CraftMenuManager : MonoBehaviour
 
     public void UpdateCraftMenu()
     {
+        foreach(Transform child in viewport)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (Item recipe in recipeBook)
         {
             RecipeButton newRecipeButton = Instantiate(recipeButton).GetComponent<RecipeButton>();
@@ -40,6 +49,18 @@ public class CraftMenuManager : MonoBehaviour
                 newIngredient.transform.SetParent(newRecipeButton.recipeContainer);
             }
         }
+    }
+
+    public bool CheckItemCraftable(Item itemToCraft)
+    {
+        foreach(Item.Ingredient ingredient in itemToCraft.recipe)
+        {
+            if (InventoryManager.GetDraggableFromItem(ingredient.item) == null) return false;
+            if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem() == null) return false;
+            if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem().stack < ingredient.amount) return false;
+        }
+
+        return true;
     }
 
     public void UpdatePreview(Item itemSelection)
@@ -60,5 +81,8 @@ public class CraftMenuManager : MonoBehaviour
             newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
             newIngredient.transform.SetParent(recipePreviewContainer);
         }
+
+        craftButton.interactable = CheckItemCraftable(itemSelection);
+
     }
 }
