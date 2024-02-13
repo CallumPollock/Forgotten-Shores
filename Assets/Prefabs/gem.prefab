@@ -99,11 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  maxSightDistance: 0.5
+  maxSightDistance: 1
   followDistance: 0
   speed: 3
   item: {fileID: 0}
-  itemInstance: {fileID: 0}
   stackSize: 1
 --- !u!60 &9147650797192922011
 PolygonCollider2D:
