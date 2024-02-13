@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trousers
   m_EditorClassIdentifier: 
   description: 
-  icon: {fileID: 21300000, guid: f0ad096030193714abceab1619959057, type: 3}
+  icon: {fileID: 21300000, guid: 247297ff014f8f542aa82d151722c82c, type: 3}
   stack: 1
   maxStack: 1
   itemType: 0
