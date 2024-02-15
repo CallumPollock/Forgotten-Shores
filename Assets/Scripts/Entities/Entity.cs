@@ -85,10 +85,12 @@ public abstract class Entity : MonoBehaviour
 
     void DropResource()
     {
-        DroppedItem resourceDrop = Instantiate(GameState.instance.droppedItem).GetComponent<DroppedItem>();
-        resourceDrop.SetAsNewItem(resource[Random.Range(0, resource.Count-1)]);
-        
-        resourceDrop.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
-        resourceDrop.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+
+        GameObject newDroppedObject = new GameObject();
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(resource[Random.Range(0, resource.Count - 1)]);
+        newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+
+        newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.4f;
+        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
     }
 }

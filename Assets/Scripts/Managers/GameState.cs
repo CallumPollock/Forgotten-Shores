@@ -22,7 +22,7 @@ public class GameState : MonoBehaviour
     }
 
 
-    public GameObject droppedItem;
+    //public GameObject droppedItem;
     public GameObject damageIndicator;
     public GameObject experienceGem;
     float gameTime = 0f;
