@@ -7,7 +7,6 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private List<InventorySlot> slots = new List<InventorySlot>();
     int currentEquippedIndex;
-    public SpriteRenderer playerEquippedSprite;
     public Hand hand;
     [SerializeField] GameObject droppedItem;
 
@@ -29,17 +28,9 @@ public class InventoryManager : MonoBehaviour
         if (slots[currentEquippedIndex].GetDraggable() == null) return;
         if (slots[currentEquippedIndex].GetDraggable().GetItem() == null) return;
 
-        playerEquippedSprite.sprite = slots[currentEquippedIndex].GetDraggable().GetItem().icon;
+        hand.EquipItemInHand(slots[currentEquippedIndex].GetDraggable().GetItem());
 
-        switch (slots[currentEquippedIndex].GetDraggable().GetItem().itemType)
-        {
-            case Item.ItemType.normal:
-                hand.UpdateHandDirectionOffset(0f);
-                break;
-            case Item.ItemType.spear:
-                hand.UpdateHandDirectionOffset(-90f);
-                break;
-        }
+        
     }
 
     /*public void DropItem()

@@ -63,6 +63,19 @@ public class CraftMenuManager : MonoBehaviour
         return true;
     }
 
+    public void CraftItem(Item itemToCraft)
+    {
+        if (!CheckItemCraftable(itemToCraft)) return;
+
+
+        GameObject newDroppedObject = new GameObject();
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(itemToCraft);
+        newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+
+        newDroppedObject.transform.position = new Vector2(GameState.instance.player.transform.position.x, GameState.instance.player.transform.position.y) + Random.insideUnitCircle * 0.4f;
+        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+    }
+
     public void UpdatePreview(Item itemSelection)
     {
         previewName.text = itemSelection.name;
@@ -83,6 +96,7 @@ public class CraftMenuManager : MonoBehaviour
         }
 
         craftButton.interactable = CheckItemCraftable(itemSelection);
+        craftButton.onClick.AddListener(delegate { CraftItem(itemSelection); });
 
     }
 }

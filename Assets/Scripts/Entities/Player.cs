@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(PlayerController))]
 public class Player : Entity
 {
     [SerializeField]
@@ -12,27 +11,13 @@ public class Player : Entity
     [SerializeField] Image eButton;
     [SerializeField] TextMeshProUGUI ePromptText;
     [SerializeField] TextMeshProUGUI levelUI, experienceUI;
-    PlayerController playerController;
     Building nearBuilding;
     int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
 
-    private void Awake()
-    {
-        playerController = GetComponent<PlayerController>();
-    }
-
-    public void PlayerInteractWith(Entity entity)
-    {
-        if (entity == this)
-            return;
-
-        entity.ModifyHealth(-damage);
-    }
-
     public void OpenCraftingMenu()
     {
-        playerController.ToggleInventory();
+        //playerController.ToggleInventory();
     }
 
     public void IncreaseExp(int amount)

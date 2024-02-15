@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Entity : MonoBehaviour
 {
     [Header("Stats")]
@@ -12,8 +10,9 @@ public abstract class Entity : MonoBehaviour
     public int damage;
     public int defence;
     public float speed;
-    
 
+
+    SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
 
     public List<Item> resource = new List<Item>();
@@ -21,24 +20,18 @@ public abstract class Entity : MonoBehaviour
     
 
     [SerializeField] bool dropsExperience = true;
-    //When the mouse hovers over the GameObject, it turns to this color (red)
-    Color m_MouseOverColor = new Color(0.5f, 0.5f, 0.5f);
 
-    //This stores the GameObject’s original color
-    Color m_OriginalColor = new Color(1f, 1f, 1f);
+    [SerializeField] List<Hand> hands = new List<Hand>();
 
-    //Get the GameObject’s mesh renderer to access the GameObject’s material and color
-    SpriteRenderer spriteRenderer;
-
-    void Awake()
+    public virtual void Awake()
     {
-        //Fetch the mesh renderer component from the GameObject
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        //Fetch the original color of the GameObject
-
-        //damageIndicator = Instantiate(dmgIndicatorPrefab).GetComponent<DamageIndicator>();
-        //damageIndicator.name = this.name + ".dmgIndicator";
+        foreach (Hand hand in GetComponentsInChildren<Hand>())
+        {
+            hands.Add(hand);
+        }
     }
+
+    public List<Hand> GetHands() { return hands; }
 
     public virtual void ModifyHealth(int val)
     {
@@ -48,7 +41,8 @@ public abstract class Entity : MonoBehaviour
 
         health = Mathf.Clamp(health + val, 0, maxHealth);
 
-        CreateDamageIndicator(val);
+        if(val != 0)
+            CreateDamageIndicator(val);
 
         if (health <= 0)
         {
@@ -65,11 +59,31 @@ public abstract class Entity : MonoBehaviour
     {
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
         newDmgIndicator.SetDamageValue(damage);
-        Vector2 randomPos = Random.insideUnitCircle * 0.3f;
-        newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+0.3f, -6f);
+        Vector2 randomPos = Random.insideUnitCircle * 2f;
+        newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+1.5f, -6f);
 
-        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*30f);
+        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*50f);
 
+    }
+
+    public void AttackEntity(Entity entity)
+    {
+        if (entity == this)
+            return;
+
+        entity.ModifyHealth(-damage);
+    }
+
+    public Entity GetBestTargetEntity(List<Entity> entitiesInSight)
+    {
+        foreach(Entity entity in entitiesInSight)
+        {
+            if(entity != this)
+            {
+                return entity;
+            }
+        }
+        return null;
     }
 
 
@@ -77,7 +91,9 @@ public abstract class Entity : MonoBehaviour
     {
         Instantiate(GameState.instance.experienceGem);
         defence = 100;
-        if (deathSprite != null)
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (deathSprite != null && spriteRenderer != null)
             spriteRenderer.sprite = deathSprite;
         else
             Destroy(gameObject);

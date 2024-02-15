@@ -21,6 +21,10 @@ public class GameState : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(SpawnEnemy());
+    }
 
     //public GameObject droppedItem;
     public GameObject damageIndicator;
@@ -32,6 +36,7 @@ public class GameState : MonoBehaviour
     public TextMeshProUGUI timeUIText;
 
     public Player player;
+    [SerializeField] GameObject enemy;
 
     private void Update()
     {
@@ -40,5 +45,14 @@ public class GameState : MonoBehaviour
         darknessOverlay.color = new Color(0f,0f,0f,gameTime);
 
         timeUIText.text = Mathf.Round((gameTime * 23) + 1).ToString();
+    }
+
+
+    IEnumerator SpawnEnemy()
+    {
+        GameObject newEnemy = Instantiate(enemy);
+        newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnEnemy());
     }
 }

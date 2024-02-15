@@ -5,27 +5,48 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
 
-    public Transform target;
+    public Entity target;
     public float maxSightDistance;
     public float followDistance;
     public float speed;
 
+    List<Entity> possibleTargets = new List<Entity>();
+    Entity entity;
+
+    private void Awake()
+    {
+        entity = GetComponentInParent<Entity>();
+    }
+
     private void Update()
     {
+        if (entity == null) return;
+
+
         if (maxSightDistance != 0)
         {
             RaycastHit2D[] sight = Physics2D.CircleCastAll(transform.position, maxSightDistance, Vector2.zero);
-
+            possibleTargets.Clear();
             foreach (RaycastHit2D hit in sight)
             {
-                if (hit.collider.GetComponent<Player>())
+                if (hit.collider.GetComponentInParent<Entity>())
                 {
-                    target = hit.collider.transform;
-                    if (Vector2.Distance(transform.position, target.position) > followDistance)
-                        transform.position = Vector2.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
+                    possibleTargets.Add(hit.collider.GetComponentInParent<Entity>());
 
                 }
             }
+            if(possibleTargets.Count > 0)
+            {
+                target = entity.GetBestTargetEntity(possibleTargets);
+
+                if (target != null)
+                {
+                    if (Vector2.Distance(transform.position, target.transform.position) > followDistance)
+                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, Time.deltaTime * speed);
+                }
+            }
+            
+            
         }
     }
 }

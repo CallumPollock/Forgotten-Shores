@@ -26,4 +26,6 @@ public class Item : ScriptableObject
     }
 
     public Ingredient[] recipe;
+
+    public bool advancedRecipe;
 }

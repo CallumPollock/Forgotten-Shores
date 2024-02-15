@@ -5,20 +5,41 @@ using UnityEngine;
 public class Enemy : Entity
 {
 
-    bool attackDelay = false;
-    
+    FollowTarget followTarget;
 
+    public override void Awake()
+    {
+        followTarget = GetComponent<FollowTarget>();
+        base.Awake();
+        
+        
+    }
+
+
+    private void Start()
+    {
+        StartCoroutine(Attack());
+    }
     private void Update()
     {
+        if (followTarget.target == null) return;
 
-            
+
+        Vector2 direction = followTarget.target.transform.position - transform.position;
+        float angle = Vector2.SignedAngle(Vector2.right, direction);
+
+        foreach (Hand hand in GetHands())
+        {
+            hand.transform.eulerAngles = new Vector3(0, 0, angle + hand.GetHandDirectionOffset());
+
+        }
     }
 
-    IEnumerator Attack(Player player)
+    IEnumerator Attack()
     {
-        attackDelay = true;
-        player.ModifyHealth(-4);
-        yield return new WaitForSeconds(1f);
-        attackDelay = false;
+        GetHands()[Random.Range(0, GetHands().Count)].Hit();
+        yield return new WaitForSeconds(0.3f);
+        StartCoroutine(Attack());
     }
+
 }

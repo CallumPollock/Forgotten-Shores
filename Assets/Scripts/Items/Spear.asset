@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   icon: {fileID: 21300000, guid: 75a02bdace35118458519190ab96f3c2, type: 3}
-  droppedObject: {fileID: 7405666660644327710, guid: bc05bcde0fef47d4e80d9e32b6567e46, type: 3}
   stack: 1
   maxStack: 1
   itemType: 2
   itemID: beb31425-f51a-4eef-adc6-94abf4b4e59e
-  recipe: []
+  recipe:
+  - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+    amount: 2
+  advancedRecipe: 1

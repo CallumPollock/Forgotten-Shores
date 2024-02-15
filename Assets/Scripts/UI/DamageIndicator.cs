@@ -21,7 +21,7 @@ public class DamageIndicator : MonoBehaviour
         else if (damage > 0)
             text.color = Color.green;
 
-        text.text = damage.ToString();
+        text.text = Mathf.Abs(damage).ToString();
         StartCoroutine(DestroyOnDelay());
     }
 
