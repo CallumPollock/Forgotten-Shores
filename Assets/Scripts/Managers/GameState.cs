@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 public class GameState : MonoBehaviour
 {
@@ -19,6 +17,8 @@ public class GameState : MonoBehaviour
         {
             instance = this;
         }
+
+        worldTime = GetComponent<WorldTime>();
     }
 
     private void Start()
@@ -29,29 +29,20 @@ public class GameState : MonoBehaviour
     //public GameObject droppedItem;
     public GameObject damageIndicator;
     public GameObject experienceGem;
-    float gameTime = 0f;
-    float gameSpeed = 0.001f;
-    public Image darknessOverlay;
-
-    public TextMeshProUGUI timeUIText;
 
     public Player player;
     [SerializeField] GameObject enemy;
 
-    private void Update()
-    {
-        gameTime += Time.deltaTime * gameSpeed;
-        if (gameTime >= 0.9f) gameTime = 0f;
-        darknessOverlay.color = new Color(0f,0f,0f,gameTime);
-
-        timeUIText.text = Mathf.Round((gameTime * 23) + 1).ToString();
-    }
-
+    [SerializeField] private WorldTime worldTime;
 
     IEnumerator SpawnEnemy()
     {
-        GameObject newEnemy = Instantiate(enemy);
-        newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
+        if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)
+        {
+            GameObject newEnemy = Instantiate(enemy);
+            newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
+        }
+            
         yield return new WaitForSeconds(3f);
         StartCoroutine(SpawnEnemy());
     }

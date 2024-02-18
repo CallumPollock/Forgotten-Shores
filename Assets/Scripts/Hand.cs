@@ -101,7 +101,6 @@ public class Hand : MonoBehaviour
         isHitting = true;
         UpdateColliders(true);
     }
-
     void UpdateColliders(bool state)
     {
         

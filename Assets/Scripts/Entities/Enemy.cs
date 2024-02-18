@@ -9,6 +9,8 @@ public class Enemy : Entity
 
     [SerializeField] Transform body;
 
+    bool isHitting;
+
     public override void Awake()
     {
         followTarget = GetComponent<FollowTarget>();
@@ -36,6 +38,12 @@ public class Enemy : Entity
             hand.transform.eulerAngles = new Vector3(0, 0, angle + hand.GetHandDirectionOffset());
 
         }
+
+        if (Vector2.Distance(transform.position, followTarget.target.transform.position) <= followTarget.followDistance && !isHitting)
+        {
+            StartCoroutine(Attack());
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,8 +66,9 @@ public class Enemy : Entity
     IEnumerator Attack()
     {
         GetHands()[Random.Range(0, GetHands().Count)].Hit();
+        isHitting = true;
         yield return new WaitForSeconds(0.3f);
-        StartCoroutine(Attack());
+        isHitting = false;
     }
 
 }
