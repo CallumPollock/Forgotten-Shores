@@ -22,6 +22,7 @@ public class TimeDisplay : MonoBehaviour
 
     private void OnWorldTimeChanged(object sender, TimeSpan newTime)
     {
-        text.SetText(newTime.ToString(@"hh\:mm"));
+        text.text = "DAY " + newTime.ToString(@"%d") + "\n";
+        text.text += newTime.ToString(@"hh\:mm");
     }
 }

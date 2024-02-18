@@ -17,9 +17,6 @@ public abstract class Entity : MonoBehaviour
 
     public List<Item> resource = new List<Item>();
     public float dropChance;
-    
-
-    [SerializeField] bool dropsExperience = true;
 
     [SerializeField] List<Hand> hands = new List<Hand>();
 
