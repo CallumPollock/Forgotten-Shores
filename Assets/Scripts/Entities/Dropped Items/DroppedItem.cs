@@ -27,7 +27,9 @@ public class DroppedItem : FollowTarget
 
     public void SetAsNewItem(Item newItem)
     {
-        item = Instantiate(newItem);
+        item = newItem;
+        if(item.name.EndsWith("(Clone)"))
+            item.name = item.name.Substring(0, item.name.Length - 7);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 

@@ -17,22 +17,21 @@ public abstract class Entity : MonoBehaviour
     public Sprite deathSprite;
 
     [SerializeField] private List<Item> inventory = new List<Item>();
+    [SerializeField] private List<Item> startingItems = new List<Item>();
     public System.EventHandler<List<Item>> InventoryChanged;
-
-    public List<Item> resource = new List<Item>();
     public float dropChance;
 
-    [SerializeField] List<Hand> hands = new List<Hand>();
+    public List<Item> GetInventory() { return inventory; }
 
-    public virtual void Awake()
+    private void Start()
     {
-        foreach (Hand hand in GetComponentsInChildren<Hand>())
+        foreach (Item item in startingItems)
         {
-            hands.Add(hand);
+            AddToInventory(Instantiate(item));
         }
-    }
 
-    public List<Hand> GetHands() { return hands; }
+        startingItems.Clear();
+    }
 
     public virtual void ModifyHealth(int val)
     {
@@ -51,9 +50,9 @@ public abstract class Entity : MonoBehaviour
         }
 
 
-        if (val < 0 && resource.Count >= 0)
+        if (val < 0 && inventory.Count > 0)
             if (Random.value <= dropChance)
-                DropResource();
+                DropItem(inventory[Random.Range(0, inventory.Count - 1)]);
     }
 
     public void AddToInventory(Item newItem)
@@ -73,27 +72,6 @@ public abstract class Entity : MonoBehaviour
     {
         return inventory.Find(i => i.itemID == itemID);
     }
-
-    public void ScrollEquippedItem(int handIndex, int scrollValue)
-    {
-        if(inventory.Count == 0)
-            return;
-
-        if (handIndex < hands.Count)
-        {
-            hands[handIndex].EquipItemInHand(inventory[Mathf.Clamp(inventory.IndexOf(hands[handIndex].GetHeldItem())+ scrollValue, 0, inventory.Count-1)]);
-        }
-    }
-
-    public void EquipItem(int handIndex, int itemIndex)
-    {
-        if(handIndex < hands.Count && itemIndex < inventory.Count)
-        {
-            hands[handIndex].EquipItemInHand(inventory[itemIndex]);
-        }
-    }
-
-    public List<Item> GetInventory() { return inventory; }
 
     void CreateDamageIndicator(int damage)
     {
@@ -129,6 +107,11 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void OnDeath()
     {
+        foreach(Item item in inventory.ToArray())
+        {
+            DropItem(item);
+        }
+
         Instantiate(GameState.instance.experienceGem);
         defence = 100;
 
@@ -139,14 +122,16 @@ public abstract class Entity : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void DropResource()
+    public void DropItem(Item item)
     {
-
         GameObject newDroppedObject = new GameObject();
-        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(resource[Random.Range(0, resource.Count - 1)]);
+        newDroppedObject.name = item.name;
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
 
         newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 3f;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+
+        inventory.Remove(item);
     }
 }

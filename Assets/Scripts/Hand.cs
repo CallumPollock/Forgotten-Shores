@@ -11,18 +11,18 @@ public class Hand : MonoBehaviour
     [SerializeField] Vector2 offset;
     float handDirectionOffset;
 
-    [SerializeField] GameObject equippedItem;
+    [SerializeField] private GameObject equippedItemGO;
+    [SerializeField] private Item equippedItem;
     Collider2D equippedItemCollider;
+
     [SerializeField] private SpriteRenderer equippedItemSprite;
     bool isHitting = false;
-
-    Item heldItem;
 
     private void Awake()
     {
         entity = GetComponentInParent<Entity>();
         hitBox = GetComponent<Collider2D>();
-        equippedItemSprite = equippedItem.GetComponent<SpriteRenderer>();
+        equippedItemSprite = equippedItemGO.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -48,14 +48,23 @@ public class Hand : MonoBehaviour
             transform.position = Vector2.Lerp(transform.position, transform.parent.TransformPoint(offset), Time.deltaTime * 5f);
     }
 
-    public Item GetHeldItem() { return heldItem; }
-    public Transform GetEquippedItemTransform() { return equippedItem.transform; }
+    public Item GetEquippedItem() { return equippedItem; }
+    public Transform GetEquippedItemTransform() { return equippedItemGO.transform; }
     public float GetHandDirectionOffset() { return handDirectionOffset; }
     
+    public bool GetIsHitting() { return isHitting; }
 
-    public void EquipItemInHand(Item item)
+    public void SetEquippedItem(Item item)
     {
-        heldItem = item;
+        if(item == null)
+        {
+            equippedItem = null;
+            equippedItemSprite.sprite = null;
+            Destroy(equippedItemCollider);
+            return;
+        }
+
+        equippedItem = item;
 
         if (equippedItemSprite != null)
             equippedItemSprite.sprite = item.icon;
@@ -69,7 +78,7 @@ public class Hand : MonoBehaviour
         }
         else
         {
-            equippedItemCollider = equippedItem.AddComponent<BoxCollider2D>();
+            equippedItemCollider = equippedItemGO.AddComponent<BoxCollider2D>();
             equippedItemCollider.isTrigger = true;
             equippedItemCollider.enabled = false;
             equippedItemSprite.color = Color.white;
@@ -95,8 +104,8 @@ public class Hand : MonoBehaviour
 
     public void Hit()
     {
-        if (heldItem != null)
-            if (heldItem.itemType == Item.ItemType.placeable) return;
+        if (equippedItem != null)
+            if (equippedItem.itemType == Item.ItemType.placeable) return;
 
         isHitting = true;
         UpdateColliders(true);

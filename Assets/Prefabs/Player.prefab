@@ -683,7 +683,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5171665546019554366}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -716,7 +716,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   inventoryScreen: {fileID: 0}
-  inventoryManager: {fileID: 0}
 --- !u!114 &8980981320477975523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,11 +734,10 @@ MonoBehaviour:
   defence: 0
   speed: 0
   deathSprite: {fileID: 0}
-  resource: []
+  inventory: []
+  startingItems: []
   dropChance: 0
-  dropsExperience: 1
   hands: []
-  inventoryManager: {fileID: 0}
   eButton: {fileID: 0}
   ePromptText: {fileID: 0}
   levelUI: {fileID: 0}
@@ -847,7 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
   offset: {x: -1.17, y: 1.71}
-  equippedItem: {fileID: 1491678110777633277}
+  equippedItemGO: {fileID: 1491678110777633277}
+  equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
 --- !u!61 &829108433625324050
 BoxCollider2D:
@@ -996,7 +995,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
   offset: {x: 1.17, y: 1.71}
-  equippedItem: {fileID: 2415649584133844604}
+  equippedItemGO: {fileID: 2415649584133844604}
+  equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
 --- !u!61 &8043089424183538370
 BoxCollider2D:

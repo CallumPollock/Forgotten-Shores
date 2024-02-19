@@ -253,7 +253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
   offset: {x: -1.17, y: 1.71}
-  equippedItem: {fileID: 4462105586997785457}
+  equippedItemGO: {fileID: 4462105586997785457}
+  equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
 --- !u!61 &6960735597150146215
 BoxCollider2D:
@@ -703,9 +704,9 @@ MonoBehaviour:
   defence: 0
   speed: 0
   deathSprite: {fileID: 0}
-  resource: []
+  inventory: []
+  startingItems: []
   dropChance: 0
-  dropsExperience: 1
   hands: []
   body: {fileID: 463365226122289096}
 --- !u!1 &4866336122456653094
@@ -810,7 +811,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
   offset: {x: 1.17, y: 1.71}
-  equippedItem: {fileID: 6176295649890872746}
+  equippedItemGO: {fileID: 6176295649890872746}
+  equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
 --- !u!61 &5318583244034701885
 BoxCollider2D:

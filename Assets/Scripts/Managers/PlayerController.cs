@@ -38,14 +38,16 @@ public class PlayerController : MonoBehaviour
 
         foreach(Hand hand in player.GetHands())
         {
+            if(hand.GetIsHitting())
+                continue;
 
             Vector2 direction = mousePosition - hand.transform.position;
             float angle = Vector2.SignedAngle(Vector2.right, direction);
             hand.transform.eulerAngles = new Vector3(0, 0, angle + hand.GetHandDirectionOffset());
 
-            if (hand.GetHeldItem() != null)
+            if (hand.GetEquippedItem() != null)
             {
-                if (hand.GetHeldItem().itemType == Item.ItemType.placeable)
+                if (hand.GetEquippedItem().itemType == Item.ItemType.placeable)
                 {
                     hand.GetEquippedItemTransform().position = new Vector3(mousePosition.x, mousePosition.y);
                 }
@@ -74,12 +76,12 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            //inventoryManager.DropItem();
+            player.ThrowEquipped(0);
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
             player.ScrollEquippedItem(0, 1);
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0) { }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
             player.ScrollEquippedItem(0, -1);
     }
 

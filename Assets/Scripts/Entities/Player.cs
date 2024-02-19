@@ -69,6 +69,15 @@ public class Player : Humanoid
         }
     }
 
+    public void ThrowEquipped(int handIndex)
+    {
+        if (GetHands()[handIndex].GetEquippedItem() != null)
+        {
+            DropItem(GetHands()[handIndex].GetEquippedItem());
+            GetHands()[handIndex].SetEquippedItem(null);
+        }
+    }
+
     public void EquipHat(Sprite hat)
     {
         headgear.sprite = hat;

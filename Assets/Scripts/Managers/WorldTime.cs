@@ -9,7 +9,7 @@ public class WorldTime : MonoBehaviour
     public event EventHandler<TimeSpan> WorldTimeChanged;
 
     [SerializeField]
-    private float dayLength;
+    private float dayLength, startTime;
 
     private TimeSpan currentTime;
     private float minuteLength => dayLength / 1440;
@@ -20,11 +20,12 @@ public class WorldTime : MonoBehaviour
     private void Awake()
     {
         globalLight = GetComponent<Light2D>();
+        currentTime = TimeSpan.FromHours(startTime);
     }
 
     private void Start()
     {
-        currentTime = TimeSpan.FromHours(8);
+        
         StartCoroutine(AddMinute());
     }
     private IEnumerator AddMinute()
