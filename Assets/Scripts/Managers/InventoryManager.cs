@@ -1,111 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] private List<InventorySlot> slots = new List<InventorySlot>();
+    
     int currentEquippedIndex;
-    public Hand hand;
     [SerializeField] GameObject droppedItem;
+    [SerializeField] GameObject itemUIPrefab;
+    [SerializeField] Transform listContentTransform;
+
+    [SerializeField]
+    private Player player;
 
 
-    private void Awake()
+    private void OnEnable()
     {
-        foreach (InventorySlot slot in transform.GetComponentsInChildren<InventorySlot>(true))
-        {
-            slots.Add(slot);
-        }
-
+        player.InventoryChanged += UpdateInventoryList;
     }
 
-    public void ChangeEquippedItem(int x)
+    public void UpdateInventoryList(object sender, List<Item> inventory)
     {
-
-        currentEquippedIndex = Mathf.Clamp(currentEquippedIndex + x, 0, 5);
-
-        if (slots[currentEquippedIndex].GetDraggable() == null) return;
-        if (slots[currentEquippedIndex].GetDraggable().GetItem() == null) return;
-
-        hand.EquipItemInHand(slots[currentEquippedIndex].GetDraggable().GetItem());
-
-        
-    }
-
-    /*public void DropItem()
-    {
-        if (currentEquippedIndex > inventory.Count - 1)
-            return;
-
-        playerEquippedSprite.sprite = null;
-
-        DroppedItem newDroppedItem = Instantiate(droppedItem).GetComponent<DroppedItem>();
-        newDroppedItem.item = inventory[currentEquippedIndex];
-        newDroppedItem.itemInstance = inventory[currentEquippedIndex];
-        newDroppedItem.UpdateSprite(inventory[currentEquippedIndex].icon);
-
-        newDroppedItem.transform.position = new Vector2(hand.transform.position.x, hand.transform.position.y) + Random.insideUnitCircle * 0.8f;
-        newDroppedItem.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-
-        inventory.RemoveAt(currentEquippedIndex);
-        slots[currentEquippedIndex].EmptySlot();
-    }*/
-
-    public DraggableItem GetDraggableFromItem(Item itemToLookFor)
-    {
-        foreach(InventorySlot slot in slots)
+        foreach(Transform child in listContentTransform)
         {
-            if(slot.GetDraggable() != null)
-                if (slot.GetDraggable().GetItem() != null)
-                    if (slot.GetDraggable().GetItem().itemID == itemToLookFor.itemID) return slot.GetDraggable();
+            Destroy(child.gameObject);
         }
-        return null;
-    }
 
-    public InventorySlot FindCompatibleEmptySlot(Item item)
-    {
-        foreach(InventorySlot slot in slots)
+        foreach (Item invItem in inventory)
         {
-            if (slot.GetDraggable() == null) return slot;
-        }
-        return null;
-    }
-
-    public bool TryAddToInventory(Item newItem)
-    {
-       DraggableItem existingDraggableItem = GetDraggableFromItem(newItem);
-        if (existingDraggableItem != null)
-        {
-            if(existingDraggableItem.GetItem().stack + newItem.stack > existingDraggableItem.GetItem().maxStack)
-            {
-                InventorySlot availableSlot = FindCompatibleEmptySlot(newItem);
-                if (availableSlot != null)
-                {
-                    availableSlot.CreateItemInSlot(newItem);
-                    return true;
-                }
-                else return false;
-            }
-            else
-            {
-                existingDraggableItem.GetItem().stack = Mathf.Min(existingDraggableItem.GetItem().maxStack, existingDraggableItem.GetItem().stack + newItem.stack);
-                existingDraggableItem.UpdateStack();
-                return true;
-            }
-            
-            
-        }
-        else
-        {
-            InventorySlot availableSlot = FindCompatibleEmptySlot(newItem);
-            if (availableSlot != null)
-            {
-                availableSlot.CreateItemInSlot(newItem);
-                return true;
-            }
-            else return false;
+            GameObject newListItem = Instantiate(itemUIPrefab);
+            newListItem.transform.SetParent(listContentTransform);
+            newListItem.transform.localScale = Vector3.one;
+            newListItem.GetComponentInChildren<TMP_Text>().text = invItem.name;
+            newListItem.GetComponentInChildren<Image>().sprite = invItem.icon;
 
         }
     }
+
+    
 }

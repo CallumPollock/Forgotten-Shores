@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class Player : Entity
+public class Player : Humanoid
 {
-    [SerializeField]
-    InventoryManager inventoryManager;
     [SerializeField] Image eButton;
     [SerializeField] TextMeshProUGUI ePromptText;
     [SerializeField] TextMeshProUGUI levelUI, experienceUI;
     Building nearBuilding;
     int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
+
+    
 
     public void OpenCraftingMenu()
     {
@@ -46,30 +47,12 @@ public class Player : Entity
                 nearBuilding.Interaction(this);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<DroppedItem>())
+        base.OnTriggerEnter2D(collision);
+
+        if (collision.GetComponent<Building>())
         {
-            if(collision.GetComponent<DroppedItem>().item != null)
-            {
-                if (inventoryManager.TryAddToInventory(collision.GetComponent<DroppedItem>().item))
-                {
-                    Destroy(collision.gameObject);
-
-                }
-            }
-            else
-            {
-                IncreaseExp(10);
-                Destroy(collision.gameObject);
-            }
-
-            
-            
-        }
-        else if (collision.GetComponent<Building>())
-        {
-
             eButton.gameObject.SetActive(true);
             ePromptText.text = collision.name;
             nearBuilding = collision.GetComponent<Building>();

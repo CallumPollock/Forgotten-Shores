@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Cuts trees more effeciently, also makes a good weapon.
   icon: {fileID: 21300000, guid: e48ebc99b5292094789090c1289b2723, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   stack: 1
-  maxStack: 1
   itemType: 0
   itemID: f971eb19-0dba-4449-9afa-44c3d64e948c
   recipe:

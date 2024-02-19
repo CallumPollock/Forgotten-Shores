@@ -7,9 +7,9 @@ public class Item : ScriptableObject
 {
     public string description;
     public Sprite icon;
+    public Color color = Color.white;
 
     public int stack;
-    public int maxStack = 1;
 
     public enum ItemType { normal, placeable, spear}
     public ItemType itemType;

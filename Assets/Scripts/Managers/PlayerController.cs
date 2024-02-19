@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject inventoryScreen;
 
-    [SerializeField] InventoryManager inventoryManager;
-
     Player player;
 
     // Start is called before the first frame update
@@ -80,9 +78,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
-            inventoryManager.ChangeEquippedItem(1);
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-            inventoryManager.ChangeEquippedItem(-1);
+            player.ScrollEquippedItem(0, 1);
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0) { }
+            player.ScrollEquippedItem(0, -1);
     }
 
     public void ToggleInventory()

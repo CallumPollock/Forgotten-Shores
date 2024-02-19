@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
@@ -14,6 +15,9 @@ public abstract class Entity : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
+
+    [SerializeField] private List<Item> inventory = new List<Item>();
+    public System.EventHandler<List<Item>> InventoryChanged;
 
     public List<Item> resource = new List<Item>();
     public float dropChance;
@@ -51,6 +55,45 @@ public abstract class Entity : MonoBehaviour
             if (Random.value <= dropChance)
                 DropResource();
     }
+
+    public void AddToInventory(Item newItem)
+    {
+        if (inventory.Any(i => i.itemID == newItem.itemID))
+        {
+            GetItemFromInventory(newItem.itemID).stack += newItem.stack;
+        }
+        else
+        {
+            inventory.Add(newItem);
+        }
+        InventoryChanged?.Invoke(this, inventory);
+    }
+
+    public Item GetItemFromInventory(string itemID)
+    {
+        return inventory.Find(i => i.itemID == itemID);
+    }
+
+    public void ScrollEquippedItem(int handIndex, int scrollValue)
+    {
+        if(inventory.Count == 0)
+            return;
+
+        if (handIndex < hands.Count)
+        {
+            hands[handIndex].EquipItemInHand(inventory[Mathf.Clamp(inventory.IndexOf(hands[handIndex].GetHeldItem())+ scrollValue, 0, inventory.Count-1)]);
+        }
+    }
+
+    public void EquipItem(int handIndex, int itemIndex)
+    {
+        if(handIndex < hands.Count && itemIndex < inventory.Count)
+        {
+            hands[handIndex].EquipItemInHand(inventory[itemIndex]);
+        }
+    }
+
+    public List<Item> GetInventory() { return inventory; }
 
     void CreateDamageIndicator(int damage)
     {

@@ -13,7 +13,7 @@ public class Hand : MonoBehaviour
 
     [SerializeField] GameObject equippedItem;
     Collider2D equippedItemCollider;
-    [SerializeField] SpriteRenderer equippedItemSprite;
+    [SerializeField] private SpriteRenderer equippedItemSprite;
     bool isHitting = false;
 
     Item heldItem;

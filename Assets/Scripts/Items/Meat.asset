@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   icon: {fileID: 21300000, guid: 23b9f65af395905458e06ac11c90e34a, type: 3}
-  droppedObject: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   stack: 1
-  maxStack: 100
   itemType: 0
   itemID: 6948052d-d03d-4cc6-8bbd-c86f8aea337a
   recipe: []
+  advancedRecipe: 0

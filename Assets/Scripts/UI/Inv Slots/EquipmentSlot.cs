@@ -8,13 +8,13 @@ public class EquipmentSlot : InventorySlot
 {
     [SerializeField] SpriteRenderer spriteRenderer;
 
-    public override void OnDrop(PointerEventData eventData)
+    /*public override void OnDrop(PointerEventData eventData)
     {
         base.OnDrop(eventData);
 
         if (spriteRenderer != null && GetDraggable().GetItem() != null)
             spriteRenderer.sprite = GetDraggable().GetItem().icon;
-    }
+    }*/
 
     public override void OnItemRemovedFromSlot()
     {

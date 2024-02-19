@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot : MonoBehaviour
 {
     [SerializeField]Image icon;
     [SerializeField] GameObject itemDraggable;
@@ -25,16 +25,5 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
 
     public virtual void OnItemRemovedFromSlot() { }
-    public virtual void OnDrop(PointerEventData eventData)
-    {
-        GameObject dropped = eventData.pointerDrag;
-        DraggableItem draggableItem = dropped.GetComponent<DraggableItem>();
-        if (transform.GetComponentInChildren<DraggableItem>())
-        {
-            transform.GetComponentInChildren<DraggableItem>().transform.SetParent(draggableItem.parentAfterDrag);
-        }
-        
-        draggableItem.transform.SetParent(transform);
-        draggableItem.parentAfterDrag = transform;
-    }
+
 }

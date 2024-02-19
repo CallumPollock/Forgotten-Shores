@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entity
+public class Enemy : Humanoid
 {
 
     FollowTarget followTarget;
@@ -44,23 +44,6 @@ public class Enemy : Entity
             StartCoroutine(Attack());
         }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<DroppedItem>())
-        {
-            if (collision.GetComponent<DroppedItem>().item != null)
-            {
-                if (GetHands()[0].GetHeldItem() == null)
-                {
-                    GetHands()[0].EquipItemInHand(collision.GetComponent<DroppedItem>().item);
-                    Destroy(collision.gameObject);
-
-                }
-            }
-
-        }
     }
     
     IEnumerator Attack()

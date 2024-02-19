@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   icon: {fileID: 21300000, guid: 2c8a3a39dd36ab843836a84d8c5de220, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   stack: 1
-  maxStack: 1
   itemType: 0
   itemID: 6ad951f2-78f4-4b18-b368-45201b49c1ab
   recipe: []
+  advancedRecipe: 0

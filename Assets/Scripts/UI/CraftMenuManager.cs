@@ -55,9 +55,9 @@ public class CraftMenuManager : MonoBehaviour
     {
         foreach(Item.Ingredient ingredient in itemToCraft.recipe)
         {
-            if (InventoryManager.GetDraggableFromItem(ingredient.item) == null) return false;
-            if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem() == null) return false;
-            if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem().stack < ingredient.amount) return false;
+            //if (InventoryManager.GetDraggableFromItem(ingredient.item) == null) return false;
+            //if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem() == null) return false;
+            //if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem().stack < ingredient.amount) return false;
         }
 
         return true;

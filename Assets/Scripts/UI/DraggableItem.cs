@@ -5,18 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
 {
     [SerializeField] Item item;
     public Image image;
     public TextMeshProUGUI amountText;
-    [HideInInspector] public Transform parentAfterDrag;
 
     [SerializeField] GameObject tooltip;
     [SerializeField] TextMeshProUGUI tooltipTitle, tooltipDescription;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (item == null) return;
         tooltip.SetActive(true);
         tooltipTitle.text = item.name;
         tooltipDescription.text = item.description;
@@ -32,9 +32,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (GetComponentInParent<InventorySlot>())
             GetComponentInParent<InventorySlot>().OnItemRemovedFromSlot();
 
-        parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
-        transform.SetAsLastSibling();
         image.raycastTarget = false;
     }
 
@@ -45,14 +42,28 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        Item oldItem = item;
+        SetItem(eventData.pointerDrag.GetComponent<DraggableItem>().item);
+        eventData.pointerDrag.GetComponent<DraggableItem>().SetItem(oldItem);
     }
 
     public void SetItem(Item itemToSetTo)
     {
+        if(itemToSetTo == null)
+        {
+            image.sprite = null;
+            image.color = new Color(0f, 0f, 0f, 0f);
+            return;
+        }
+
         item = itemToSetTo;
         image.sprite = item.icon;
+        image.color = item.color;
 
         UpdateStack();
     }
