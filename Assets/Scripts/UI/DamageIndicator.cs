@@ -25,6 +25,12 @@ public class DamageIndicator : MonoBehaviour
         StartCoroutine(DestroyOnDelay());
     }
 
+    public void SetText(string text)
+    {
+        this.text.text = text;
+        StartCoroutine(DestroyOnDelay());
+    }
+
     IEnumerator DestroyOnDelay()
     {
         yield return new WaitForSeconds(0.3f);

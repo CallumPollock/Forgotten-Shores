@@ -6,6 +6,7 @@ public class Humanoid : Entity
 {
 
     [SerializeField] List<Hand> hands = new List<Hand>();
+    private AudioSource swish;
 
     public virtual void Awake()
     {
@@ -13,6 +14,7 @@ public class Humanoid : Entity
         {
             hands.Add(hand);
         }
+        swish = GetComponent<AudioSource>();
     }
 
     public List<Hand> GetHands() { return hands; }
@@ -45,6 +47,8 @@ public class Humanoid : Entity
                 AddToInventory(collision.GetComponent<DroppedItem>().item);
                 if(hands.Count > 0)
                     if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(collision.GetComponent<DroppedItem>().item);
+                if(swish != null)
+                    swish.Play();
                 Destroy(collision.gameObject);
             }
 

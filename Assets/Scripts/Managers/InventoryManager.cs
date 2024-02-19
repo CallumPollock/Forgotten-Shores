@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
             GameObject newListItem = Instantiate(itemUIPrefab);
             newListItem.transform.SetParent(listContentTransform);
             newListItem.transform.localScale = Vector3.one;
-            newListItem.GetComponentInChildren<TMP_Text>().text = invItem.name;
+            newListItem.GetComponentInChildren<TMP_Text>().text = String.Format("{0} x{1}", invItem.name, invItem.stack);
             newListItem.GetComponentInChildren<Image>().sprite = invItem.icon;
 
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ public abstract class Entity : MonoBehaviour
 
     [SerializeField] private List<Item> inventory = new List<Item>();
     [SerializeField] private List<Item> startingItems = new List<Item>();
-    public System.EventHandler<List<Item>> InventoryChanged;
+    public EventHandler<List<Item>> InventoryChanged;
     public float dropChance;
 
     public List<Item> GetInventory() { return inventory; }
@@ -51,8 +52,8 @@ public abstract class Entity : MonoBehaviour
 
 
         if (val < 0 && inventory.Count > 0)
-            if (Random.value <= dropChance)
-                DropItem(inventory[Random.Range(0, inventory.Count - 1)]);
+            if (UnityEngine.Random.value <= dropChance)
+                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)]);
     }
 
     public void AddToInventory(Item newItem)
@@ -66,6 +67,11 @@ public abstract class Entity : MonoBehaviour
             inventory.Add(newItem);
         }
         InventoryChanged?.Invoke(this, inventory);
+
+        DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
+        newDmgIndicator.SetText(String.Format("+{0} {1}" , newItem.stack, newItem.name));
+        newDmgIndicator.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -6f);
+        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 50f);
     }
 
     public Item GetItemFromInventory(string itemID)
@@ -77,7 +83,7 @@ public abstract class Entity : MonoBehaviour
     {
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
         newDmgIndicator.SetDamageValue(damage);
-        Vector2 randomPos = Random.insideUnitCircle * 2f;
+        Vector2 randomPos = UnityEngine.Random.insideUnitCircle * 2f;
         newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+1.5f, -6f);
 
         newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*50f);
@@ -129,8 +135,8 @@ public abstract class Entity : MonoBehaviour
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
 
-        newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 3f;
-        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f;
+        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 
         inventory.Remove(item);
     }

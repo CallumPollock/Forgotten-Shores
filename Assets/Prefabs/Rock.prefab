@@ -252,8 +252,12 @@ MonoBehaviour:
   defence: 4
   speed: 0
   deathSprite: {fileID: 0}
-  resource:
+  inventory: []
+  startingItems:
+  - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
   - {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
   dropChance: 0.1
-  dropsExperience: 1
-  hands: []
