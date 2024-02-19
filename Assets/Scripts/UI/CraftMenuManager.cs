@@ -17,7 +17,7 @@ public class CraftMenuManager : MonoBehaviour
     [SerializeField] Image previewIcon;
     [SerializeField] Transform recipePreviewContainer;
 
-    [SerializeField] InventoryManager InventoryManager;
+    [SerializeField] Player player;
 
     [SerializeField] Button craftButton;
 
@@ -55,9 +55,8 @@ public class CraftMenuManager : MonoBehaviour
     {
         foreach(Item.Ingredient ingredient in itemToCraft.recipe)
         {
-            //if (InventoryManager.GetDraggableFromItem(ingredient.item) == null) return false;
-            //if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem() == null) return false;
-            //if (InventoryManager.GetDraggableFromItem(ingredient.item).GetItem().stack < ingredient.amount) return false;
+            if (player.GetItemFromInventory(ingredient.item.itemID) == null) return false;
+            if (player.GetItemFromInventory(ingredient.item.itemID).stack < ingredient.amount) return false;
         }
 
         return true;

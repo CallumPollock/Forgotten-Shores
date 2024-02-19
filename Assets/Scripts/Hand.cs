@@ -102,10 +102,30 @@ public class Hand : MonoBehaviour
         handDirectionOffset = offset;
     }
 
+    public void PlaceBuilding()
+    {
+        if (equippedItem == null) return;
+        if (equippedItem.itemType != Item.ItemType.placeable) return;
+
+        GameObject newBuilding = new GameObject();
+
+        newBuilding.AddComponent<Workbench>();
+        newBuilding.AddComponent<SpriteRenderer>().sprite = equippedItem.icon;
+        newBuilding.AddComponent<BoxCollider2D>().isTrigger = true;
+        newBuilding.transform.position = equippedItemGO.transform.position;
+        newBuilding.name = equippedItem.name;
+
+        SetEquippedItem(null);
+    }
+
     public void Hit()
     {
         if (equippedItem != null)
-            if (equippedItem.itemType == Item.ItemType.placeable) return;
+            if (equippedItem.itemType == Item.ItemType.placeable)
+            {
+                PlaceBuilding();
+                return;
+            }
 
         isHitting = true;
         UpdateColliders(true);
