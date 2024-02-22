@@ -11,6 +11,8 @@ public class Item : ScriptableObject
 
     public int stack;
 
+
+    public int damage;
     public enum ItemType { normal, placeable, spear}
     public ItemType itemType;
 

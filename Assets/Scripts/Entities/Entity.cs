@@ -18,7 +18,7 @@ public abstract class Entity : MonoBehaviour
     public Sprite deathSprite;
 
     [SerializeField] private List<Item> inventory = new List<Item>();
-    [SerializeField] private List<Item> startingItems = new List<Item>();
+    //[SerializeField] private List<Item> startingItems = new List<Item>();
     public EventHandler<List<Item>> InventoryChanged;
     public float dropChance;
 
@@ -26,12 +26,10 @@ public abstract class Entity : MonoBehaviour
 
     private void Start()
     {
-        foreach (Item item in startingItems)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            AddToInventory(Instantiate(item));
+            inventory[i] = Instantiate(inventory[i]);
         }
-
-        startingItems.Clear();
     }
 
     public virtual void ModifyHealth(int val)
@@ -52,11 +50,11 @@ public abstract class Entity : MonoBehaviour
 
 
         if (val < 0 && inventory.Count > 0)
-            if (UnityEngine.Random.value <= dropChance)
+            if (UnityEngine.Random.value/-val <= dropChance)
                 DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)]);
     }
 
-    public void AddToInventory(Item newItem)
+    public virtual void AddToInventory(Item newItem)
     {
         if (inventory.Any(i => i.itemID == newItem.itemID))
         {
@@ -90,12 +88,15 @@ public abstract class Entity : MonoBehaviour
 
     }
 
-    public void AttackEntity(Entity entity)
+    public void AttackEntity(Entity entity, Item item)
     {
         if (entity == this)
             return;
 
-        entity.ModifyHealth(-damage);
+        if(item == null)
+            entity.ModifyHealth(-damage);
+        else
+            entity.ModifyHealth(-(damage+item.damage));
     }
 
     public Entity GetBestTargetEntity(List<Entity> entitiesInSight)

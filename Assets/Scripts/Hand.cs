@@ -148,7 +148,7 @@ public class Hand : MonoBehaviour
 
         if(collision.GetComponentInParent<Entity>())
         {
-            entity.AttackEntity(collision.GetComponentInParent<Entity>());
+            entity.AttackEntity(collision.GetComponentInParent<Entity>(), equippedItem);
         }    
         
     }

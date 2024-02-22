@@ -47,6 +47,17 @@ public class Player : Humanoid
                 nearBuilding.Interaction(this);
     }
 
+    public override void AddToInventory(Item newItem)
+    {
+        if(newItem is Exp)
+        {
+            IncreaseExp(10);
+            return;
+        }
+
+        base.AddToInventory(newItem);
+    }
+
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);

@@ -240,8 +240,7 @@ MonoBehaviour:
   defence: 0
   speed: -0.3
   deathSprite: {fileID: 0}
-  inventory: []
-  startingItems:
+  inventory:
   - {fileID: 11400000, guid: 13e8c414ce623fb42a8ebd1495cdf979, type: 2}
   - {fileID: 11400000, guid: 13e8c414ce623fb42a8ebd1495cdf979, type: 2}
   - {fileID: 11400000, guid: a3535e02fe92658469d52472397f9cc5, type: 2}

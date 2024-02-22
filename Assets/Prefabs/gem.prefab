@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7998959340388431456}
   - component: {fileID: 2710637402809461641}
-  - component: {fileID: 5349270418728109067}
   - component: {fileID: 9147650797192922011}
+  - component: {fileID: -1333983120597157551}
+  - component: {fileID: -6296081549843876729}
   m_Layer: 0
   m_Name: gem
   m_TagString: Untagged
@@ -86,24 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5349270418728109067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895133620231767894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a74c336ab9afb194caf80afcf371331c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  maxSightDistance: 1
-  followDistance: 0
-  speed: 3
-  item: {fileID: 0}
-  stackSize: 1
 --- !u!60 &9147650797192922011
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -157,3 +140,37 @@ PolygonCollider2D:
       - {x: 0.14999999, y: 0.24}
       - {x: 0.089999996, y: 0.29}
   m_UseDelaunayMesh: 0
+--- !u!114 &-1333983120597157551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895133620231767894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36570764f72705d438b43ffc75ecb3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  maxSightDistance: 3
+  followDistance: 0
+  speed: 3
+  item: {fileID: 0}
+  stackSize: 1
+--- !u!114 &-6296081549843876729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895133620231767894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  maxSightDistance: 3
+  followDistance: 0
+  speed: 3
