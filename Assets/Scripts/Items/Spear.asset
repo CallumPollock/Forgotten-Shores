@@ -17,11 +17,12 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   stack: 1
   damage: 5
-  itemType: 2
-  itemID: beb31425-f51a-4eef-adc6-94abf4b4e59e
+  itemType: 1
+  itemID: 71dd94f5-f541-4694-873b-8420d0694926
   recipe:
-  - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
-    amount: 1
-  - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
-    amount: 2
-  advancedRecipe: 1
+    ingredients:
+    - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+      amount: 4
+    requiredBuilding: {fileID: 0}

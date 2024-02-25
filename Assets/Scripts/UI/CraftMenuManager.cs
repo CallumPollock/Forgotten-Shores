@@ -68,7 +68,7 @@ public class CraftMenuManager : MonoBehaviour
 
 
         GameObject newDroppedObject = new GameObject();
-        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(itemToCraft);
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(Instantiate(itemToCraft));
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
 
         newDroppedObject.transform.position = new Vector2(GameState.instance.player.transform.position.x, GameState.instance.player.transform.position.y) + Random.insideUnitCircle * 0.4f;

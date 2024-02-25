@@ -109,13 +109,15 @@ public class Hand : MonoBehaviour
 
         GameObject newBuilding = new GameObject();
 
-        newBuilding.AddComponent<Workbench>();
+        newBuilding.AddComponent<Workbench>().SetItem(equippedItem as BuildingItem);
         newBuilding.AddComponent<SpriteRenderer>().sprite = equippedItem.icon;
         newBuilding.AddComponent<BoxCollider2D>().isTrigger = true;
         newBuilding.transform.position = equippedItemGO.transform.position;
         newBuilding.name = equippedItem.name;
 
+        entity.GetInventory().Remove(equippedItem);
         SetEquippedItem(null);
+        
     }
 
     public void Hit()

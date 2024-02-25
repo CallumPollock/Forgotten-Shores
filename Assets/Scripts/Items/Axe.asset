@@ -18,10 +18,11 @@ MonoBehaviour:
   stack: 1
   damage: 5
   itemType: 0
-  itemID: f971eb19-0dba-4449-9afa-44c3d64e948c
+  itemID: 9477b393-f049-4bdc-80a1-c43ad6ac18d9
   recipe:
-  - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
-    amount: 2
-  - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
-    amount: 1
-  advancedRecipe: 1
+    ingredients:
+    - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
+      amount: 4
+    requiredBuilding: {fileID: 11400000, guid: 9b66141aaead16f4d9cf34119d029f4e, type: 2}
