@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterCreator : MonoBehaviour
@@ -16,5 +17,10 @@ public class CharacterCreator : MonoBehaviour
     public void HeightSlider()
     {
         body.localScale = new Vector3(body.localScale.x, heightSlider.value);
+    }
+
+    public void ConfirmCharacter()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

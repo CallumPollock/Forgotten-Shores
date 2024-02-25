@@ -72,7 +72,7 @@ public class Hand : MonoBehaviour
         if (equippedItemCollider != null)
             Destroy(equippedItemCollider);
 
-        if(item.itemType == Item.ItemType.placeable)
+        if(item.GetType() == typeof(BuildingItem))
         {
             equippedItemSprite.color = new Color(0.5f, 0.5f, 1f, 0.8f);
         }
@@ -105,7 +105,7 @@ public class Hand : MonoBehaviour
     public void PlaceBuilding()
     {
         if (equippedItem == null) return;
-        if (equippedItem.itemType != Item.ItemType.placeable) return;
+        if (equippedItem.GetType() != typeof(BuildingItem)) return;
 
         GameObject newBuilding = new GameObject();
 
@@ -121,7 +121,7 @@ public class Hand : MonoBehaviour
     public void Hit()
     {
         if (equippedItem != null)
-            if (equippedItem.itemType == Item.ItemType.placeable)
+            if (equippedItem.GetType() == typeof(BuildingItem))
             {
                 PlaceBuilding();
                 return;

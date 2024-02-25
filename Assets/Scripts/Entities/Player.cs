@@ -10,7 +10,7 @@ public class Player : Humanoid
     [SerializeField] Image eButton;
     [SerializeField] TextMeshProUGUI ePromptText;
     [SerializeField] TextMeshProUGUI levelUI, experienceUI;
-    Building nearBuilding;
+    BuildingEntity nearBuilding;
     int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
 
@@ -40,11 +40,10 @@ public class Player : Humanoid
         levelUI.text = level.ToString();
     }
 
-    private void Update()
+    public void Interact()
     {
         if (nearBuilding != null)
-            if (Input.GetKeyDown(KeyCode.E))
-                nearBuilding.Interaction(this);
+            nearBuilding.Interaction(this);
     }
 
     public override void AddToInventory(Item newItem)
@@ -62,17 +61,17 @@ public class Player : Humanoid
     {
         base.OnTriggerEnter2D(collision);
 
-        if (collision.GetComponent<Building>())
+        if (collision.GetComponent<BuildingEntity>())
         {
             eButton.gameObject.SetActive(true);
             ePromptText.text = collision.name;
-            nearBuilding = collision.GetComponent<Building>();
+            nearBuilding = collision.GetComponent<BuildingEntity>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<Building>())
+        if (collision.GetComponent<BuildingEntity>())
         {
 
             eButton.gameObject.SetActive(false);

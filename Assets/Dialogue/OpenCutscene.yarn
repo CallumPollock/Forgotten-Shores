@@ -1,0 +1,19 @@
+﻿title: Start
+---
+???: Hey...
+???: Hey, wake up...
+
+<<fade_in Scripts>>
+<<wait 2>>
+
+-> Where am I?
+-> What happened?
+
+???: Take it easy, you must be pretty confused. I don't blame you.
+???: I saw you out on that boat, the storm hit you pretty hard.
+???: Somehow you wound up here on this island. Call it luck, or some kind of divine intervention.
+???: Whatever it is, I'd bet you're the only survivor.
+Trevor: I'm <b><color=blue>Trevor</b></color>, by the way. Who are you?
+
+<<fade_out Scripts>>
+===

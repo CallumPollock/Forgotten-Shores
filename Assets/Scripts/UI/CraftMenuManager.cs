@@ -34,14 +34,14 @@ public class CraftMenuManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item recipe in recipeBook)
+        foreach (Item item in recipeBook)
         {
             RecipeButton newRecipeButton = Instantiate(recipeButton).GetComponent<RecipeButton>();
-            newRecipeButton.InitialiseRecipeButton(recipe);
+            newRecipeButton.InitialiseRecipeButton(item);
             newRecipeButton.transform.SetParent(viewport.transform, false);
-            newRecipeButton.GetComponent<Button>().onClick.AddListener(delegate { UpdatePreview(recipe); });
+            newRecipeButton.GetComponent<Button>().onClick.AddListener(delegate { UpdatePreview(item); });
 
-            foreach(Item.Ingredient ingredient in recipe.recipe)
+            foreach(Item.Ingredient ingredient in item.recipe.ingredients)
             {
                 GameObject newIngredient = Instantiate(ingredientObject);
                 newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
@@ -53,7 +53,7 @@ public class CraftMenuManager : MonoBehaviour
 
     public bool CheckItemCraftable(Item itemToCraft)
     {
-        foreach(Item.Ingredient ingredient in itemToCraft.recipe)
+        foreach(Item.Ingredient ingredient in itemToCraft.recipe.ingredients)
         {
             if (player.GetItemFromInventory(ingredient.item.itemID) == null) return false;
             if (player.GetItemFromInventory(ingredient.item.itemID).stack < ingredient.amount) return false;
@@ -86,7 +86,7 @@ public class CraftMenuManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item.Ingredient ingredient in itemSelection.recipe)
+        foreach (Item.Ingredient ingredient in itemSelection.recipe.ingredients)
         {
             GameObject newIngredient = Instantiate(ingredientObject);
             newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;

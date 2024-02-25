@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
             if (hand.GetEquippedItem() != null)
             {
-                if (hand.GetEquippedItem().itemType == Item.ItemType.placeable)
+                if (hand.GetEquippedItem().GetType() == typeof(BuildingItem))
                 {
                     hand.GetEquippedItemTransform().position = new Vector3(mousePosition.x, mousePosition.y);
                 }
@@ -77,6 +77,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q))
         {
             player.ThrowEquipped(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.Interact();
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)

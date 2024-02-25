@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] float xOffset, yOffset;
 
+
     // Update is called once per frame
     void Update()
     {

@@ -13,7 +13,7 @@ public class Item : ScriptableObject
 
 
     public int damage;
-    public enum ItemType { normal, placeable, spear}
+    public enum ItemType { normal, spear}
     public ItemType itemType;
 
     public string itemID = System.Guid.NewGuid().ToString();
@@ -27,7 +27,12 @@ public class Item : ScriptableObject
         public int amount;
     }
 
-    public Ingredient[] recipe;
+    [Serializable]
+    public struct Recipe
+    {
+        public Ingredient[] ingredients;
+        public BuildingItem requiredBuilding;
+    }
 
-    public bool advancedRecipe;
+    public Recipe recipe;
 }
