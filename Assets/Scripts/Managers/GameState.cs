@@ -28,7 +28,7 @@ public class GameState : MonoBehaviour
 
     //public GameObject droppedItem;
     public GameObject damageIndicator;
-    public GameObject experienceGem;
+    public Item experienceGem;
 
     public Player player;
     [SerializeField] GameObject enemy;

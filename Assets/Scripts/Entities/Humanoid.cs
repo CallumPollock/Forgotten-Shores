@@ -44,12 +44,15 @@ public class Humanoid : Entity
         {
             if (collision.GetComponent<DroppedItem>().item != null)
             {
-                AddToInventory(collision.GetComponent<DroppedItem>().item);
-                if(hands.Count > 0)
-                    if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(collision.GetComponent<DroppedItem>().item);
-                if(swish != null)
-                    swish.Play();
-                Destroy(collision.gameObject);
+                if(AddToInventory(collision.GetComponent<DroppedItem>().item))
+                {
+                    if (hands.Count > 0)
+                        if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(collision.GetComponent<DroppedItem>().item);
+                    if (swish != null)
+                        swish.Play();
+                    Destroy(collision.gameObject);
+                }
+                
             }
 
         }

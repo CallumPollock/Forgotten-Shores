@@ -54,8 +54,10 @@ public abstract class Entity : MonoBehaviour
                 DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)]);
     }
 
-    public virtual void AddToInventory(Item newItem)
+    public virtual bool AddToInventory(Item newItem)
     {
+        if (newItem.name.Contains("EXP")) return false;
+
         if (inventory.Any(i => i.itemID == newItem.itemID))
         {
             GetItemFromInventory(newItem.itemID).stack += newItem.stack;
@@ -70,6 +72,8 @@ public abstract class Entity : MonoBehaviour
         newDmgIndicator.SetText(String.Format("+{0} {1}" , newItem.stack, newItem.name));
         newDmgIndicator.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -6f);
         newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 50f);
+
+        return true;
     }
 
     public Item GetItemFromInventory(string itemID)
@@ -119,7 +123,7 @@ public abstract class Entity : MonoBehaviour
             DropItem(item);
         }
 
-        Instantiate(GameState.instance.experienceGem);
+        DropItem(Instantiate(GameState.instance.experienceGem));
         defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();

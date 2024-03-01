@@ -46,15 +46,15 @@ public class Player : Humanoid
             nearBuilding.Interaction(this);
     }
 
-    public override void AddToInventory(Item newItem)
+    public override bool AddToInventory(Item newItem)
     {
-        if(newItem is Exp)
+        if(newItem.name.Contains("EXP"))
         {
-            IncreaseExp(10);
-            return;
+            IncreaseExp(newItem.stack);
+            return true;
         }
 
-        base.AddToInventory(newItem);
+        return base.AddToInventory(newItem);
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)
