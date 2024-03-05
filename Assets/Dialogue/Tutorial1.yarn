@@ -1,0 +1,14 @@
+﻿title: Tutorial1
+---
+Trevor: Well, <b><color=blue>$name</b></color>... Welcome, to your new home.
+
+-> Home? I'm not staying here.
+	Trevor: Let's not get ahead of ourselves. I can help you get off this island, but it won't be easy. You'll need a place to stay until then.
+-> Can you help me get out of here?
+	Trevor: I can, but it won't be easy. You'll need a place to stay until then.
+-> Sounds great! Show me to my new place.
+	Trevor: I admire your optimism. Can't say I was that excited when I first arrived.
+
+Trevor: Lucky for you, I can help you get settled. First though, I should warn you. This island is dangerous. You'll need to be prepared if you want to survive.
+Trevor: There's lots of resources around here we can use to build tools and weapons. Start by gathering some wood, there's a tree right over there.
+===

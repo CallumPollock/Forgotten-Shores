@@ -18,7 +18,7 @@ public class Item : ScriptableObject
 
     public string itemID = System.Guid.NewGuid().ToString();
 
-    //public Item[] recipe;
+    public AudioClip pickupSound;
 
     [Serializable]
     public struct Ingredient

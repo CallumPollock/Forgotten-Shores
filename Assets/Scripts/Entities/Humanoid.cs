@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Humanoid : Entity
 {
 
     [SerializeField] List<Hand> hands = new List<Hand>();
-    private AudioSource swish;
+    private AudioSource audioSource;
 
     public virtual void Awake()
     {
@@ -14,7 +15,7 @@ public class Humanoid : Entity
         {
             hands.Add(hand);
         }
-        swish = GetComponent<AudioSource>();
+       audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public List<Hand> GetHands() { return hands; }
@@ -48,9 +49,12 @@ public class Humanoid : Entity
                 {
                     if (hands.Count > 0)
                         if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(collision.GetComponent<DroppedItem>().item);
-                    if (swish != null)
-                        swish.Play();
                     Destroy(collision.gameObject);
+
+                    if(collision.GetComponent<DroppedItem>().item.pickupSound != null)
+                        audioSource.PlayOneShot(collision.GetComponent<DroppedItem>().item.pickupSound);
+                    else
+                        audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
                 }
                 
             }

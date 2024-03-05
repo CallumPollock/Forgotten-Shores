@@ -35,6 +35,8 @@ public class GameState : MonoBehaviour
 
     [SerializeField] private WorldTime worldTime;
 
+    public AudioClip defaultPickupSound;
+
     IEnumerator SpawnEnemy()
     {
         if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)

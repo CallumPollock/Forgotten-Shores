@@ -28,7 +28,9 @@ public abstract class Entity : MonoBehaviour
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            inventory[i] = Instantiate(inventory[i]);
+            Item newItem = Instantiate(inventory[i]);
+            newItem.name = inventory[i].name;
+            inventory[i] = newItem;
         }
     }
 

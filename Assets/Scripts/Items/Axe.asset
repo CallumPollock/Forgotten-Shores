@@ -19,6 +19,7 @@ MonoBehaviour:
   damage: 5
   itemType: 0
   itemID: 9477b393-f049-4bdc-80a1-c43ad6ac18d9
+  pickupSound: {fileID: 0}
   recipe:
     ingredients:
     - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
