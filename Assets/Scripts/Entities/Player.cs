@@ -14,11 +14,14 @@ public class Player : Humanoid
     int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
 
-    
+    [SerializeField] Transform homePosition;
+    private Vector3 oldPosition;
+
+    [SerializeField] PlayerController playerController; 
 
     public void OpenCraftingMenu()
     {
-        //playerController.ToggleInventory();
+        playerController.ToggleInventory();
     }
 
     public void IncreaseExp(int amount)
@@ -67,6 +70,17 @@ public class Player : Humanoid
             ePromptText.text = collision.name;
             nearBuilding = collision.GetComponent<BuildingEntity>();
         }
+    }
+
+    public void EnterHome()
+    {
+        oldPosition = transform.position;
+        transform.position = homePosition.position;
+    }
+
+    public void ExitHome()
+    {
+        transform.position = oldPosition;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BuildingEntity : Entity
 {
-
+    [SerializeField] BuildingItem buildingItem;
     public void Interaction(Player player)
     {
-        player.OpenCraftingMenu();
+        buildingItem.Interact(player, buildingItem.interactionMethod);
     }
 
     public void SetItem(BuildingItem item)
     {
+        buildingItem = item;
         AddToInventory(item);
     }
 }

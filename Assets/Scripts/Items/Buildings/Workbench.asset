@@ -19,9 +19,11 @@ MonoBehaviour:
   damage: 0
   itemType: 1
   itemID: 7929181c-79cb-4296-8fe3-a606dc3cd45b
+  pickupSound: {fileID: 0}
   recipe:
     ingredients:
     - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
       amount: 4
     requiredBuilding: {fileID: 0}
   craftsOtherItems: 1
+  interactionMethod: OpenCraftingMenu
