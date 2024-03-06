@@ -31,6 +31,7 @@ public class Player : Humanoid
         if (experience >= experienceToNextLevel)
         {
             SetLevel(level + 1);
+            CreateInfoText("Level Up!", Color.green);
         }
         experienceUI.text = experience + "/" + experienceToNextLevel;
     }

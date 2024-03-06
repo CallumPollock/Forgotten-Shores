@@ -16,13 +16,13 @@ public class DamageIndicator : MonoBehaviour
 
     public void SetDamageValue(int damage)
     {
-        if (damage < 0)
-            text.color = Color.red;
-        else if (damage > 0)
-            text.color = Color.green;
-
-        text.text = Mathf.Abs(damage).ToString();
+        
         StartCoroutine(DestroyOnDelay());
+    }
+
+    public void SetColour(Color color)
+    {
+        text.color = color;
     }
 
     public void SetText(string text)

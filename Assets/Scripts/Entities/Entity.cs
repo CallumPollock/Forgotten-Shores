@@ -42,8 +42,7 @@ public abstract class Entity : MonoBehaviour
 
         health = Mathf.Clamp(health + val, 0, maxHealth);
 
-        if(val != 0)
-            CreateDamageIndicator(val);
+        CreateDamageIndicator(val);
 
         if (health <= 0)
         {
@@ -70,10 +69,7 @@ public abstract class Entity : MonoBehaviour
         }
         InventoryChanged?.Invoke(this, inventory);
 
-        DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
-        newDmgIndicator.SetText(String.Format("+{0} {1}" , newItem.stack, newItem.name));
-        newDmgIndicator.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, -6f);
-        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 50f);
+        CreateInfoText(String.Format("+{0} {1}" , newItem.stack, newItem.name), Color.white);
 
         return true;
     }
@@ -83,12 +79,28 @@ public abstract class Entity : MonoBehaviour
         return inventory.Find(i => i.itemID == itemID);
     }
 
-    void CreateDamageIndicator(int damage)
+    void CreateDamageIndicator(int val)
+    {
+        if (val == 0) return;
+
+        Color newColor = new Color();
+
+        if (val < 0)
+            newColor = Color.red;
+        else if (val > 0)
+            newColor = Color.green;
+
+        CreateInfoText(Mathf.Abs(val).ToString(), newColor);
+    }
+
+    public void CreateInfoText(string text, Color color)
     {
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
-        newDmgIndicator.SetDamageValue(damage);
+        newDmgIndicator.SetText(text);
+        newDmgIndicator.SetColour(color);
         Vector2 randomPos = UnityEngine.Random.insideUnitCircle * 2f;
         newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+1.5f, -6f);
+        newDmgIndicator.transform.SetParent(transform);
 
         newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*50f);
 
