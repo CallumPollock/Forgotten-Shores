@@ -616,6 +616,7 @@ GameObject:
   - component: {fileID: 69818674593331576}
   - component: {fileID: 7319987817274768076}
   - component: {fileID: 5205147257086889116}
+  - component: {fileID: 6300676246341247162}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -705,10 +706,21 @@ MonoBehaviour:
   speed: 0
   deathSprite: {fileID: 0}
   inventory: []
-  startingItems: []
   dropChance: 0
   hands: []
   body: {fileID: 463365226122289096}
+--- !u!210 &6300676246341247162
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4523079279584541032}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &4866336122456653094
 GameObject:
   m_ObjectHideFlags: 0
