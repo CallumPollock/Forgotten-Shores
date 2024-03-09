@@ -5,4 +5,6 @@ using UnityEngine;
 public class ObjectiveManager : MonoBehaviour
 {
     List<Objective> objectives = new List<Objective>();
+
+    
 }
