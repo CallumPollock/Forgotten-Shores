@@ -70,6 +70,10 @@ public class CraftMenuManager : MonoBehaviour
         GameObject newDroppedObject = new GameObject();
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(Instantiate(itemToCraft));
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+        Rigidbody2D droppedItemRB = newDroppedObject.AddComponent<Rigidbody2D>();
+        droppedItemRB.gravityScale = 0f;
+        droppedItemRB.drag = 5f;
+
 
         newDroppedObject.transform.position = new Vector2(GameState.instance.player.transform.position.x, GameState.instance.player.transform.position.y) + Random.insideUnitCircle * 0.4f;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));

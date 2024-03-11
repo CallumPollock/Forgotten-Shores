@@ -18,7 +18,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   stack: 1
   damage: 2
-  itemType: 0
+  itemType: 1
   itemID: dc5f0b89-bc05-4b5d-8757-6f958a6278e2
   pickupSound: {fileID: 0}
   recipe:

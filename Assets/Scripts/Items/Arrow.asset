@@ -21,5 +21,9 @@ MonoBehaviour:
   itemID: f2d10d17-2a37-4241-b60b-3a3a87ff3bd6
   pickupSound: {fileID: 0}
   recipe:
-    ingredients: []
+    ingredients:
+    - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+      amount: 1
     requiredBuilding: {fileID: 0}

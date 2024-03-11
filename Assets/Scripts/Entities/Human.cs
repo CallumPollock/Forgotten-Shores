@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class Human : Entity
@@ -39,31 +42,33 @@ public class Human : Entity
         }
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    public override bool AddToInventory(Item item)
     {
-        if (collision.GetComponent<DroppedItem>())
+
+        if (item.stack <= 0) return true;
+        if (item.name.Contains("EXP")) return false;
+
+        if (GetInventory().Any(i => i.itemID == item.itemID))
         {
-            if (collision.GetComponent<DroppedItem>().item != null)
-            {
-                DroppedItem droppedItem = collision.GetComponent<DroppedItem>();
-                if (droppedItem.isPickupable)
-                {
-                    if (AddToInventory(droppedItem.item))
-                    {
-                        if (hands.Count > 0)
-                            if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(droppedItem.item);
-                        Destroy(collision.gameObject);
-
-                        if (collision.GetComponent<DroppedItem>().item.pickupSound != null)
-                            audioSource.PlayOneShot(droppedItem.item.pickupSound);
-                        else
-                            audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
-                    }
-                }
-                
-                
-            }
-
+            GetItemFromInventory(item.itemID).stack += item.stack;
         }
+        else
+        {
+            GetInventory().Add(item);
+        }
+        InventoryChanged?.Invoke(this, GetInventory());
+        CreateInfoText(String.Format("+{0} {1}", item.stack, item.name), Color.white);
+
+        if (hands.Count > 0)
+            if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(item);
+
+        if (item.pickupSound != null)
+            audioSource.PlayOneShot(item.pickupSound);
+        else
+            audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
+
+        return true;
+
+
     }
 }

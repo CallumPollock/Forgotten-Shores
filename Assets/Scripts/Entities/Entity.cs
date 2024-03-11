@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private List<Item> inventory = new List<Item>();
     //[SerializeField] private List<Item> startingItems = new List<Item>();
     public EventHandler<List<Item>> InventoryChanged;
+    public EventHandler<Item> AddItem, RemoveItem;
     public float dropChance;
 
     public List<Item> GetInventory() { return inventory; }
@@ -57,23 +58,34 @@ public abstract class Entity : MonoBehaviour
                 DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)], Vector2.zero, 0);
     }
 
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<DroppedItem>())
+        {
+            if (collision.GetComponent<DroppedItem>().item != null)
+            {
+                DroppedItem droppedItem = collision.GetComponent<DroppedItem>();
+                if (droppedItem.GetVelocity().magnitude >= 0.2f)
+                {
+                    ModifyHealth(-droppedItem.item.damage);
+                }
+                else if(droppedItem.GetVelocity().magnitude <= 0.1f)
+                {
+                    if (AddToInventory(droppedItem.item))
+                    {
+                        Destroy(collision.gameObject);
+                    }
+                }
+
+
+            }
+
+        }
+    }
+
     public virtual bool AddToInventory(Item newItem)
     {
-        if (newItem.name.Contains("EXP")) return false;
-
-        if (inventory.Any(i => i.itemID == newItem.itemID))
-        {
-            GetItemFromInventory(newItem.itemID).stack += newItem.stack;
-        }
-        else
-        {
-            inventory.Add(newItem);
-        }
-        InventoryChanged?.Invoke(this, inventory);
-
-        CreateInfoText(String.Format("+{0} {1}" , newItem.stack, newItem.name), Color.white);
-
-        return true;
+        return false;
     }
 
     public Item GetItemFromInventory(string itemID)
@@ -153,6 +165,12 @@ public abstract class Entity : MonoBehaviour
     {
         if (item == null) return;
 
+        if (item.stack <= 0)
+        {
+            inventory.Remove(item);
+            return;
+        }
+
         GameObject newDroppedObject = new GameObject();
         newDroppedObject.name = item.name;
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
@@ -165,7 +183,20 @@ public abstract class Entity : MonoBehaviour
         newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 
-        inventory.Remove(item);
+        if(item.stack > 1)
+        {
+            Item newItem = Instantiate(item);
+            newItem.stack = 1;
+            item.stack--;
+        }
+        else
+        {
+             inventory.Remove(item);
+        }
+
+        if (item.stack <= 0) inventory.Remove(item);
+
         OnEntityDropItem?.Invoke(item);
+        InventoryChanged?.Invoke(this, inventory);
     }
 }

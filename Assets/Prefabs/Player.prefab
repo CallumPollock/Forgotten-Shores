@@ -260,7 +260,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.93, y: 2.35}
+  m_Size: {x: 0.96, y: 2.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -735,10 +735,7 @@ MonoBehaviour:
   defence: 0
   speed: 0
   deathSprite: {fileID: 0}
-  inventory:
-  - {fileID: 11400000, guid: 4349197a674826341ae09b78a235f7ce, type: 2}
-  - {fileID: 11400000, guid: 167502ec70cbdff4984fff9c857aa5c1, type: 2}
-  - {fileID: 11400000, guid: 717df236d7b1b6c46b07260e6622c712, type: 2}
+  inventory: []
   dropChance: 0
   hands: []
   eButton: {fileID: 0}
@@ -773,7 +770,7 @@ GameObject:
   - component: {fileID: 5490438593328233431}
   - component: {fileID: 829108433625324050}
   m_Layer: 3
-  m_Name: Right Hand
+  m_Name: Secondary Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -923,7 +920,7 @@ GameObject:
   - component: {fileID: 8094339667683261370}
   - component: {fileID: 8043089424183538370}
   m_Layer: 3
-  m_Name: Left  Hand
+  m_Name: Primary Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
