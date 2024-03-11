@@ -10,6 +10,10 @@ public class DroppedItem : FollowTarget
     public int stackSize = 1;
     private SpriteRenderer spriteRenderer;
 
+    public bool isPickupable = false;
+
+    Rigidbody2D rigidbody;
+
     private void Start()
     {
         if(item != null)
@@ -21,8 +25,23 @@ public class DroppedItem : FollowTarget
         }
         
 
-        
+        rigidbody = GetComponent<Rigidbody2D>();
 
+    }
+
+    private void Update()
+    {
+        if(rigidbody == null)
+        {
+            rigidbody = GetComponent<Rigidbody2D>();
+            return;
+        }
+
+        if(rigidbody.velocity.magnitude == 0f)
+        {
+            isPickupable = true;
+        }
+            
     }
 
     public void SetAsNewItem(Item newItem)

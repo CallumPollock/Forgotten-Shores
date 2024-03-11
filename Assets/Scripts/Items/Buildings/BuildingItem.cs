@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Building Item", menuName = "Custom/Building Item")]
+[CreateAssetMenu(fileName = "New Building Item", menuName = "Items/Building Item")]
 public class BuildingItem : Item
 {
     public bool craftsOtherItems;

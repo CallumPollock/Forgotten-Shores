@@ -24,6 +24,8 @@ public abstract class Entity : MonoBehaviour
 
     public List<Item> GetInventory() { return inventory; }
 
+    public static event Action<Item> OnEntityDropItem;
+
     private void Start()
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -52,7 +54,7 @@ public abstract class Entity : MonoBehaviour
 
         if (val < 0 && inventory.Count > 0)
             if (UnityEngine.Random.value/-val <= dropChance)
-                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)]);
+                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)], Vector2.zero, 0);
     }
 
     public virtual bool AddToInventory(Item newItem)
@@ -134,10 +136,10 @@ public abstract class Entity : MonoBehaviour
     {
         foreach(Item item in inventory.ToArray())
         {
-            DropItem(item);
+            DropItem(item, Vector2.zero, 0);
         }
 
-        DropItem(Instantiate(GameState.instance.experienceGem));
+        DropItem(Instantiate(GameState.instance.experienceGem), Vector2.zero, 0);
         defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -147,16 +149,23 @@ public abstract class Entity : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void DropItem(Item item)
+    public void DropItem(Item item, Vector2 direction, float velocity)
     {
+        if (item == null) return;
+
         GameObject newDroppedObject = new GameObject();
         newDroppedObject.name = item.name;
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+        Rigidbody2D droppedItemRB = newDroppedObject.AddComponent<Rigidbody2D>();
+        droppedItemRB.gravityScale = 0f;
+        droppedItemRB.velocity = direction * velocity;
+        droppedItemRB.drag = 5f;
 
         newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 
         inventory.Remove(item);
+        OnEntityDropItem?.Invoke(item);
     }
 }

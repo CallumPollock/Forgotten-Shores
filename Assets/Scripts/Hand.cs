@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
 
-    [SerializeField] Entity entity;
+    [SerializeField] Human entity;
     Collider2D hitBox;
 
     [SerializeField] Vector2 offset;
@@ -20,7 +20,7 @@ public class Hand : MonoBehaviour
 
     private void Awake()
     {
-        entity = GetComponentInParent<Entity>();
+        entity = GetComponentInParent<Human>();
         hitBox = GetComponent<Collider2D>();
         equippedItemSprite = equippedItemGO.GetComponent<SpriteRenderer>();
     }
@@ -123,11 +123,18 @@ public class Hand : MonoBehaviour
     public void Hit()
     {
         if (equippedItem != null)
-            if (equippedItem.GetType() == typeof(BuildingItem))
+        {
+            switch (equippedItem.GetType().ToString())
             {
-                PlaceBuilding();
-                return;
+                case "BuildingItem":
+                    PlaceBuilding();
+                    break;
+                case "RangedWeapon":
+                    entity.DropItem(entity.GetHands()[1].GetEquippedItem(), Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f);
+                    break;
             }
+        }
+            
 
         isHitting = true;
         UpdateColliders(true);

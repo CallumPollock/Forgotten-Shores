@@ -85,9 +85,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
-            player.ScrollEquippedItem(0, 1);
+            player.ScrollEquippedItem(Input.GetKey(KeyCode.LeftShift) ? 1 : 0, 1);
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-            player.ScrollEquippedItem(0, -1);
+            player.ScrollEquippedItem(Input.GetKey(KeyCode.LeftShift) ? 1 : 0, -1);
     }
 
     public void ToggleInventory()

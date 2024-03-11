@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Player : Humanoid
+public class Player : Human
 {
     [SerializeField] Image eButton;
     [SerializeField] TextMeshProUGUI ePromptText;
@@ -98,7 +98,7 @@ public class Player : Humanoid
     {
         if (GetHands()[handIndex].GetEquippedItem() != null)
         {
-            DropItem(GetHands()[handIndex].GetEquippedItem());
+            DropItem(GetHands()[handIndex].GetEquippedItem(), Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
             GetHands()[handIndex].SetEquippedItem(null);
         }
     }
