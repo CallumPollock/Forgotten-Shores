@@ -862,6 +862,7 @@ MonoBehaviour:
   equippedItemGO: {fileID: 1491678110777633277}
   equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
+  defaultItemPosition: {x: -0.03, y: -0.44}
 --- !u!61 &829108433625324050
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1012,6 +1013,7 @@ MonoBehaviour:
   equippedItemGO: {fileID: 2415649584133844604}
   equippedItem: {fileID: 0}
   equippedItemSprite: {fileID: 0}
+  defaultItemPosition: {x: -0.03, y: -0.44}
 --- !u!61 &8043089424183538370
 BoxCollider2D:
   m_ObjectHideFlags: 0

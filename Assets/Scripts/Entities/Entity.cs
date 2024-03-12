@@ -55,7 +55,7 @@ public abstract class Entity : MonoBehaviour
 
         if (val < 0 && inventory.Count > 0)
             if (UnityEngine.Random.value/-val <= dropChance)
-                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)], Vector2.zero, 0);
+                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)], new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f, Vector2.zero, 0);
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
@@ -148,10 +148,10 @@ public abstract class Entity : MonoBehaviour
     {
         foreach(Item item in inventory.ToArray())
         {
-            DropItem(item, Vector2.zero, 0);
+            DropItem(item, transform.position, Vector2.zero, 0);
         }
 
-        DropItem(Instantiate(GameState.instance.experienceGem), Vector2.zero, 0);
+        DropItem(Instantiate(GameState.instance.experienceGem), transform.position, Vector2.zero, 0);
         defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -161,7 +161,7 @@ public abstract class Entity : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void DropItem(Item item, Vector2 direction, float velocity)
+    public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
     {
         if (item == null) return;
 
@@ -175,15 +175,17 @@ public abstract class Entity : MonoBehaviour
         newDroppedObject.name = item.name;
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+        
+
+        newDroppedObject.transform.position = startPos;
+        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+
         Rigidbody2D droppedItemRB = newDroppedObject.AddComponent<Rigidbody2D>();
         droppedItemRB.gravityScale = 0f;
         droppedItemRB.velocity = direction * velocity;
         droppedItemRB.drag = 5f;
 
-        newDroppedObject.transform.position = new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f;
-        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
-
-        if(item.stack > 1)
+        if (item.stack > 1)
         {
             Item newItem = Instantiate(item);
             newItem.stack = 1;

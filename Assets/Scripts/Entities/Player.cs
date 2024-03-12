@@ -98,7 +98,7 @@ public class Player : Human
     {
         if (GetHands()[handIndex].GetEquippedItem() != null)
         {
-            DropItem(GetHands()[handIndex].GetEquippedItem(), Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f);
+            DropItem(GetHands()[handIndex].GetEquippedItem(), GetHands()[handIndex].transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetHands()[handIndex].transform.position, 0.1f);
             GetHands()[handIndex].SetEquippedItem(null);
         }
     }

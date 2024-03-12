@@ -18,6 +18,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private SpriteRenderer equippedItemSprite;
     bool isHitting = false;
 
+    [SerializeField] private Vector2 defaultItemPosition;
+
     private void Awake()
     {
         entity = GetComponentInParent<Human>();
@@ -82,6 +84,7 @@ public class Hand : MonoBehaviour
             equippedItemCollider.isTrigger = true;
             equippedItemCollider.enabled = false;
             equippedItemSprite.color = Color.white;
+            equippedItemGO.transform.localPosition = defaultItemPosition;
         }
         
 
@@ -130,7 +133,7 @@ public class Hand : MonoBehaviour
                     PlaceBuilding();
                     break;
                 case "RangedWeapon":
-                    entity.DropItem(entity.GetHands()[1].GetEquippedItem(), Camera.main.ScreenToWorldPoint(Input.mousePosition), 1f);
+                    entity.DropItem(entity.GetHands()[1].GetEquippedItem(), entity.GetHands()[1].transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - entity.GetHands()[1].transform.position, 7f);
                     break;
             }
         }
