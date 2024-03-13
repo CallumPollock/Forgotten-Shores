@@ -7,8 +7,9 @@ using System;
 
 public class Player : Human
 {
-    [SerializeField] Image eButton;
-    [SerializeField] TextMeshProUGUI ePromptText;
+    public static Action<BuildingEntity> PlayerEnterRangeOfBuilding;
+    public static Action PlayerExitRangeOfBuilding;
+
     [SerializeField] TextMeshProUGUI levelUI, experienceUI;
     BuildingEntity nearBuilding;
     int level, experience, experienceToNextLevel;
@@ -67,8 +68,7 @@ public class Player : Human
 
         if (collision.GetComponent<BuildingEntity>())
         {
-            eButton.gameObject.SetActive(true);
-            ePromptText.text = collision.name;
+            PlayerEnterRangeOfBuilding?.Invoke(collision.GetComponent<BuildingEntity>());
             nearBuilding = collision.GetComponent<BuildingEntity>();
         }
     }
@@ -89,7 +89,7 @@ public class Player : Human
         if (collision.GetComponent<BuildingEntity>())
         {
 
-            eButton.gameObject.SetActive(false);
+            PlayerExitRangeOfBuilding?.Invoke();
             nearBuilding = null;
         }
     }

@@ -10,7 +10,7 @@ public class DroppedItem : FollowTarget
     public int stackSize = 1;
     private SpriteRenderer spriteRenderer;
 
-    Rigidbody2D rigidbody;
+    Rigidbody2D rb;
 
     private void Start()
     {
@@ -23,20 +23,20 @@ public class DroppedItem : FollowTarget
         }
         
 
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
 
     }
 
     public Vector2 GetVelocity()
     {
-        return rigidbody.velocity;
+        return rb.velocity;
     }
 
     private void Update()
     {
-        if(rigidbody == null)
+        if(rb == null)
         {
-            rigidbody = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
             return;
         }
             
@@ -49,6 +49,7 @@ public class DroppedItem : FollowTarget
             item.name = item.name.Substring(0, item.name.Length - 7);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.material = GameState.instance.defaultLitSprite;
 
         if (spriteRenderer != null) 
             spriteRenderer.sprite = item.icon;

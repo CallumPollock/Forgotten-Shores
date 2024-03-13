@@ -37,6 +37,8 @@ public class GameState : MonoBehaviour
 
     public AudioClip defaultPickupSound;
 
+    public Material defaultLitSprite;
+
     IEnumerator SpawnEnemy()
     {
         if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)
