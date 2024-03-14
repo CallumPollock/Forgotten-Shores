@@ -9,8 +9,11 @@ public class Player : Human
 {
     public static Action<BuildingEntity> PlayerEnterRangeOfBuilding;
     public static Action PlayerExitRangeOfBuilding;
+    public static Action OnPlayerDied;
 
-    [SerializeField] TextMeshProUGUI levelUI, experienceUI;
+    public static Action<int, int> OnExpUp;
+    public static Action<int> OnLevelUp;
+
     BuildingEntity nearBuilding;
     int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
@@ -18,11 +21,18 @@ public class Player : Human
     [SerializeField] Transform homePosition;
     private Vector3 oldPosition;
 
-    [SerializeField] PlayerController playerController; 
+    [SerializeField] PlayerController playerController;
+
+    public override void Start()
+    {
+        base.Start();
+
+        OnEntityDied += OnPlayerDied;
+    }
 
     public void OpenCraftingMenu()
     {
-        playerController.ToggleInventory();
+        PlayerController.ToggleInventory?.Invoke();
     }
 
     public void IncreaseExp(int amount)
@@ -34,7 +44,7 @@ public class Player : Human
             SetLevel(level + 1);
             CreateInfoText("Level Up!", Color.green);
         }
-        experienceUI.text = experience + "/" + experienceToNextLevel;
+        OnExpUp?.Invoke(experience, experienceToNextLevel);
     }
 
     private void SetLevel(int value)
@@ -42,7 +52,7 @@ public class Player : Human
         level = value;
         experience = experience - experienceToNextLevel;
         experienceToNextLevel = (int)(50f * (Mathf.Pow(level + 1, 2) - (5 * (level + 1)) + 8));
-        levelUI.text = level.ToString();
+        OnLevelUp?.Invoke(level);
     }
 
     public void Interact()

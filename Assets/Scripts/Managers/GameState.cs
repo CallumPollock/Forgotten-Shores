@@ -24,6 +24,7 @@ public class GameState : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
+        UIManager.OnRespawnButtonClick += RespawnPlayer;
     }
 
     //public GameObject droppedItem;
@@ -39,6 +40,8 @@ public class GameState : MonoBehaviour
 
     public Material defaultLitSprite;
 
+    public GameObject playerPrefab;
+
     IEnumerator SpawnEnemy()
     {
         if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)
@@ -50,4 +53,10 @@ public class GameState : MonoBehaviour
         yield return new WaitForSeconds(3f);
         StartCoroutine(SpawnEnemy());
     }
+
+    void RespawnPlayer()
+    {
+        Instantiate(playerPrefab);
+    }
+
 }

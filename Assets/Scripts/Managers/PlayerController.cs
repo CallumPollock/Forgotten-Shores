@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     GameObject inventoryScreen;
 
     Player player;
+
+    public static Action ToggleInventory;
 
     // Start is called before the first frame update
     void Awake()
@@ -71,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToggleInventory();
+            ToggleInventory?.Invoke();
         }
 
         if(Input.GetKeyDown(KeyCode.Q))
@@ -88,11 +91,6 @@ public class PlayerController : MonoBehaviour
             player.ScrollEquippedItem(Input.GetKey(KeyCode.LeftShift) ? 1 : 0, 1);
         else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
             player.ScrollEquippedItem(Input.GetKey(KeyCode.LeftShift) ? 1 : 0, -1);
-    }
-
-    public void ToggleInventory()
-    {
-        inventoryScreen.SetActive(!inventoryScreen.activeSelf);
     }
 
    

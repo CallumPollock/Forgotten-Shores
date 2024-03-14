@@ -23,11 +23,13 @@ public abstract class Entity : MonoBehaviour
     public EventHandler<Item> AddItem, RemoveItem;
     public float dropChance;
 
+    public Action OnEntityDied;
+
     public List<Item> GetInventory() { return inventory; }
 
     public static event Action<Item> OnEntityDropItem;
 
-    private void Start()
+    public virtual void Start()
     {
         for (int i = 0; i < inventory.Count; i++)
         {
@@ -146,6 +148,8 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void OnDeath()
     {
+        OnEntityDied?.Invoke();
+
         foreach(Item item in inventory.ToArray())
         {
             DropItem(item, transform.position, Vector2.zero, 0);
