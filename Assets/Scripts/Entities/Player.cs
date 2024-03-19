@@ -10,9 +10,11 @@ public class Player : Human
     public static Action<BuildingEntity> PlayerEnterRangeOfBuilding;
     public static Action PlayerExitRangeOfBuilding;
     public static Action OnPlayerDied;
+    public static Action<Player> OnPlayerSpawn;
 
     public static Action<int, int> OnExpUp;
     public static Action<int> OnLevelUp;
+    public static EventHandler<List<Item>> PlayerInventoryChanged;
 
     BuildingEntity nearBuilding;
     int level, experience, experienceToNextLevel;
@@ -28,6 +30,8 @@ public class Player : Human
         base.Start();
 
         OnEntityDied += OnPlayerDied;
+        InventoryChanged += PlayerInventoryChanged;
+        OnPlayerSpawn?.Invoke(this);
     }
 
     public void OpenCraftingMenu()
@@ -109,7 +113,7 @@ public class Player : Human
         if (GetHands()[handIndex].GetEquippedItem() != null)
         {
             DropItem(GetHands()[handIndex].GetEquippedItem(), GetHands()[handIndex].transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - GetHands()[handIndex].transform.position, 0.1f);
-            GetHands()[handIndex].SetEquippedItem(null);
+            //GetHands()[handIndex].SetEquippedItem(null);
         }
     }
 

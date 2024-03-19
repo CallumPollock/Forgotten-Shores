@@ -39,6 +39,15 @@ public class Human : Entity
             hands[handIndex].SetEquippedItem(GetInventory()[itemIndex]);
         }
     }
+    public override void RemoveItem(Item item)
+    {
+        base.RemoveItem(item);
+        foreach(Hand hand in hands)
+        {
+            if(hand.GetEquippedItem() == item) hand.SetEquippedItem(null);
+        }
+    }
+
 
     public override bool AddToInventory(Item item)
     {

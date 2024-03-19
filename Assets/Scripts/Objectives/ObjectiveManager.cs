@@ -11,6 +11,14 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] Transform objectiveListContent;
     [SerializeField] GameObject objectivePrefab;
 
+    [Header("Objectives")]
+    [SerializeField] GameObject obj_dropWood, obj_craftStick, obj_gatherWood;
+
+    private void Start()
+    {
+        Entity.OnEntityDropItem += EntityDroppedItem;
+    }
+
     public void AddObjective(Objective _objective)
     {
         objectives.Add(_objective);
@@ -18,14 +26,15 @@ public class ObjectiveManager : MonoBehaviour
         newObjectivePrefab.GetComponent<TextMeshProUGUI>().text = _objective.description;
     }
 
-    public void CompleteObjective(Objective _objective)
+    void CompleteObjective(GameObject _objective)
     {
-        objectives.Remove(_objective);
+        Destroy(_objective);
     }
 
-    private void Test(Item item)
+    private void EntityDroppedItem(Item item)
     {
-        Debug.Log("Entity has dropped a " + item.name);
+        if (item.name == "Wood")
+            CompleteObjective(obj_dropWood);
     }
 
 }

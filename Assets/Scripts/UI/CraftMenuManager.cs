@@ -17,15 +17,18 @@ public class CraftMenuManager : MonoBehaviour
     [SerializeField] Image previewIcon;
     [SerializeField] Transform recipePreviewContainer;
 
-    [SerializeField] Player player;
-
     [SerializeField] Button craftButton;
+
+    [SerializeField] private Player player;
 
     // Start is called before the first frame update
     void Start()
     {
         UpdateCraftMenu();
+        Player.OnPlayerSpawn += PlayerRespawn;
     }
+
+    private void PlayerRespawn(Player _player) { player = _player; }
 
     public void UpdateCraftMenu()
     {
@@ -75,7 +78,7 @@ public class CraftMenuManager : MonoBehaviour
         droppedItemRB.drag = 5f;
 
 
-        newDroppedObject.transform.position = new Vector2(GameState.instance.player.transform.position.x, GameState.instance.player.transform.position.y) + Random.insideUnitCircle * 0.4f;
+        newDroppedObject.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 0.4f;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
     }
 

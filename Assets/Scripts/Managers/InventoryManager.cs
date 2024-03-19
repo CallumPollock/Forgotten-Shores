@@ -13,13 +13,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] GameObject itemUIPrefab;
     [SerializeField] Transform listContentTransform;
 
-    [SerializeField]
-    private Player player;
-
 
     private void OnEnable()
     {
-        player.InventoryChanged += UpdateInventoryList;
+        Player.PlayerInventoryChanged += UpdateInventoryList;
     }
 
     public void UpdateInventoryList(object sender, List<Item> inventory)

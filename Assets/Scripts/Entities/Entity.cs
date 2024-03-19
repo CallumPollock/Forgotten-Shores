@@ -20,7 +20,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private List<Item> inventory = new List<Item>();
     //[SerializeField] private List<Item> startingItems = new List<Item>();
     public EventHandler<List<Item>> InventoryChanged;
-    public EventHandler<Item> AddItem, RemoveItem;
+    public EventHandler<Item> OnAddItem, OnRemoveItem;
     public float dropChance;
 
     public Action OnEntityDied;
@@ -165,19 +165,32 @@ public abstract class Entity : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public virtual void RemoveItem(Item item)
+    {
+        inventory.Remove(item);
+    }    
+
     public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
     {
         if (item == null) return;
 
-        if (item.stack <= 0)
+        Item droppedItem;
+
+        if (item.stack > 1)
         {
-            inventory.Remove(item);
-            return;
+            droppedItem = Instantiate(item);
+            droppedItem.stack = 1;
+            item.stack--;
+        }
+        else
+        {
+            droppedItem = item;
+            RemoveItem(item);
         }
 
         GameObject newDroppedObject = new GameObject();
         newDroppedObject.name = item.name;
-        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(droppedItem);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
         
 
@@ -189,18 +202,9 @@ public abstract class Entity : MonoBehaviour
         droppedItemRB.velocity = direction * velocity;
         droppedItemRB.drag = 5f;
 
-        if (item.stack > 1)
-        {
-            Item newItem = Instantiate(item);
-            newItem.stack = 1;
-            item.stack--;
-        }
-        else
-        {
-             inventory.Remove(item);
-        }
+        
 
-        if (item.stack <= 0) inventory.Remove(item);
+        if (item.stack <= 0) RemoveItem(item);
 
         OnEntityDropItem?.Invoke(item);
         InventoryChanged?.Invoke(this, inventory);
