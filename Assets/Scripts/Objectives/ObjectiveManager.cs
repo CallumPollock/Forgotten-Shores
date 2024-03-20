@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ObjectiveManager : MonoBehaviour
 {
-    List<Objective> objectives = new List<Objective>();
+    [SerializeField] List<Objective> objectives = new List<Objective>();
     List<Objective> completedObjectives = new List<Objective>();
     [SerializeField] Objective startingObjective;
 
@@ -24,8 +24,6 @@ public class ObjectiveManager : MonoBehaviour
     {
         Entity.OnEntityDropItem += EntityDroppedItem;
         CraftMenuManager.ItemCrafted += ItemCrafted;
-
-        
     }
 
     public void InitiateStartingObjective()
@@ -51,13 +49,16 @@ public class ObjectiveManager : MonoBehaviour
     void CompleteObjective(GameObject _gameobject, Objective _objective)
     {
         StartCoroutine(RemoveObjectiveObject(_gameobject));
+        objectives.Remove(_objective);
+
 
         foreach(Objective nextObjective in _objective.nextObjective)
         {
             AddObjective(nextObjective);
         }
-
         CompletedObjective?.Invoke(_objective);
+        Destroy(_objective);
+
     }
 
     private void EntityDroppedItem(Item item)

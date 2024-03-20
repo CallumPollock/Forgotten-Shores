@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yarn.Unity;
 
 public class GameState : MonoBehaviour
 {
@@ -21,10 +22,15 @@ public class GameState : MonoBehaviour
         worldTime = GetComponent<WorldTime>();
     }
 
+    VariableStorageBehaviour variableStorage;
+
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
         UIManager.OnRespawnButtonClick += RespawnPlayer;
+
+        variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
+        variableStorage.SetValue("$name", "Dave");
     }
 
     //public GameObject droppedItem;

@@ -1,6 +1,7 @@
 ﻿title: Tutorial1
 ---
-Trevor: Well, <b><color=blue>$name</b></color>... Welcome, to your new home.
+<<declare $name = "Player">>
+Trevor: Well, <b><color=blue>{$name}</b></color>... Welcome, to your new home.
 
 -> Home? I'm not staying here.
 	Trevor: Let's not get ahead of ourselves. I can help you get off this island, but it won't be easy. You'll need a place to stay until then.
