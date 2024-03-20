@@ -131,10 +131,10 @@ public class Hand : MonoBehaviour
             {
                 case "BuildingItem":
                     PlaceBuilding();
-                    break;
+                    return;
                 case "RangedWeapon":
                     entity.DropItem(entity.GetHands()[1].GetEquippedItem(), entity.GetHands()[1].transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - entity.GetHands()[1].transform.position, 7f);
-                    break;
+                    return;
             }
         }
             

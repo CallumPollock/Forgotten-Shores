@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using static UnityEditor.Progress;
 
 public class CraftMenuManager : MonoBehaviour
 {
@@ -21,11 +23,15 @@ public class CraftMenuManager : MonoBehaviour
 
     [SerializeField] private Player player;
 
+    public static Action<Item> ItemCrafted; 
+
     // Start is called before the first frame update
     void Start()
     {
         UpdateCraftMenu();
         Player.OnPlayerSpawn += PlayerRespawn;
+
+        ObjectiveManager.CompletedObjective += UnlockNewRecipe;
     }
 
     private void PlayerRespawn(Player _player) { player = _player; }
@@ -54,6 +60,16 @@ public class CraftMenuManager : MonoBehaviour
         }
     }
 
+    void UnlockNewRecipe(Objective _objective)
+    {
+        foreach(Item newRecipe in _objective.unlocksRecipes)
+        {
+            recipeBook.Add(newRecipe);
+            player.CreateInfoText("New Recipe: " + newRecipe.name, Color.green);
+        }
+        UpdateCraftMenu();
+    }
+
     public bool CheckItemCraftable(Item itemToCraft)
     {
         foreach(Item.Ingredient ingredient in itemToCraft.recipe.ingredients)
@@ -78,8 +94,10 @@ public class CraftMenuManager : MonoBehaviour
         droppedItemRB.drag = 5f;
 
 
-        newDroppedObject.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 0.4f;
-        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        newDroppedObject.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + UnityEngine.Random.insideUnitCircle * 0.4f;
+        newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
+
+        ItemCrafted?.Invoke(itemToCraft);
     }
 
     public void UpdatePreview(Item itemSelection)
