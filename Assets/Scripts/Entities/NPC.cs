@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class NPC : Human
 {
-    // Start is called before the first frame update
-    void Start()
+
+    Rigidbody2D rb;
+    [SerializeField] Vector2 movement;
+
+    public override void Start()
     {
-        
+        base.Start();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        rb.velocity = movement * speed;
     }
+
+    public void ExitScene()
+    {
+        movement.y = 1f;
+    }    
 }

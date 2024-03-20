@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        body.velocity = new Vector2(movement.x, movement.y) * speed;
+        body.velocity = movement * speed;
 
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 

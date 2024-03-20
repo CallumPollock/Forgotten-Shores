@@ -25,6 +25,11 @@ public class ObjectiveManager : MonoBehaviour
         Entity.OnEntityDropItem += EntityDroppedItem;
         CraftMenuManager.ItemCrafted += ItemCrafted;
 
+        
+    }
+
+    public void InitiateStartingObjective()
+    {
         AddObjective(startingObjective);
     }
 
