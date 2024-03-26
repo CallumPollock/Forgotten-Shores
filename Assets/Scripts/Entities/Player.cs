@@ -34,9 +34,9 @@ public class Player : Human
         OnPlayerSpawn?.Invoke(this);
     }
 
-    public void OpenCraftingMenu()
+    public void OpenCraftingMenu(BuildingItem buildingItem)
     {
-        PlayerController.ToggleInventory?.Invoke();
+        PlayerController.ToggleInventory?.Invoke(buildingItem);
     }
 
     public void IncreaseExp(int amount)
@@ -46,7 +46,7 @@ public class Player : Human
         if (experience >= experienceToNextLevel)
         {
             SetLevel(level + 1);
-            CreateInfoText("Level Up!", Color.green);
+            CreateInfoText("Level Up!", Color.green, 10f, 1f);
         }
         OnExpUp?.Invoke(experience, experienceToNextLevel);
     }

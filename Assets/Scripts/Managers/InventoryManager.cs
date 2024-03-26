@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Transform listContentTransform;
 
 
-    private void OnEnable()
+    private void Start()
     {
         Player.PlayerInventoryChanged += UpdateInventoryList;
     }

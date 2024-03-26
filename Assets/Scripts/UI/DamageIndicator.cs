@@ -14,26 +14,22 @@ public class DamageIndicator : MonoBehaviour
         text = GetComponent<TextMeshPro>();
     }
 
-    public void SetDamageValue(int damage)
-    {
-        
-        StartCoroutine(DestroyOnDelay());
-    }
-
     public void SetColour(Color color)
     {
         text.color = color;
     }
 
-    public void SetText(string text)
+    public void SetText(string text, Color color, float textSize, float lifespan)
     {
         this.text.text = text;
-        StartCoroutine(DestroyOnDelay());
+        this.text.color = color;
+        this.text.fontSize = textSize;
+        StartCoroutine(DestroyOnDelay(lifespan));
     }
 
-    IEnumerator DestroyOnDelay()
+    IEnumerator DestroyOnDelay(float lifespan)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(lifespan);
         Destroy(gameObject);
     }
 }

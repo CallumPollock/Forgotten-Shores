@@ -106,19 +106,19 @@ public abstract class Entity : MonoBehaviour
         else if (val > 0)
             newColor = Color.green;
 
-        CreateInfoText(Mathf.Abs(val).ToString(), newColor);
+        CreateInfoText(Mathf.Abs(val).ToString(), newColor, 8f, 0.3f);
     }
 
-    public void CreateInfoText(string text, Color color)
+    public void CreateInfoText(string text, Color color, float textSize, float lifespan)
     {
         DamageIndicator newDmgIndicator = Instantiate(GameState.instance.damageIndicator).GetComponent<DamageIndicator>();
-        newDmgIndicator.SetText(text);
+        newDmgIndicator.SetText(text, color, textSize, lifespan);
         newDmgIndicator.SetColour(color);
         Vector2 randomPos = UnityEngine.Random.insideUnitCircle * 2f;
         newDmgIndicator.transform.position = new Vector3(transform.position.x+randomPos.x, transform.position.y+randomPos.y+1.5f, -6f);
         newDmgIndicator.transform.SetParent(transform);
 
-        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*50f);
+        newDmgIndicator.GetComponent<Rigidbody2D>().AddForce(Vector2.up*60f);
 
     }
 

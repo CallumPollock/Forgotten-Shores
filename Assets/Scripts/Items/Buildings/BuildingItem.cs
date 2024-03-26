@@ -13,6 +13,6 @@ public class BuildingItem : Item
     public void Interact(Player player, string interaction)
     {
         MethodInfo mInfo = player.GetType().GetMethod(interaction);
-        mInfo.Invoke(player, null);
+        mInfo.Invoke(player, new object[] {this});
     }
 }

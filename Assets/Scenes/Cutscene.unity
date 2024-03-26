@@ -1567,15 +1567,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 0.62473303, g: 0.8843192, b: 0.9528302, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 53d682cb9213a654ebba168675905020, type: 3}
+  m_Color: {r: 0.57254905, g: 0.64705884, b: 0.9254902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.81, y: 1.54}
+  m_Size: {x: 1.81, y: 2.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1367145571
@@ -1798,6 +1798,7 @@ MonoBehaviour:
   inventory: []
   dropChance: 0
   hands: []
+  movement: {x: 0, y: 0}
 --- !u!50 &1662590078
 Rigidbody2D:
   serializedVersion: 4
@@ -2130,6 +2131,34 @@ PrefabInstance:
     - target: {fileID: 5386472397784928995, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
       propertyPath: m_Name
       value: Dialogue System
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1736866141}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadCharacterCreator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OpeniningCutscene, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726731514552556190, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
+      propertyPath: onDialogueComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6793452697647185789, guid: 1b21d056f1197a540951426ed238a6a5, type: 3}
       propertyPath: m_AnchorMax.y

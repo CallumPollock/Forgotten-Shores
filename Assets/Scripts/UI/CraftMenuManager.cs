@@ -65,7 +65,7 @@ public class CraftMenuManager : MonoBehaviour
         foreach(Item newRecipe in _objective.unlocksRecipes)
         {
             recipeBook.Add(newRecipe);
-            player.CreateInfoText("New Recipe: " + newRecipe.name, Color.green);
+            player.CreateInfoText("New Recipe: " + newRecipe.name, Color.green, 8f, 1f);
         }
         UpdateCraftMenu();
     }

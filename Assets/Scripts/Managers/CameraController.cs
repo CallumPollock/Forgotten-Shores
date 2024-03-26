@@ -6,25 +6,34 @@ public class CameraController : MonoBehaviour
 {
 
     [SerializeField]
-    Transform player;
+    Transform target;
 
 
-    private Vector3 playerPos;
+    private Vector3 targetPos;
     [SerializeField] float xOffset, yOffset;
 
+
+    private void Start()
+    {
+        Player.OnPlayerSpawn += UpdatePlayerTransform;
+    }
+
+    public void UpdatePlayerTransform(Player player)
+    {
+        target = player.transform;
+    }
+
+    public void TargetSpeaker(string speaker)
+    {
+        target = GameObject.Find(speaker).transform;
+        Debug.Log("Set target to " + target.name);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (player != null)
-        {
-            playerPos = new Vector3(player.position.x + xOffset, player.position.y + yOffset, -10f);
-        }
-        else if(GameObject.FindGameObjectWithTag("Player"))
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        targetPos = new Vector3(target.position.x + xOffset, target.position.y + yOffset, -10f);
 
-        transform.position = Vector3.Lerp(transform.position, playerPos, 4f * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPos, 4f * Time.deltaTime);
     }
 }

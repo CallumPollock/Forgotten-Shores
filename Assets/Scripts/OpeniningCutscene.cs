@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Yarn.Unity;
 
@@ -34,4 +35,10 @@ public class OpeniningCutscene : MonoBehaviour
     {
         fadeIn = false;
     }
+
+    public void LoadCharacterCreator()
+    {
+        SceneManager.LoadScene("Character Creator");
+    }
+
 }

@@ -23,11 +23,6 @@ public class WorldTime : MonoBehaviour
         currentTime = TimeSpan.FromHours(startTime);
     }
 
-    private void Start()
-    {
-        
-        StartCoroutine(AddMinute());
-    }
     private IEnumerator AddMinute()
     {
         currentTime += TimeSpan.FromMinutes(1);
@@ -41,6 +36,16 @@ public class WorldTime : MonoBehaviour
     {
         return (float)timeSpan.TotalMinutes % 1440 / 1440;
     }
+
+    public void PauseTime()
+    {
+        StopCoroutine(AddMinute());
+    }
+
+    public void ResumeTime()
+    {
+        StartCoroutine(AddMinute());
+    }    
 
     public TimeSpan GetCurrentTime() { return currentTime; }
 }

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     Player player;
 
-    public static Action ToggleInventory;
+    public static Action<BuildingItem> ToggleInventory;
 
     // Start is called before the first frame update
     void Awake()
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToggleInventory?.Invoke();
+            ToggleInventory?.Invoke(null);
         }
 
         if(Input.GetKeyDown(KeyCode.Q))
