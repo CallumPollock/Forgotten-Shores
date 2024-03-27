@@ -18,4 +18,7 @@ MonoBehaviour:
   amountNeeded: 1
   gameObject: {fileID: 0}
   nextObjective: []
-  unlocksRecipes: []
+  unlocksRecipes:
+  - {fileID: 11400000, guid: 4349197a674826341ae09b78a235f7ce, type: 2}
+  - {fileID: 11400000, guid: 167502ec70cbdff4984fff9c857aa5c1, type: 2}
+  - {fileID: 11400000, guid: 717df236d7b1b6c46b07260e6622c712, type: 2}

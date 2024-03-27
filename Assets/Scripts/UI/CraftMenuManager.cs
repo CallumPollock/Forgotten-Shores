@@ -28,15 +28,15 @@ public class CraftMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateCraftMenu();
         Player.OnPlayerSpawn += PlayerRespawn;
+        UIManager.OnOpenCraftingMenu += UpdateCraftMenu;
 
         ObjectiveManager.CompletedObjective += UnlockNewRecipe;
     }
 
     private void PlayerRespawn(Player _player) { player = _player; }
 
-    public void UpdateCraftMenu()
+    public void UpdateCraftMenu(BuildingItem buildingItem)
     {
         foreach(Transform child in viewport)
         {
@@ -45,18 +45,24 @@ public class CraftMenuManager : MonoBehaviour
 
         foreach (Item item in recipeBook)
         {
-            RecipeButton newRecipeButton = Instantiate(recipeButton).GetComponent<RecipeButton>();
-            newRecipeButton.InitialiseRecipeButton(item);
-            newRecipeButton.transform.SetParent(viewport.transform, false);
-            newRecipeButton.GetComponent<Button>().onClick.AddListener(delegate { UpdatePreview(item); });
+            if (item.recipe.requiredBuilding == buildingItem || buildingItem.craftsOtherItems)
+                CreateRecipeButtonUI(item);
+        }
+    }
 
-            foreach(Item.Ingredient ingredient in item.recipe.ingredients)
-            {
-                GameObject newIngredient = Instantiate(ingredientObject);
-                newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
-                newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
-                newIngredient.transform.SetParent(newRecipeButton.recipeContainer);
-            }
+    private void CreateRecipeButtonUI(Item item)
+    {
+        RecipeButton newRecipeButton = Instantiate(recipeButton).GetComponent<RecipeButton>();
+        newRecipeButton.InitialiseRecipeButton(item);
+        newRecipeButton.transform.SetParent(viewport.transform, false);
+        newRecipeButton.GetComponent<Button>().onClick.AddListener(delegate { UpdatePreview(item); });
+
+        foreach (Item.Ingredient ingredient in item.recipe.ingredients)
+        {
+            GameObject newIngredient = Instantiate(ingredientObject);
+            newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
+            newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
+            newIngredient.transform.SetParent(newRecipeButton.recipeContainer);
         }
     }
 
@@ -67,7 +73,6 @@ public class CraftMenuManager : MonoBehaviour
             recipeBook.Add(newRecipe);
             player.CreateInfoText("New Recipe: " + newRecipe.name, Color.green, 8f, 1f);
         }
-        UpdateCraftMenu();
     }
 
     public bool CheckItemCraftable(Item itemToCraft)

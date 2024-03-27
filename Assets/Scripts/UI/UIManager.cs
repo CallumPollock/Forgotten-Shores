@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform currentActiveTab;
 
     public static Action OnRespawnButtonClick;
+    public static Action<BuildingItem> OnOpenCraftingMenu;
 
     private void Awake()
     {
@@ -99,6 +100,8 @@ public class UIManager : MonoBehaviour
     void ToggleInventory(BuildingItem buildingItem)
     {
         inventoryScreen.SetActive(!inventoryScreen.activeSelf);
+        OnOpenCraftingMenu?.Invoke(buildingItem);
+
 
         if(buildingItem != null)
         {
