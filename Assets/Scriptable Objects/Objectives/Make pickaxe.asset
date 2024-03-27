@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fcd73f7bac88842a126382a9b8c34d, type: 3}
+  m_Name: Make pickaxe
+  m_EditorClassIdentifier: 
+  description: Make a <color=blue>Wooden Pickaxe</color> and mine some <color=blue>stone</color>
+  type: 2
+  item: {fileID: 11400000, guid: cb24fd66aa2435d4a8c6496268c1b267, type: 2}
+  amountNeeded: 1
+  gameObject: {fileID: 0}
+  nextObjective: []
+  unlocksRecipes:
+  - {fileID: 11400000, guid: 5f82f8988769e0f48a40baaf06176797, type: 2}

@@ -45,8 +45,13 @@ public class CraftMenuManager : MonoBehaviour
 
         foreach (Item item in recipeBook)
         {
-            if (item.recipe.requiredBuilding == buildingItem || buildingItem.craftsOtherItems)
+            if (item.recipe.requiredBuilding == buildingItem)
                 CreateRecipeButtonUI(item);
+            else if(buildingItem != null)
+            {
+                if(buildingItem.craftsOtherItems)
+                    CreateRecipeButtonUI(item);
+            }
         }
     }
 

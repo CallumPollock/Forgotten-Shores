@@ -25,6 +25,8 @@ public abstract class Entity : MonoBehaviour
 
     public Action OnEntityDied;
 
+    [SerializeField] Item requiredItem;
+
     public List<Item> GetInventory() { return inventory; }
 
     public static event Action<Item> OnEntityDropItem;
@@ -126,6 +128,10 @@ public abstract class Entity : MonoBehaviour
     {
         if (entity == this)
             return;
+
+        if (entity.requiredItem != null)
+            if (entity.requiredItem.itemID != item.itemID)
+                return;
 
         if(item == null)
             entity.ModifyHealth(-damage);

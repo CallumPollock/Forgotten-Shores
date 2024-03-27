@@ -64,7 +64,7 @@ public class Human : Entity
             GetInventory().Add(item);
         }
         InventoryChanged?.Invoke(this, GetInventory());
-        CreateInfoText(String.Format("+{0} {1}", item.stack, item.name), Color.white, 4f, 1f);
+        CreateInfoText(String.Format("+{0} {1} ({2})", item.stack, item.name, GetItemFromInventory(item.itemID).stack), Color.white, 4f, 1f);
 
         if (hands.Count > 0)
             if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(item);

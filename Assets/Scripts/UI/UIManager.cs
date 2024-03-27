@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform navigationContainer;
     [SerializeField] Transform currentActiveTab;
 
+    [SerializeField] List<Image> uiImageComponents;
+
     public static Action OnRespawnButtonClick;
     public static Action<BuildingItem> OnOpenCraftingMenu;
 
@@ -31,6 +34,7 @@ public class UIManager : MonoBehaviour
             if (child.tag == "Menu")
             {
                 Button newNavButton = Instantiate(navButton).GetComponent<Button>();
+                uiImageComponents.Add(newNavButton.GetComponent<Image>());
                 newNavButton.transform.SetParent(navigationContainer);
                 newNavButton.transform.localScale = Vector3.one;
                 newNavButton.onClick.AddListener(delegate { SetActiveTab(child); });
@@ -100,8 +104,29 @@ public class UIManager : MonoBehaviour
     void ToggleInventory(BuildingItem buildingItem)
     {
         inventoryScreen.SetActive(!inventoryScreen.activeSelf);
-        OnOpenCraftingMenu?.Invoke(buildingItem);
+        
 
+        if(inventoryScreen.activeSelf)
+        {
+            OnOpenCraftingMenu?.Invoke(buildingItem);
+
+            Color color;
+
+            if(buildingItem == null)
+            {
+                color = new Color(0f, 0.682353f, 1f);
+            }
+            else
+            {
+                color = buildingItem.color;
+            }
+
+            foreach (Image image in uiImageComponents)
+            {
+                image.color = color;
+            }
+
+        }
 
         if(buildingItem != null)
         {
