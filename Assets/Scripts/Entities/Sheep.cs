@@ -6,8 +6,8 @@ public class Sheep : Entity
 {
     void Start()
     {
-        maxHealth = 30;
-        health = 30;
+        data.maxHealth = 30;
+        data.health = 30;
         dropChance = 0.1f;
     }
 

@@ -16,7 +16,7 @@ public class NPC : Human
 
     private void Update()
     {
-        rb.velocity = movement * speed;
+        rb.velocity = movement * data.speed;
     }
 
     public void ExitScene()

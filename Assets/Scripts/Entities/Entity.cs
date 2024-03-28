@@ -4,20 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Entity : MonoBehaviour
+[System.Serializable]
+[SerializeField]
+public class EntityData
 {
-    [Header("Stats")]
+    public string name;
     public int health;
     public int maxHealth;
     public int damage;
     public int defence;
     public float speed;
 
+    public Transform transform;
+
+    public List<Item> inventory = new List<Item>();
+}
+
+public abstract class Entity : MonoBehaviour
+{
+  
+    public EntityData data = new EntityData();
 
     SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
 
-    [SerializeField] private List<Item> inventory = new List<Item>();
+    
     //[SerializeField] private List<Item> startingItems = new List<Item>();
     public EventHandler<List<Item>> InventoryChanged;
     public EventHandler<Item> OnAddItem, OnRemoveItem;
@@ -27,17 +38,19 @@ public abstract class Entity : MonoBehaviour
 
     [SerializeField] Item requiredItem;
 
-    public List<Item> GetInventory() { return inventory; }
+    public List<Item> GetInventory() { return data.inventory; }
 
     public static event Action<Item> OnEntityDropItem;
 
     public virtual void Start()
     {
-        for (int i = 0; i < inventory.Count; i++)
+        data.transform = transform;
+
+        for (int i = 0; i < data.inventory.Count; i++)
         {
-            Item newItem = Instantiate(inventory[i]);
-            newItem.name = inventory[i].name;
-            inventory[i] = newItem;
+            Item newItem = Instantiate(data.inventory[i]);
+            newItem.name = data.inventory[i].name;
+            data.inventory[i] = newItem;
         }
     }
 
@@ -45,21 +58,21 @@ public abstract class Entity : MonoBehaviour
     {
 
         if (val < 0)
-            val = Mathf.Min(val + defence, 0);
+            val = Mathf.Min(val + data.defence, 0);
 
-        health = Mathf.Clamp(health + val, 0, maxHealth);
+        data.health = Mathf.Clamp(data.health + val, 0, data.maxHealth);
 
         CreateDamageIndicator(val);
 
-        if (health <= 0)
+        if (data.health <= 0)
         {
             OnDeath();
         }
 
 
-        if (val < 0 && inventory.Count > 0)
+        if (val < 0 && data.inventory.Count > 0)
             if (UnityEngine.Random.value/-val <= dropChance)
-                DropItem(inventory[UnityEngine.Random.Range(0, inventory.Count - 1)], new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f, Vector2.zero, 0);
+                DropItem(data.inventory[UnityEngine.Random.Range(0, data.inventory.Count - 1)], new Vector2(transform.position.x, transform.position.y) + UnityEngine.Random.insideUnitCircle * 3f, Vector2.zero, 0);
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
@@ -94,7 +107,7 @@ public abstract class Entity : MonoBehaviour
 
     public Item GetItemFromInventory(string itemID)
     {
-        return inventory.Find(i => i.itemID == itemID);
+        return data.inventory.Find(i => i.itemID == itemID);
     }
 
     void CreateDamageIndicator(int val)
@@ -134,9 +147,9 @@ public abstract class Entity : MonoBehaviour
                 return;
 
         if(item == null)
-            entity.ModifyHealth(-damage);
+            entity.ModifyHealth(-data.damage);
         else
-            entity.ModifyHealth(-(damage+item.damage));
+            entity.ModifyHealth(-(data.damage +item.damage));
     }
 
     public Entity GetBestTargetEntity(List<Entity> entitiesInSight)
@@ -156,13 +169,13 @@ public abstract class Entity : MonoBehaviour
     {
         OnEntityDied?.Invoke();
 
-        foreach(Item item in inventory.ToArray())
+        foreach(Item item in data.inventory.ToArray())
         {
             DropItem(item, transform.position, Vector2.zero, 0);
         }
 
         DropItem(Instantiate(GameState.instance.experienceGem), transform.position, Vector2.zero, 0);
-        defence = 100;
+        data.defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (deathSprite != null && spriteRenderer != null)
@@ -173,7 +186,7 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void RemoveItem(Item item)
     {
-        inventory.Remove(item);
+        data.inventory.Remove(item);
     }    
 
     public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
@@ -213,6 +226,6 @@ public abstract class Entity : MonoBehaviour
         if (item.stack <= 0) RemoveItem(item);
 
         OnEntityDropItem?.Invoke(item);
-        InventoryChanged?.Invoke(this, inventory);
+        InventoryChanged?.Invoke(this, data.inventory);
     }
 }

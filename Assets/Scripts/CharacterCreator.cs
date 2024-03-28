@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,13 @@ public class CharacterCreator : MonoBehaviour
 {
     [SerializeField] Slider bodySlider, heightSlider;
     [SerializeField] Transform body;
+    [SerializeField] TMP_InputField nameField;
+    private SaveLoadJSON saveLoadJSON;
+
+    private void Start()
+    {
+        saveLoadJSON = GetComponent<SaveLoadJSON>();
+    }
 
     public void BodySizeSlider()
     {
@@ -21,6 +29,7 @@ public class CharacterCreator : MonoBehaviour
 
     public void ConfirmCharacter()
     {
+        saveLoadJSON.CreateGame(nameField.text);
         SceneManager.LoadScene("Game");
     }
 }

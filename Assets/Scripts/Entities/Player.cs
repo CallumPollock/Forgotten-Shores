@@ -32,6 +32,7 @@ public class Player : Human
         OnEntityDied += OnPlayerDied;
         InventoryChanged += PlayerInventoryChanged;
         OnPlayerSpawn?.Invoke(this);
+        data = SaveLoadJSON.worldData.player;
     }
 
     public void OpenCraftingMenu(BuildingItem buildingItem)

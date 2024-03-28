@@ -6,9 +6,6 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField]
-    float speed;
     Rigidbody2D body;
 
 
@@ -59,7 +56,7 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        body.velocity = movement * speed;
+        body.velocity = movement * player.data.speed;
 
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 

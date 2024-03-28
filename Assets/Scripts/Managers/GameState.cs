@@ -22,15 +22,14 @@ public class GameState : MonoBehaviour
         worldTime = GetComponent<WorldTime>();
     }
 
-    VariableStorageBehaviour variableStorage;
+    
 
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
         UIManager.OnRespawnButtonClick += RespawnPlayer;
 
-        variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
-        variableStorage.SetValue("$name", "Dave");
+        
     }
 
     //public GameObject droppedItem;

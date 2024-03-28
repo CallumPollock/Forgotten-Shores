@@ -1,6 +1,7 @@
 ﻿title: Tutorial1
 ---
 <<declare $name = "Player">>
+<<wait 0.1>>
 Trevor: Well, <b><color=blue>{$name}</b></color>... Welcome, to your new home.
 
 -> Home? I'm not staying here.

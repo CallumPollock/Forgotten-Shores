@@ -307,8 +307,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 579459823}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.508, y: 0}
+  m_AnchorMax: {x: 0.508, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &462761759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 998603476}
+      - m_Target: {fileID: 978546423}
         m_TargetAssemblyTypeName: CharacterCreator, Assembly-CSharp
         m_MethodName: ConfirmCharacter
         m_Mode: 1
@@ -1067,6 +1067,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &978546421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978546424}
+  - component: {fileID: 978546423}
+  - component: {fileID: 978546422}
+  m_Layer: 0
+  m_Name: Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &978546422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978546421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c4cdfb78652144196de61f25fba7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &978546423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978546421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788d463e2568a06469807cf842800263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodySlider: {fileID: 1956146935}
+  heightSlider: {fileID: 1164222863}
+  body: {fileID: 1399589443}
+  nameField: {fileID: 1275839850}
+--- !u!4 &978546424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978546421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 598.0257, y: 522.92, z: -6.5343466}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &982138519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1161,7 @@ RectTransform:
   m_Father: {fileID: 704650950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.508, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1154,7 +1215,6 @@ GameObject:
   - component: {fileID: 998603479}
   - component: {fileID: 998603478}
   - component: {fileID: 998603477}
-  - component: {fileID: 998603476}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1162,21 +1222,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &998603476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998603475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 788d463e2568a06469807cf842800263, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodySlider: {fileID: 1956146935}
-  heightSlider: {fileID: 1164222863}
-  body: {fileID: 1399589443}
 --- !u!114 &998603477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,7 +1660,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 998603476}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CharacterCreator, Assembly-CSharp
         m_MethodName: HeightSlider
         m_Mode: 1
@@ -2379,7 +2424,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 998603476}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CharacterCreator, Assembly-CSharp
         m_MethodName: BodySizeSlider
         m_Mode: 1
@@ -2550,6 +2595,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 978546424}
   - {fileID: 1010199813}
   - {fileID: 1382894723}
   - {fileID: 998603480}
