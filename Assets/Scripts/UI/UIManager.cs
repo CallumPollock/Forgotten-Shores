@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] List<Image> uiImageComponents;
 
+    [SerializeField] GameObject pauseScreen;
+
     public static Action OnRespawnButtonClick;
     public static Action<BuildingItem> OnOpenCraftingMenu;
 
@@ -55,9 +57,16 @@ public class UIManager : MonoBehaviour
         Player.OnLevelUp += UpdateLevel;
 
         PlayerController.ToggleInventory += ToggleInventory;
+        PlayerController.PressedPause += TogglePause;
 
         
         currentActiveTab = content.GetChild(0);
+    }
+
+    public void TogglePause()
+    {
+        pauseScreen.SetActive(!pauseScreen.activeSelf);
+        Time.timeScale = pauseScreen.activeSelf ? 0.0f : 1.0f;
     }
 
     private void SetActiveTab(Transform tab)

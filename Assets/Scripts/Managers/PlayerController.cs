@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Player player;
 
     public static Action<BuildingItem> ToggleInventory;
+    public static Action PressedPause;
 
     // Start is called before the first frame update
     void Awake()
@@ -83,6 +84,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             player.Interact();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            PressedPause?.Invoke();
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
