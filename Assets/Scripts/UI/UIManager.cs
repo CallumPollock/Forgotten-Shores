@@ -141,6 +141,11 @@ public class UIManager : MonoBehaviour
         {
             buildingItemGO.SetActive(inventoryScreen.activeSelf);
             buildingItemText.text = buildingItem.name;
+            SetActiveTab(content.GetChild(1));
+        }
+        else
+        {
+            SetActiveTab(content.GetChild(0));
         }
     }
 }

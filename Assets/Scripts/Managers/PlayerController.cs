@@ -51,7 +51,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (hand.GetEquippedItem().GetType() == typeof(BuildingItem))
                 {
-                    hand.GetEquippedItemTransform().position = new Vector3(mousePosition.x, mousePosition.y);
+                    hand.GetEquippedItemTransform().position = GameState.instance.grid.WorldToCell(mousePosition);
+                    hand.GetEquippedItemTransform().rotation = Quaternion.Euler(0f, 0f, 0f);
                 }
             }
         }

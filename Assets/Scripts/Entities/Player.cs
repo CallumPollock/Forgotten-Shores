@@ -31,8 +31,17 @@ public class Player : Human
 
         OnEntityDied += OnPlayerDied;
         InventoryChanged += PlayerInventoryChanged;
+        CraftMenuManager.ItemCrafted += ItemCrafted;
         OnPlayerSpawn?.Invoke(this);
         data = SaveLoadJSON.worldData.player;
+    }
+
+    private void ItemCrafted(Item _item)
+    {
+        foreach (Item.Ingredient ingredient in _item.recipe.ingredients)
+        {
+            DestroyItemInInventory(ingredient.item, ingredient.amount);
+        }
     }
 
     public void OpenCraftingMenu(BuildingItem buildingItem)

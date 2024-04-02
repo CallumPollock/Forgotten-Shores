@@ -23,7 +23,7 @@ public class CraftMenuManager : MonoBehaviour
 
     [SerializeField] private Player player;
 
-    public static Action<Item> ItemCrafted; 
+    public static Action<Item> ItemCrafted;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +38,7 @@ public class CraftMenuManager : MonoBehaviour
 
     public void UpdateCraftMenu(BuildingItem buildingItem)
     {
+
         foreach(Transform child in viewport)
         {
             Destroy(child.gameObject);
@@ -108,6 +109,7 @@ public class CraftMenuManager : MonoBehaviour
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 
         ItemCrafted?.Invoke(itemToCraft);
+        UpdatePreview(itemToCraft);
     }
 
     public void UpdatePreview(Item itemSelection)
@@ -130,6 +132,7 @@ public class CraftMenuManager : MonoBehaviour
         }
 
         craftButton.interactable = CheckItemCraftable(itemSelection);
+        craftButton.onClick.RemoveAllListeners();
         craftButton.onClick.AddListener(delegate { CraftItem(itemSelection); });
 
     }

@@ -47,6 +47,8 @@ public class GameState : MonoBehaviour
 
     public GameObject playerPrefab;
 
+    public Grid grid;
+
     IEnumerator SpawnEnemy()
     {
         if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)

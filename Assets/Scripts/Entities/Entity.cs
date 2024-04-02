@@ -105,6 +105,18 @@ public abstract class Entity : MonoBehaviour
         return false;
     }
 
+    public void DestroyItemInInventory(Item item, int amount)
+    {
+        Item itemToBeRemoved = GetItemFromInventory(item.itemID);
+        itemToBeRemoved.stack -= amount;
+
+        if (itemToBeRemoved.stack <= 0)
+        {
+            RemoveItem(itemToBeRemoved);
+            Destroy(itemToBeRemoved);
+        }
+    }
+
     public Item GetItemFromInventory(string itemID)
     {
         return data.inventory.Find(i => i.itemID == itemID);
@@ -187,6 +199,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void RemoveItem(Item item)
     {
         data.inventory.Remove(item);
+        InventoryChanged?.Invoke(this, data.inventory);
     }    
 
     public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
