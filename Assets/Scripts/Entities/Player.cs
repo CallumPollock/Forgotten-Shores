@@ -25,6 +25,8 @@ public class Player : Human
 
     [SerializeField] PlayerController playerController;
 
+    [SerializeField] Image scrollUI1, scrollUI2, scrollUI3;
+
     public override void Start()
     {
         base.Start();
@@ -34,6 +36,36 @@ public class Player : Human
         CraftMenuManager.ItemCrafted += ItemCrafted;
         OnPlayerSpawn?.Invoke(this);
         data = SaveLoadJSON.worldData.player;
+    }
+
+    public void ScrollEquippedItem(int handIndex, int scrollValue)
+    {
+        if (GetInventory().Count == 0)
+            return;
+
+        if (handIndex < GetHands().Count)
+        {
+            int itemIndex = Mathf.Clamp(GetInventory().IndexOf(GetHands()[handIndex].GetEquippedItem()) + scrollValue, 0, GetInventory().Count - 1);
+            GetHands()[handIndex].SetEquippedItem(GetInventory()[itemIndex]);
+            scrollUI2.sprite = GetInventory()[itemIndex].icon;
+
+            if (itemIndex - 1 > 0)
+            {
+                scrollUI1.sprite = GetInventory()[itemIndex - 1].icon;
+                scrollUI1.gameObject.SetActive(true);
+            }
+            else
+                scrollUI1.gameObject.SetActive(false);
+
+            if (itemIndex + 1 < GetInventory().Count-1)
+            {
+                scrollUI3.sprite = GetInventory()[itemIndex + 1].icon;
+                scrollUI3.gameObject.SetActive(true);
+            }
+            else
+                scrollUI3.gameObject.SetActive(false);
+
+        }
     }
 
     private void ItemCrafted(Item _item)

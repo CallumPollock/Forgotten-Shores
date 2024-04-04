@@ -21,17 +21,6 @@ public class Human : Entity
 
     public List<Hand> GetHands() { return hands; }
 
-    public void ScrollEquippedItem(int handIndex, int scrollValue)
-    {
-        if (GetInventory().Count == 0)
-            return;
-
-        if (handIndex < hands.Count)
-        {
-            hands[handIndex].SetEquippedItem(GetInventory()[Mathf.Clamp(GetInventory().IndexOf(hands[handIndex].GetEquippedItem()) + scrollValue, 0, GetInventory().Count - 1)]);
-        }
-    }
-
     public void EquipItem(int handIndex, int itemIndex)
     {
         if (handIndex < hands.Count && itemIndex < GetInventory().Count)

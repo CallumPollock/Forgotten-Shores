@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] List<Image> uiImageComponents;
 
     [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject debugMenu;
+    [SerializeField] Transform debugScrollContent;
 
     public static Action OnRespawnButtonClick;
     public static Action<BuildingItem> OnOpenCraftingMenu;
@@ -58,7 +61,7 @@ public class UIManager : MonoBehaviour
 
         PlayerController.ToggleInventory += ToggleInventory;
         PlayerController.PressedPause += TogglePause;
-
+        PlayerController.DebugKey += ToggleDebug;
         
         currentActiveTab = content.GetChild(0);
     }
@@ -146,6 +149,36 @@ public class UIManager : MonoBehaviour
         else
         {
             SetActiveTab(content.GetChild(0));
+        }
+    }
+
+    private void DebugSpawnItem(Item item)
+    {
+        GameObject newDroppedObject = new GameObject();
+        newDroppedObject.name = item.name;
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
+        newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
+        newDroppedObject.transform.position = Camera.main.ScreenToWorldPoint(Vector3.one);
+
+        Rigidbody2D droppedItemRB = newDroppedObject.AddComponent<Rigidbody2D>();
+        droppedItemRB.gravityScale = 0f;
+        droppedItemRB.drag = 5f;
+    }
+
+    private void ToggleDebug()
+    {
+        debugMenu.SetActive(!debugMenu.activeSelf);
+
+        if (!debugMenu.activeSelf) return;
+
+        foreach (Item item in Resources.FindObjectsOfTypeAll<Item>())
+        {
+            Button newNavButton = Instantiate(navButton).GetComponent<Button>();
+
+            newNavButton.transform.SetParent(debugScrollContent);
+            newNavButton.transform.localScale = Vector3.one;
+            newNavButton.onClick.AddListener(delegate { DebugSpawnItem(item); });
+            newNavButton.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
         }
     }
 }

@@ -61,7 +61,7 @@ public class GameState : MonoBehaviour
         StartCoroutine(SpawnEnemy());
     }
 
-    void RespawnPlayer()
+    public void RespawnPlayer()
     {
         Instantiate(playerPrefab);
     }
