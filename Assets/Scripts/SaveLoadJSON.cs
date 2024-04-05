@@ -6,11 +6,15 @@ using UnityEditor;
 using UnityEngine;
 using Yarn.Unity;
 using Yarn;
+using Unity.VisualScripting;
 
+[System.Serializable]
+[SerializeField]
 public class WorldData
 {
     public EntityData player;
     public EntityData[] entites;
+    public List<String> objectives, completedObjectives;
 }
 
 public class SaveLoadJSON : MonoBehaviour
@@ -20,8 +24,10 @@ public class SaveLoadJSON : MonoBehaviour
     string saveFilePath;
 
     public static Action<EntityData> LoadedPlayer;
+    public static Action<List<String>, List<String>> LoadedObjectives;
 
     [SerializeField] VariableStorageBehaviour variableStorage;
+    [SerializeField] Objective startingObjective;
 
     void Start()
     {
@@ -42,6 +48,9 @@ public class SaveLoadJSON : MonoBehaviour
         worldData.player.damage = 1;
         worldData.player.speed = 8;
 
+        worldData.objectives = new List<String>();
+        worldData.objectives.Add("Talk to Trevor");
+
         SaveGame();
     }
 
@@ -59,6 +68,7 @@ public class SaveLoadJSON : MonoBehaviour
             string loadWorldData = File.ReadAllText(saveFilePath);
             worldData = JsonUtility.FromJson<WorldData>(loadWorldData);
             LoadedPlayer?.Invoke(worldData.player);
+            LoadedObjectives?.Invoke(worldData.objectives, worldData.completedObjectives);
             Debug.Log("Loaded " + saveFilePath);
 
             variableStorage.SetValue("$name", worldData.player.name);

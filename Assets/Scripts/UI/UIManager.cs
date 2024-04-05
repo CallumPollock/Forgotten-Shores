@@ -29,8 +29,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject debugMenu;
     [SerializeField] Transform debugScrollContent;
 
+    [SerializeField] Transform hotbarContainer;
+
+    [SerializeField] Transform worldSpaceCanvas;
+    [SerializeField] GameObject entityHealthBarPrefab;
+
+
     public static Action OnRespawnButtonClick;
     public static Action<BuildingItem> OnOpenCraftingMenu;
+
+    List<HealthBar> healthBarPool = new List<HealthBar>();
 
     private void Awake()
     {
@@ -45,6 +53,7 @@ public class UIManager : MonoBehaviour
                 newNavButton.onClick.AddListener(delegate { SetActiveTab(child); });
                 newNavButton.GetComponentInChildren<TextMeshProUGUI>().text = child.name;
                 child.gameObject.SetActive(false);
+                
             }
         }
     }
@@ -58,12 +67,49 @@ public class UIManager : MonoBehaviour
 
         Player.OnExpUp += UpdateExp;
         Player.OnLevelUp += UpdateLevel;
+        Player.PlayerInventoryChanged += UpdateHotbar;
 
         PlayerController.ToggleInventory += ToggleInventory;
         PlayerController.PressedPause += TogglePause;
         PlayerController.DebugKey += ToggleDebug;
-        
+        //PlayerController.SpawnHealthBar += AddEntityHealthBar;
+        Entity.TriggerEntityInfo += AddEntityHealthBar;
+
+
         currentActiveTab = content.GetChild(0);
+
+        foreach (Item item in Resources.LoadAll<Item>("ScriptableObjects/Items"))
+        {
+            Button newNavButton = Instantiate(navButton).GetComponent<Button>();
+
+            newNavButton.transform.SetParent(debugScrollContent);
+            newNavButton.transform.localScale = Vector3.one;
+            newNavButton.onClick.AddListener(delegate { DebugSpawnItem(item); });
+            newNavButton.GetComponentInChildren<TextMeshProUGUI>().text = "DEBUG: Spawn " + item.name;
+        }
+    }
+
+    private void AddEntityHealthBar(Entity entity)
+    {
+        foreach(HealthBar healthBar in healthBarPool)
+        {
+            if (healthBar.activeEntity == entity)
+                return;
+            else if (!healthBar.isActiveAndEnabled)
+            {
+                healthBar.UpdateEntityInfo(entity);
+                healthBar.transform.position = entity.transform.position;
+                return;
+            }
+        }
+
+        HealthBar newHealthbar = Instantiate(entityHealthBarPrefab).GetComponent<HealthBar>();
+        healthBarPool.Add(newHealthbar);
+
+        newHealthbar.transform.SetParent(worldSpaceCanvas);
+        newHealthbar.UpdateEntityInfo(entity);
+        newHealthbar.transform.position = entity.transform.position;
+
     }
 
     public void TogglePause()
@@ -92,7 +138,7 @@ public class UIManager : MonoBehaviour
         inventoryScreen.SetActive(false);
     }
 
-    void EnableDeathScreen()
+    void EnableDeathScreen(Entity _entity)
     {
         respawnScreen.SetActive(true);
     }
@@ -111,6 +157,30 @@ public class UIManager : MonoBehaviour
     {
         respawnScreen.SetActive(false);
         OnRespawnButtonClick?.Invoke();
+    }
+
+    void UpdateHotbar(List<Item> inventory, int currentEquippedIndex)
+    {
+        hotbarContainer.gameObject.SetActive(true);
+
+        for(int i = 0; i < hotbarContainer.childCount; i++)
+        {
+            Sprite itemIcon = null;
+            int invIndex = currentEquippedIndex - 3 + i;
+            if(invIndex < 0)
+            {
+
+            }
+            else if (invIndex < inventory.Count)
+            {
+                itemIcon = inventory[invIndex].icon;
+            }
+
+
+            hotbarContainer.GetChild(i).GetChild(0).GetComponent<Image>().sprite = itemIcon;
+        }
+
+        //hotbarContainer.GetChild(hotbarContainer.childCount / 2 % 100).GetChild(0).GetComponent<Image>().sprite = inventory[currentEquippedIndex].icon;
     }
 
     void ToggleInventory(BuildingItem buildingItem)
@@ -171,14 +241,6 @@ public class UIManager : MonoBehaviour
 
         if (!debugMenu.activeSelf) return;
 
-        foreach (Item item in Resources.FindObjectsOfTypeAll<Item>())
-        {
-            Button newNavButton = Instantiate(navButton).GetComponent<Button>();
-
-            newNavButton.transform.SetParent(debugScrollContent);
-            newNavButton.transform.localScale = Vector3.one;
-            newNavButton.onClick.AddListener(delegate { DebugSpawnItem(item); });
-            newNavButton.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
-        }
+        
     }
 }

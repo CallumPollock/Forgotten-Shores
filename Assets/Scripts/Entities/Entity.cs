@@ -11,11 +11,12 @@ public class EntityData
     public string name;
     public int health;
     public int maxHealth;
+    public int level, experience, experienceToNextLevel;
     public int damage;
     public int defence;
     public float speed;
 
-    public Transform transform;
+    public Vector3 worldPosition;
 
     public List<Item> inventory = new List<Item>();
 }
@@ -28,13 +29,17 @@ public abstract class Entity : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
 
+    public int equippedIndex;
     
     //[SerializeField] private List<Item> startingItems = new List<Item>();
-    public EventHandler<List<Item>> InventoryChanged;
+    public Action<List<Item>, int> InventoryChanged;
     public EventHandler<Item> OnAddItem, OnRemoveItem;
     public float dropChance;
 
-    public Action OnEntityDied;
+    public Action<Entity> OnEntityDied;
+
+    public Action<int, int> OnHealthModified;
+    public static Action<Entity> TriggerEntityInfo;
 
     [SerializeField] Item requiredItem;
 
@@ -44,7 +49,6 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void Start()
     {
-        data.transform = transform;
 
         for (int i = 0; i < data.inventory.Count; i++)
         {
@@ -52,6 +56,17 @@ public abstract class Entity : MonoBehaviour
             newItem.name = data.inventory[i].name;
             data.inventory[i] = newItem;
         }
+    }
+
+    public void LoadEntityData(EntityData _data)
+    {
+        data = _data;
+        transform.position = data.worldPosition;
+    }
+
+    public virtual void Update()
+    {
+        data.worldPosition = transform.position;
     }
 
     public virtual void ModifyHealth(int val)
@@ -68,7 +83,13 @@ public abstract class Entity : MonoBehaviour
         {
             OnDeath();
         }
+        else
+        {
+            TriggerEntityInfo?.Invoke(this);
+        }
 
+        OnHealthModified?.Invoke(data.health, data.maxHealth);
+        
 
         if (val < 0 && data.inventory.Count > 0)
             if (UnityEngine.Random.value/-val <= dropChance)
@@ -179,7 +200,7 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void OnDeath()
     {
-        OnEntityDied?.Invoke();
+        OnEntityDied?.Invoke(this);
 
         foreach(Item item in data.inventory.ToArray())
         {
@@ -199,7 +220,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void RemoveItem(Item item)
     {
         data.inventory.Remove(item);
-        InventoryChanged?.Invoke(this, data.inventory);
+        InventoryChanged?.Invoke(data.inventory, equippedIndex);
     }    
 
     public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
@@ -239,6 +260,6 @@ public abstract class Entity : MonoBehaviour
         if (item.stack <= 0) RemoveItem(item);
 
         OnEntityDropItem?.Invoke(item);
-        InventoryChanged?.Invoke(this, data.inventory);
+        InventoryChanged?.Invoke(data.inventory, equippedIndex);
     }
 }

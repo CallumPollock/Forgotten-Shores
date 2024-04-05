@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(fileName = "New Objective", menuName = "Custom/Objective")]
 public class Objective : ScriptableObject
@@ -10,7 +10,7 @@ public class Objective : ScriptableObject
 
     public enum ObjectiveType
     {
-        None, CraftItem, EntityDroppedItem
+        None, CraftItem, EntityDroppedItem, CompleteDialogue
     }
 
     public ObjectiveType type;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : Human
+public class NPC : Humanlike
 {
 
     Rigidbody2D rb;
@@ -14,8 +14,9 @@ public class NPC : Human
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         rb.velocity = movement * data.speed;
     }
 

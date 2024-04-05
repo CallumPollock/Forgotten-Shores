@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Yarn.Unity;
 
@@ -28,6 +29,7 @@ public class GameState : MonoBehaviour
     {
         StartCoroutine(SpawnEnemy());
         UIManager.OnRespawnButtonClick += RespawnPlayer;
+        Player.OnPlayerDied += SpawnEntityZombie;
 
         
     }
@@ -59,6 +61,18 @@ public class GameState : MonoBehaviour
             
         yield return new WaitForSeconds(3f);
         StartCoroutine(SpawnEnemy());
+    }
+
+    private void SpawnEntityZombie(Entity _entity)
+    {
+        Zombie newZombie = Instantiate(enemy).GetComponent<Zombie>();
+        newZombie.transform.position = _entity.transform.position;
+
+        newZombie.data.name = "Zombie " + _entity.data.name;
+        newZombie.data.maxHealth = _entity.data.maxHealth;
+        newZombie.data.health = _entity.data.maxHealth;
+        newZombie.data.level = _entity.data.level;
+        
     }
 
     public void RespawnPlayer()

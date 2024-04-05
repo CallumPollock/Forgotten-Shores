@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public static Action<BuildingItem> ToggleInventory;
     public static Action PressedPause;
     public static Action DebugKey;
+    public static Action<Entity> SpawnHealthBar;
 
     // Start is called before the first frame update
     void Awake()
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (hand.GetEquippedItem().GetType() == typeof(BuildingItem))
                 {
-                    hand.GetEquippedItemTransform().position = GameState.instance.grid.WorldToCell(mousePosition);
+                    hand.GetEquippedItemTransform().position = GameState.instance.grid.GetCellCenterWorld(GameState.instance.grid.WorldToCell(mousePosition));
                     hand.GetEquippedItemTransform().rotation = Quaternion.Euler(0f, 0f, 0f);
                 }
             }
@@ -97,6 +98,11 @@ public class PlayerController : MonoBehaviour
         {
             DebugKey?.Invoke();
         }    
+
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            SpawnHealthBar?.Invoke(player);
+        }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
             player.ScrollEquippedItem(Input.GetKey(KeyCode.LeftShift) ? 1 : 0, 1);

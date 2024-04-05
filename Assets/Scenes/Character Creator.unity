@@ -1097,6 +1097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c4cdfb78652144196de61f25fba7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  variableStorage: {fileID: 0}
+  startingObjective: {fileID: 11400000, guid: de71daf87de9d6941a07dfa54ba68219, type: 2}
 --- !u!114 &978546423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2054,6 +2056,14 @@ PrefabInstance:
     - target: {fileID: 5171665546019554366, guid: 40728358677f58745af261da77f0ae45, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980981320477975523, guid: 40728358677f58745af261da77f0ae45, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980981320477975523, guid: 40728358677f58745af261da77f0ae45, type: 3}
+      propertyPath: playerController
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8135075419752349643, guid: 40728358677f58745af261da77f0ae45, type: 3}

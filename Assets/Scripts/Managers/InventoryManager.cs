@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour
         Player.PlayerInventoryChanged += UpdateInventoryList;
     }
 
-    public void UpdateInventoryList(object sender, List<Item> inventory)
+    public void UpdateInventoryList(List<Item> inventory, int equippedIndex)
     {
         foreach(Transform child in listContentTransform)
         {

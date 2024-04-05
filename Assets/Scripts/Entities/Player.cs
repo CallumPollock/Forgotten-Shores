@@ -5,27 +5,24 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Player : Human
+public class Player : Humanlike
 {
     public static Action<BuildingEntity> PlayerEnterRangeOfBuilding;
     public static Action PlayerExitRangeOfBuilding;
-    public static Action OnPlayerDied;
+    public static Action<Entity> OnPlayerDied;
     public static Action<Player> OnPlayerSpawn;
 
     public static Action<int, int> OnExpUp;
     public static Action<int> OnLevelUp;
-    public static EventHandler<List<Item>> PlayerInventoryChanged;
+    public static Action<List<Item>, int> PlayerInventoryChanged;
 
     BuildingEntity nearBuilding;
-    int level, experience, experienceToNextLevel;
     [SerializeField] SpriteRenderer headgear;
 
     [SerializeField] Transform homePosition;
     private Vector3 oldPosition;
 
     [SerializeField] PlayerController playerController;
-
-    [SerializeField] Image scrollUI1, scrollUI2, scrollUI3;
 
     public override void Start()
     {
@@ -35,7 +32,7 @@ public class Player : Human
         InventoryChanged += PlayerInventoryChanged;
         CraftMenuManager.ItemCrafted += ItemCrafted;
         OnPlayerSpawn?.Invoke(this);
-        data = SaveLoadJSON.worldData.player;
+        SaveLoadJSON.LoadedPlayer += LoadEntityData;
     }
 
     public void ScrollEquippedItem(int handIndex, int scrollValue)
@@ -45,26 +42,10 @@ public class Player : Human
 
         if (handIndex < GetHands().Count)
         {
-            int itemIndex = Mathf.Clamp(GetInventory().IndexOf(GetHands()[handIndex].GetEquippedItem()) + scrollValue, 0, GetInventory().Count - 1);
-            GetHands()[handIndex].SetEquippedItem(GetInventory()[itemIndex]);
-            scrollUI2.sprite = GetInventory()[itemIndex].icon;
+            equippedIndex = Mathf.Clamp(GetInventory().IndexOf(GetHands()[handIndex].GetEquippedItem()) + scrollValue, 0, GetInventory().Count - 1);
+            GetHands()[handIndex].SetEquippedItem(GetInventory()[equippedIndex]);
 
-            if (itemIndex - 1 > 0)
-            {
-                scrollUI1.sprite = GetInventory()[itemIndex - 1].icon;
-                scrollUI1.gameObject.SetActive(true);
-            }
-            else
-                scrollUI1.gameObject.SetActive(false);
-
-            if (itemIndex + 1 < GetInventory().Count-1)
-            {
-                scrollUI3.sprite = GetInventory()[itemIndex + 1].icon;
-                scrollUI3.gameObject.SetActive(true);
-            }
-            else
-                scrollUI3.gameObject.SetActive(false);
-
+            InventoryChanged?.Invoke(GetInventory(), equippedIndex);
         }
     }
 
@@ -83,22 +64,23 @@ public class Player : Human
 
     public void IncreaseExp(int amount)
     {
-        experience += amount;
+        data.experience += amount;
 
-        if (experience >= experienceToNextLevel)
+        if (data.experience >= data.experienceToNextLevel)
         {
-            SetLevel(level + 1);
+            SetLevel(data.level + 1);
             CreateInfoText("Level Up!", Color.green, 10f, 1f);
+            TriggerEntityInfo?.Invoke(this);
         }
-        OnExpUp?.Invoke(experience, experienceToNextLevel);
+        OnExpUp?.Invoke(data.experience, data.experienceToNextLevel);
     }
 
     private void SetLevel(int value)
     {
-        level = value;
-        experience = experience - experienceToNextLevel;
-        experienceToNextLevel = (int)(50f * (Mathf.Pow(level + 1, 2) - (5 * (level + 1)) + 8));
-        OnLevelUp?.Invoke(level);
+        data.level = value;
+        data.experience = data.experience - data.experienceToNextLevel;
+        data.experienceToNextLevel = (int)(50f * (Mathf.Pow(data.level + 1, 2) - (5 * (data.level + 1)) + 8));
+        OnLevelUp?.Invoke(data.level);
     }
 
     public void Interact()

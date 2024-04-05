@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
 
-    [SerializeField] Human entity;
+    [SerializeField] Humanlike entity;
     Collider2D hitBox;
 
     [SerializeField] Vector2 offset;
@@ -22,7 +22,7 @@ public class Hand : MonoBehaviour
 
     private void Awake()
     {
-        entity = GetComponentInParent<Human>();
+        entity = GetComponentInParent<Humanlike>();
         hitBox = GetComponent<Collider2D>();
         equippedItemSprite = equippedItemGO.GetComponent<SpriteRenderer>();
     }
