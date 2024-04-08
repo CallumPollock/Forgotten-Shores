@@ -31,17 +31,17 @@ public class ObjectiveManager : MonoBehaviour
         Entity.OnEntityDropItem += EntityDroppedItem;
         CraftMenuManager.ItemCrafted += ItemCrafted;
         dialogueRunner.onDialogueComplete.AddListener(delegate { DialogueComplete(); });
-        SaveLoadJSON.LoadedObjectives += LoadObjectives;
+        SaveLoadJSON.worldLoaded += LoadObjectives;
     }
 
-    private void LoadObjectives(List<String> _objectives, List<String> _completedObjectives)
+    private void LoadObjectives(WorldData worldData)
     {
         objectives.Clear();
         completedObjectives.Clear();
 
-        completedObjectives = _completedObjectives;
+        completedObjectives = worldData.completedObjectives;
 
-        foreach (String _objectiveString in _objectives)
+        foreach (String _objectiveString in worldData.objectives)
         {
             objectives.Add(Instantiate(Resources.Load<Objective>("ScriptableObjects/Objectives/" + _objectiveString)));
         }
@@ -78,7 +78,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void AddObjective(Objective _objective)
     {
-        if (completedObjectives.Contains(_objective.name)) return;
+        if (completedObjectives.Contains(_objective.objectiveID)) return;
         if (objectives.Contains(_objective)) return;
 
         Objective objective = Objective.Instantiate(_objective);
@@ -97,7 +97,7 @@ public class ObjectiveManager : MonoBehaviour
         StartCoroutine(RemoveObjectiveObject(_gameobject));
         objectives.Remove(_objective);
 
-        completedObjectives.Add(_objective.name);
+        completedObjectives.Add(_objective.objectiveID);
 
         foreach(Objective nextObjective in _objective.nextObjective)
         {

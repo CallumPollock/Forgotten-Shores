@@ -166,6 +166,7 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < hotbarContainer.childCount; i++)
         {
             Sprite itemIcon = null;
+            string itemCount = "";
             int invIndex = currentEquippedIndex - 3 + i;
             if(invIndex < 0)
             {
@@ -174,10 +175,13 @@ public class UIManager : MonoBehaviour
             else if (invIndex < inventory.Count)
             {
                 itemIcon = inventory[invIndex].icon;
+
+                if (inventory[invIndex].stack > 1) itemCount = inventory[invIndex].stack.ToString();
             }
 
 
             hotbarContainer.GetChild(i).GetChild(0).GetComponent<Image>().sprite = itemIcon;
+            hotbarContainer.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemCount;
         }
 
         //hotbarContainer.GetChild(hotbarContainer.childCount / 2 % 100).GetChild(0).GetComponent<Image>().sprite = inventory[currentEquippedIndex].icon;

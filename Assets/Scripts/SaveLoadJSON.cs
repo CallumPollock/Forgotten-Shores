@@ -21,10 +21,14 @@ public class SaveLoadJSON : MonoBehaviour
 {
 
     public static WorldData worldData;
+    public static Action<WorldData> worldLoaded;
+
     string saveFilePath;
 
-    public static Action<EntityData> LoadedPlayer;
-    public static Action<List<String>, List<String>> LoadedObjectives;
+    //public static Action<EntityData> LoadedPlayer;
+    //public static Action<List<String>, List<String>> LoadedObjectives;
+
+
 
     [SerializeField] VariableStorageBehaviour variableStorage;
     [SerializeField] Objective startingObjective;
@@ -67,8 +71,8 @@ public class SaveLoadJSON : MonoBehaviour
         {
             string loadWorldData = File.ReadAllText(saveFilePath);
             worldData = JsonUtility.FromJson<WorldData>(loadWorldData);
-            LoadedPlayer?.Invoke(worldData.player);
-            LoadedObjectives?.Invoke(worldData.objectives, worldData.completedObjectives);
+            worldLoaded?.Invoke(worldData);
+            //LoadedObjectives?.Invoke(worldData.objectives, worldData.completedObjectives);
             Debug.Log("Loaded " + saveFilePath);
 
             variableStorage.SetValue("$name", worldData.player.name);

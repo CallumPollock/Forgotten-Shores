@@ -104,8 +104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wood
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 98312e8d185d437449545a80d7aca6ba, type: 2}
-  m_sharedMaterial: {fileID: -7671938786495093665, guid: 98312e8d185d437449545a80d7aca6ba, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}
+  m_sharedMaterial: {fileID: -2493076515357509030, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

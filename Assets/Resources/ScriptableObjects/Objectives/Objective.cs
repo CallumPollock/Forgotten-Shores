@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Objective", menuName = "Custom/Objective")]
 public class Objective : ScriptableObject
 {
+    public string objectiveID = System.Guid.NewGuid().ToString();
+
     public string description;
 
     public enum ObjectiveType

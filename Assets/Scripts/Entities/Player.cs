@@ -32,7 +32,12 @@ public class Player : Humanlike
         InventoryChanged += PlayerInventoryChanged;
         CraftMenuManager.ItemCrafted += ItemCrafted;
         OnPlayerSpawn?.Invoke(this);
-        SaveLoadJSON.LoadedPlayer += LoadEntityData;
+        SaveLoadJSON.worldLoaded += LoadPlayer;
+    }
+
+    private void LoadPlayer(WorldData worldData)
+    {
+        LoadEntityData(worldData.player);
     }
 
     public void ScrollEquippedItem(int handIndex, int scrollValue)
