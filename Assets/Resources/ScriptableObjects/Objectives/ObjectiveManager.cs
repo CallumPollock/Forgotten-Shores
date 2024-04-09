@@ -7,13 +7,10 @@ using UnityEditor;
 using UnityEngine;
 using Yarn;
 using Yarn.Unity;
-using Yarn.Unity.Editor;
-using static UnityEditor.Progress;
 
 public class ObjectiveManager : MonoBehaviour
 {
-    [SerializeField] List<Objective> objectives = new List<Objective>();
-    List<String> completedObjectives = new List<String>();
+    [SerializeField]public static List<Objective> objectives = new List<Objective>();
 
     [SerializeField] Transform objectiveListContent;
     [SerializeField] GameObject objectivePrefab;
@@ -37,13 +34,11 @@ public class ObjectiveManager : MonoBehaviour
     private void LoadObjectives(WorldData worldData)
     {
         objectives.Clear();
-        completedObjectives.Clear();
 
-        completedObjectives = worldData.completedObjectives;
-
-        foreach (String _objectiveString in worldData.objectives)
+        foreach(Objective objective in Resources.LoadAll<Objective>("ScriptableObjects/Objectives/"))
         {
-            objectives.Add(Instantiate(Resources.Load<Objective>("ScriptableObjects/Objectives/" + _objectiveString)));
+            if (worldData.objectives.Contains(objective.objectiveID))
+                objectives.Add(objective);
         }
 
         ResetObjectivesList();
@@ -78,7 +73,6 @@ public class ObjectiveManager : MonoBehaviour
 
     public void AddObjective(Objective _objective)
     {
-        if (completedObjectives.Contains(_objective.objectiveID)) return;
         if (objectives.Contains(_objective)) return;
 
         Objective objective = Objective.Instantiate(_objective);
@@ -96,8 +90,6 @@ public class ObjectiveManager : MonoBehaviour
     {
         StartCoroutine(RemoveObjectiveObject(_gameobject));
         objectives.Remove(_objective);
-
-        completedObjectives.Add(_objective.objectiveID);
 
         foreach(Objective nextObjective in _objective.nextObjective)
         {

@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             player.GetHands()[0].Hit();
             
         }
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
             player.GetHands()[1].Hit();
         }

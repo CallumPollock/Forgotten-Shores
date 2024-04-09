@@ -1,9 +1,11 @@
 using System.Collections;
 using System;
 using UnityEngine;
+using OdinSerializer;
 
 [CreateAssetMenu(fileName ="New Item", menuName ="Items/Base Item")]
-public class Item : ScriptableObject
+[Serializable]
+public class Item : SerializedScriptableObject
 {
     public string description;
     public Sprite icon;

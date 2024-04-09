@@ -35,6 +35,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject entityHealthBarPrefab;
 
 
+    [SerializeField] TextMeshProUGUI nowPlayingText;
+
     public static Action OnRespawnButtonClick;
     public static Action<BuildingItem> OnOpenCraftingMenu;
 
@@ -75,6 +77,7 @@ public class UIManager : MonoBehaviour
         //PlayerController.SpawnHealthBar += AddEntityHealthBar;
         Entity.TriggerEntityInfo += AddEntityHealthBar;
 
+        MusicManager.onPlayMusicTrack += MusicPlaying;
 
         currentActiveTab = content.GetChild(0);
 
@@ -87,6 +90,16 @@ public class UIManager : MonoBehaviour
             newNavButton.onClick.AddListener(delegate { DebugSpawnItem(item); });
             newNavButton.GetComponentInChildren<TextMeshProUGUI>().text = "DEBUG: Spawn " + item.name;
         }
+    }
+
+    private void MusicPlaying(AudioClip clip) { StartCoroutine(NowPlaying(clip)); }
+
+    private IEnumerator NowPlaying(AudioClip clip)
+    {
+        
+        nowPlayingText.text = "Now Playing... " + clip.name;
+        yield return new WaitForSeconds(6f);
+        nowPlayingText.text = "";
     }
 
     private void AddEntityHealthBar(Entity entity)

@@ -1,10 +1,11 @@
+using OdinSerializer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 [SerializeField]
 public class EntityData
 {
@@ -16,7 +17,7 @@ public class EntityData
     public int defence;
     public float speed;
 
-    public Vector3 worldPosition;
+    public Vector2 worldPosition;
 
     public List<Item> inventory = new List<Item>();
 }
