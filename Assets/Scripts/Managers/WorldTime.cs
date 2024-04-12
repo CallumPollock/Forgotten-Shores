@@ -17,6 +17,9 @@ public class WorldTime : MonoBehaviour
 
     [SerializeField] private Gradient gradient;
 
+    public static Action<bool> OnDayBegin;
+    bool isDay;
+
     private void Awake()
     {
         globalLight = GetComponent<Light2D>();
@@ -33,12 +36,40 @@ public class WorldTime : MonoBehaviour
     {
         currentTime = TimeSpan.FromTicks(worldData.ticks);
         StartCoroutine(AddMinute());
+        if (currentTime.Hours >= 22 || currentTime.Hours <= 6)
+            isDay = false;
+
+        OnDayBegin?.Invoke(isDay);
+    }
+
+    private void CheckDayOrNight()
+    {
+        Debug.Log(currentTime.Hours + isDay.ToString());
+        if (isDay)
+        {
+            if (currentTime.Hours >= 22)
+            {
+                isDay = false;
+                OnDayBegin?.Invoke(isDay);
+            }
+
+        }
+        else
+        {
+            if (currentTime.Hours >= 6 && currentTime.Hours < 22)
+            {
+                isDay = true;
+                OnDayBegin?.Invoke(isDay);
+            }
+
+        }
     }
 
     private IEnumerator AddMinute()
     {
         currentTime += TimeSpan.FromMinutes(1);
         WorldTimeChanged?.Invoke(this, currentTime);
+        CheckDayOrNight();
         globalLight.color = gradient.Evaluate(PercentOfDay(currentTime));
         yield return new WaitForSeconds(minuteLength);
         StartCoroutine(AddMinute());

@@ -19,12 +19,16 @@ public class Hand : MonoBehaviour
     bool isHitting = false;
 
     [SerializeField] private Vector2 defaultItemPosition;
+    [SerializeField] private Quaternion defaultItemRotation;
 
     private void Awake()
     {
         entity = GetComponentInParent<Humanlike>();
         hitBox = GetComponent<Collider2D>();
         equippedItemSprite = equippedItemGO.GetComponent<SpriteRenderer>();
+
+        defaultItemPosition = equippedItemGO.transform.localPosition;
+        defaultItemRotation = equippedItemGO.transform.localRotation;
     }
 
     private void Update()
@@ -85,6 +89,7 @@ public class Hand : MonoBehaviour
             equippedItemCollider.enabled = false;
             equippedItemSprite.color = Color.white;
             equippedItemGO.transform.localPosition = defaultItemPosition;
+            equippedItemGO.transform.localRotation = defaultItemRotation;
         }
         
 

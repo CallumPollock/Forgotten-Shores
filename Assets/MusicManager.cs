@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    [SerializeField] List<AudioClip> musicTracks = new List<AudioClip>();
+    [SerializeField] List<AudioClip> dayMusic = new List<AudioClip>();
+    [SerializeField] List<AudioClip> nightMusic = new List<AudioClip>();
     AudioSource musicSource;
 
     public static Action<AudioClip> onPlayMusicTrack;
@@ -15,8 +16,14 @@ public class MusicManager : MonoBehaviour
     {
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.volume = 0.5f;
-        PlayNewRandomTrack();
+        WorldTime.OnDayBegin += IsDayOrNight;
         
+    }
+
+    private void IsDayOrNight(bool isDay)
+    {
+        StopAllCoroutines();
+        PlayNewRandomTrack(isDay);
     }
 
     public void SetMusicVolume(float volume)
@@ -24,19 +31,25 @@ public class MusicManager : MonoBehaviour
         musicSource.volume = volume;
     }
 
-    void PlayNewRandomTrack()
+    void PlayNewRandomTrack(bool isDay)
     {
-        AudioClip clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Count)];
+
+        AudioClip clip;
+        if (isDay)
+            clip = dayMusic[UnityEngine.Random.Range(0, dayMusic.Count)];
+        else
+            clip = nightMusic[UnityEngine.Random.Range(0, nightMusic.Count)];
+
         musicSource.clip = clip;
-        StartCoroutine(TrackTimer(clip.length));
+        StartCoroutine(TrackTimer(clip.length, isDay));
         musicSource.Play();
         onPlayMusicTrack?.Invoke(clip);
     }
     
-    IEnumerator TrackTimer(float clipLength)
+    IEnumerator TrackTimer(float clipLength, bool isDay)
     {
         yield return new WaitForSeconds(clipLength);
-        PlayNewRandomTrack();
+        PlayNewRandomTrack(isDay);
     }
 
 }
