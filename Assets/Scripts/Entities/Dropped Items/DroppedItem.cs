@@ -5,9 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class DroppedItem : FollowTarget
 {
-    public Item item;
+    public ItemData item;
     //public Item itemInstance;
-    public int stackSize = 1;
     private SpriteRenderer spriteRenderer;
 
     Rigidbody2D rb;
@@ -16,10 +15,10 @@ public class DroppedItem : FollowTarget
     {
         if(item != null)
         {
-            if (item.GetInstanceID() >= 0)
+            /*if (item.GetInstanceID() >= 0)
             {
                 item = Instantiate(item);
-            }
+            }*/
         }
         
 
@@ -42,7 +41,7 @@ public class DroppedItem : FollowTarget
             
     }
 
-    public void SetAsNewItem(Item newItem)
+    public void SetAsNewItem(ItemData newItem)
     {
         item = newItem;
         if(item.name.EndsWith("(Clone)"))
@@ -52,6 +51,6 @@ public class DroppedItem : FollowTarget
         spriteRenderer.material = GameState.instance.defaultLitSprite;
 
         if (spriteRenderer != null) 
-            spriteRenderer.sprite = item.icon;
+            spriteRenderer.sprite = Item.GetItemIcon(item);
     }
 }

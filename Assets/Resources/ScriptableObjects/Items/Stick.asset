@@ -12,15 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23ba0fbbfb564244827cdd465bfc549, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
-  description: Does slightly more damage than a fist. Can also be used as a handle
-    for more useful tools.
-  icon: {fileID: 21300000, guid: 980b15fc2df0e2d4aadebc8033064444, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  stack: 1
-  damage: 2
-  itemType: 1
-  itemID: dc5f0b89-bc05-4b5d-8757-6f958a6278e2
-  pickupSound: {fileID: 0}
+  serializationData:
+    SerializedFormat: 0
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  data:
+    name: Stick
+    color: {r: 1, g: 1, b: 1, a: 1}
+    stack: 1
+    description: 
+    damage: 3
+    itemType: 1
+    itemID: fc90582b-7221-4040-92fc-83ee86855688
+    pickupSoundName: 
   recipe:
     ingredients:
     - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}

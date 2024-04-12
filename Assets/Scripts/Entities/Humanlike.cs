@@ -28,7 +28,7 @@ public class Humanlike : Entity
             hands[handIndex].SetEquippedItem(GetInventory()[itemIndex]);
         }
     }
-    public override void RemoveItem(Item item)
+    public override void RemoveItem(ItemData item)
     {
         base.RemoveItem(item);
         foreach(Hand hand in hands)
@@ -38,28 +38,28 @@ public class Humanlike : Entity
     }
 
 
-    public override bool AddToInventory(Item item)
+    public override bool AddToInventory(ItemData item)
     {
 
         if (item.stack <= 0) return true;
         if (item.name.Contains("EXP")) return false;
 
-        if (GetInventory().Any(i => i.itemID == item.itemID))
+        if (GetInventory().Any(i => i.name == item.name))
         {
-            GetItemFromInventory(item.itemID).stack += item.stack;
+            GetItemFromInventory(item.name).stack += item.stack;
         }
         else
         {
             GetInventory().Add(item);
         }
         
-        CreateInfoText(String.Format("+{0} {1} ({2})", item.stack, item.name, GetItemFromInventory(item.itemID).stack), Color.white, 4f, 1f);
+        CreateInfoText(String.Format("+{0} {1} ({2})", item.stack, item.name, GetItemFromInventory(item.name).stack), Color.white, 4f, 1f);
 
         if (hands.Count > 0)
             if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(item);
 
-        if (item.pickupSound != null)
-            audioSource.PlayOneShot(item.pickupSound);
+        if (item.pickupSoundName != null)
+            audioSource.PlayOneShot(Item.GetItemPickupSound(item.pickupSoundName));
         else
             audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
 

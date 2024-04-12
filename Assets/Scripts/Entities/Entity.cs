@@ -7,19 +7,16 @@ using UnityEngine;
 
 [Serializable]
 [SerializeField]
-public class EntityData
-{
-    public string name;
-    public int health;
-    public int maxHealth;
+public class EntityData : Data
+{    
     public int level, experience, experienceToNextLevel;
-    public int damage;
+
     public int defence;
     public float speed;
 
     public Vector2 worldPosition;
 
-    public List<Item> inventory = new List<Item>();
+    public List<ItemData> inventory = new List<ItemData>();
 }
 
 public abstract class Entity : MonoBehaviour
@@ -33,8 +30,8 @@ public abstract class Entity : MonoBehaviour
     public int equippedIndex;
     
     //[SerializeField] private List<Item> startingItems = new List<Item>();
-    public Action<List<Item>, int> InventoryChanged;
-    public EventHandler<Item> OnAddItem, OnRemoveItem;
+    public Action<List<ItemData>, int> InventoryChanged;
+    public EventHandler<ItemData> OnAddItem, OnRemoveItem;
     public float dropChance;
 
     public Action<Entity> OnEntityDied;
@@ -44,25 +41,37 @@ public abstract class Entity : MonoBehaviour
 
     [SerializeField] Item requiredItem;
 
-    public List<Item> GetInventory() { return data.inventory; }
+    public List<ItemData> GetInventory() { return data.inventory; }
 
-    public static event Action<Item> OnEntityDropItem;
+    public static event Action<ItemData> OnEntityDropItem;
 
     public virtual void Start()
     {
 
-        for (int i = 0; i < data.inventory.Count; i++)
+        /*for (int i = 0; i < data.inventory.Count; i++)
         {
             Item newItem = Instantiate(data.inventory[i]);
             newItem.name = data.inventory[i].name;
             data.inventory[i] = newItem;
-        }
+        }*/
     }
 
     public void LoadEntityData(EntityData _data)
     {
         data = _data;
         transform.position = data.worldPosition;
+
+        /*List<Item> loadedInventory = new List<Item>();
+
+        foreach(Item item in data.inventory)
+        {
+            Item newItem = Instantiate(Resources.Load<Item>("ScriptableObjects/Items/" + item.name));
+            if (newItem == null) continue;
+            newItem.data = item.data;
+            loadedInventory.Add(newItem);
+        }
+        data.inventory.Clear();
+        data.inventory.AddRange(loadedInventory);*/
     }
 
     public virtual void Update()
@@ -122,26 +131,26 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    public virtual bool AddToInventory(Item newItem)
+    public virtual bool AddToInventory(ItemData newItem)
     {
         return false;
     }
 
-    public void DestroyItemInInventory(Item item, int amount)
+    public void DestroyItemInInventory(ItemData item, int amount)
     {
-        Item itemToBeRemoved = GetItemFromInventory(item.itemID);
+        ItemData itemToBeRemoved = GetItemFromInventory(item.name);
         itemToBeRemoved.stack -= amount;
 
         if (itemToBeRemoved.stack <= 0)
         {
             RemoveItem(itemToBeRemoved);
-            Destroy(itemToBeRemoved);
+            //Destroy(itemToBeRemoved);
         }
     }
 
-    public Item GetItemFromInventory(string itemID)
+    public ItemData GetItemFromInventory(String itemName)
     {
-        return data.inventory.Find(i => i.itemID == itemID);
+        return data.inventory.Find(i => i.name == itemName);
     }
 
     void CreateDamageIndicator(int val)
@@ -171,13 +180,13 @@ public abstract class Entity : MonoBehaviour
 
     }
 
-    public void AttackEntity(Entity entity, Item item)
+    public void AttackEntity(Entity entity, ItemData item)
     {
         if (entity == this)
             return;
 
         if (entity.requiredItem != null)
-            if (entity.requiredItem.itemID != item.itemID)
+            if (entity.requiredItem.data.name != item.name)
                 return;
 
         if(item == null)
@@ -203,12 +212,12 @@ public abstract class Entity : MonoBehaviour
     {
         OnEntityDied?.Invoke(this);
 
-        foreach(Item item in data.inventory.ToArray())
+        foreach(ItemData item in data.inventory.ToArray())
         {
             DropItem(item, transform.position, Vector2.zero, 0);
         }
 
-        DropItem(Instantiate(GameState.instance.experienceGem), transform.position, Vector2.zero, 0);
+        DropItem(GameState.instance.experienceGem.data, transform.position, Vector2.zero, 0);
         data.defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -218,21 +227,21 @@ public abstract class Entity : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public virtual void RemoveItem(Item item)
+    public virtual void RemoveItem(ItemData item)
     {
         data.inventory.Remove(item);
         InventoryChanged?.Invoke(data.inventory, equippedIndex);
     }    
 
-    public void DropItem(Item item, Vector2 startPos, Vector2 direction, float velocity)
+    public void DropItem(ItemData item, Vector2 startPos, Vector2 direction, float velocity)
     {
         if (item == null) return;
 
-        Item droppedItem;
+        ItemData droppedItem;
 
         if (item.stack > 1)
         {
-            droppedItem = Instantiate(item);
+            droppedItem = item;
             droppedItem.stack = 1;
             item.stack--;
         }

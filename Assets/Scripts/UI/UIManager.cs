@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Linq;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,7 +36,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI nowPlayingText;
 
     public static Action OnRespawnButtonClick;
-    public static Action<BuildingItem> OnOpenCraftingMenu;
+    public static Action<Data> OnOpenCraftingMenu;
 
     List<HealthBar> healthBarPool = new List<HealthBar>();
 
@@ -172,7 +170,7 @@ public class UIManager : MonoBehaviour
         OnRespawnButtonClick?.Invoke();
     }
 
-    void UpdateHotbar(List<Item> inventory, int currentEquippedIndex)
+    void UpdateHotbar(List<ItemData> inventory, int currentEquippedIndex)
     {
         hotbarContainer.gameObject.SetActive(true);
 
@@ -187,7 +185,7 @@ public class UIManager : MonoBehaviour
             }
             else if (invIndex < inventory.Count)
             {
-                itemIcon = inventory[invIndex].icon;
+                itemIcon = Item.GetItemIcon(inventory[invIndex]);
 
                 if (inventory[invIndex].stack > 1) itemCount = inventory[invIndex].stack.ToString();
             }
@@ -200,24 +198,24 @@ public class UIManager : MonoBehaviour
         //hotbarContainer.GetChild(hotbarContainer.childCount / 2 % 100).GetChild(0).GetComponent<Image>().sprite = inventory[currentEquippedIndex].icon;
     }
 
-    void ToggleInventory(BuildingItem buildingItem)
+    void ToggleInventory(Data _data)
     {
         inventoryScreen.SetActive(!inventoryScreen.activeSelf);
         
 
         if(inventoryScreen.activeSelf)
         {
-            OnOpenCraftingMenu?.Invoke(buildingItem);
+            OnOpenCraftingMenu?.Invoke(_data);
 
             Color color;
 
-            if(buildingItem == null)
+            if(_data == null)
             {
                 color = new Color(0f, 0.682353f, 1f);
             }
             else
             {
-                color = buildingItem.color;
+                color = _data.color;
             }
 
             foreach (Image image in uiImageComponents)
@@ -227,10 +225,10 @@ public class UIManager : MonoBehaviour
 
         }
 
-        if(buildingItem != null)
+        if(_data != null)
         {
             buildingItemGO.SetActive(inventoryScreen.activeSelf);
-            buildingItemText.text = buildingItem.name;
+            buildingItemText.text = _data.name;
             SetActiveTab(content.GetChild(1));
         }
         else
@@ -243,7 +241,7 @@ public class UIManager : MonoBehaviour
     {
         GameObject newDroppedObject = new GameObject();
         newDroppedObject.name = item.name;
-        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item);
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(item.data);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
         newDroppedObject.transform.position = Camera.main.ScreenToWorldPoint(Vector3.one);
 

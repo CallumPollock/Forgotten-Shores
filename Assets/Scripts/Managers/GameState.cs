@@ -56,7 +56,8 @@ public class GameState : MonoBehaviour
         if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)
         {
             GameObject newEnemy = Instantiate(enemy);
-            newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
+            if(player != null)
+                newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
         }
             
         yield return new WaitForSeconds(3f);

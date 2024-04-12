@@ -15,16 +15,18 @@ public class PlayerController : MonoBehaviour
 
     Player player;
 
-    public static Action<BuildingItem> ToggleInventory;
+    public static Action<Data> ToggleInventory;
     public static Action PressedPause;
     public static Action DebugKey;
     public static Action<Entity> SpawnHealthBar;
+
 
     // Start is called before the first frame update
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
+
     }
 
     // Update is called once per frame
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
             if (hand.GetEquippedItem() != null)
             {
-                if (hand.GetEquippedItem().GetType() == typeof(BuildingItem))
+                if (hand.GetEquippedItem().itemType == Item.ItemType.placeable)
                 {
                     hand.GetEquippedItemTransform().position = GameState.instance.grid.GetCellCenterWorld(GameState.instance.grid.WorldToCell(mousePosition));
                     hand.GetEquippedItemTransform().rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -76,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToggleInventory?.Invoke(null);
+            ToggleInventory?.Invoke(player.data);
         }
 
         if(Input.GetKeyDown(KeyCode.Q))

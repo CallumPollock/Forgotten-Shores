@@ -12,11 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23ba0fbbfb564244827cdd465bfc549, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  description: 
-  icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  stack: 1
-  itemType: 0
-  itemID: 6e3bdd9f-ae11-4969-8678-c99d070b4dcd
-  recipe: []
-  advancedRecipe: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  data:
+    name: Wood
+    color: {r: 1, g: 1, b: 1, a: 1}
+    stack: 1
+    description: 
+    iconName: Wood
+    damage: 0
+    itemType: 0
+    itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
+    pickupSoundName: 
+  recipe:
+    ingredients: []
+    requiredBuilding: {fileID: 0}

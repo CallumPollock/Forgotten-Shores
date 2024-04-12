@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: 8869323334961742104}
   - component: {fileID: 2641564993659676892}
   - component: {fileID: 7155692396464571455}
-  - component: {fileID: 3733566905081982842}
   m_Layer: 5
   m_Name: Draggable Item
   m_TagString: Untagged
@@ -212,25 +211,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3733566905081982842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2461775889989365718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d633466eb50337479a78ba9c5958820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  image: {fileID: 0}
-  amountText: {fileID: 3913002150820548211}
-  parentAfterDrag: {fileID: 0}
-  tooltip: {fileID: 7327043599198659687}
-  tooltipTitle: {fileID: 13057371188495842}
-  tooltipDescription: {fileID: 4663920921098799797}
 --- !u!1 &2971079943816162983
 GameObject:
   m_ObjectHideFlags: 0

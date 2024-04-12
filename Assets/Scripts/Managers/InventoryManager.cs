@@ -19,20 +19,20 @@ public class InventoryManager : MonoBehaviour
         Player.PlayerInventoryChanged += UpdateInventoryList;
     }
 
-    public void UpdateInventoryList(List<Item> inventory, int equippedIndex)
+    public void UpdateInventoryList(List<ItemData> inventory, int equippedIndex)
     {
         foreach(Transform child in listContentTransform)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (Item invItem in inventory)
+        foreach (ItemData invItem in inventory)
         {
             GameObject newListItem = Instantiate(itemUIPrefab);
             newListItem.transform.SetParent(listContentTransform);
             newListItem.transform.localScale = Vector3.one;
             newListItem.GetComponentInChildren<TMP_Text>().text = String.Format("{0} x{1}", invItem.name, invItem.stack);
-            newListItem.GetComponentInChildren<Image>().sprite = invItem.icon;
+            newListItem.GetComponentInChildren<Image>().sprite = Item.GetItemIcon(invItem);
 
         }
     }

@@ -7,7 +7,7 @@ using System;
 
 public class CraftMenuManager : MonoBehaviour
 {
-    [SerializeField] List<Item> recipeBook = new List<Item>();
+    [SerializeField] public static List<Item> recipeBook = new List<Item>();
     [SerializeField] GameObject recipeButton;
     [SerializeField] GameObject ingredientObject;
     [SerializeField] Transform viewport;
@@ -31,11 +31,20 @@ public class CraftMenuManager : MonoBehaviour
         UIManager.OnOpenCraftingMenu += UpdateCraftMenu;
 
         ObjectiveManager.CompletedObjective += UnlockNewRecipe;
+        SaveLoadJSON.worldLoaded += LoadRecipes;
+    }
+
+    private void LoadRecipes(WorldData worldData)
+    {
+        foreach(string recipeName in worldData.unlockedRecipes)
+        {
+            recipeBook.Add(Resources.Load<Item>("ScriptableObjects/Items/" + recipeName));
+        }
     }
 
     private void PlayerRespawn(Player _player) { player = _player; }
 
-    public void UpdateCraftMenu(BuildingItem buildingItem)
+    public void UpdateCraftMenu(Data _data)
     {
 
         foreach(Transform child in viewport)
@@ -45,13 +54,11 @@ public class CraftMenuManager : MonoBehaviour
 
         foreach (Item item in recipeBook)
         {
-            if (item.recipe.requiredBuilding == buildingItem)
-                CreateRecipeButtonUI(item);
-            else if(buildingItem != null)
-            {
-                if(buildingItem.craftsOtherItems)
+            if(item.recipe.requiredBuilding == null)
+                if(!_data.craftsExclusively)
                     CreateRecipeButtonUI(item);
-            }
+            else if (item.recipe.requiredBuilding.name == _data.name)
+                CreateRecipeButtonUI(item);
         }
     }
 
@@ -65,7 +72,7 @@ public class CraftMenuManager : MonoBehaviour
         foreach (Item.Ingredient ingredient in item.recipe.ingredients)
         {
             GameObject newIngredient = Instantiate(ingredientObject);
-            newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
+            newIngredient.GetComponentInChildren<Image>().sprite = Item.GetItemIcon(ingredient.item.data);
             newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
             newIngredient.transform.SetParent(newRecipeButton.recipeContainer);
         }
@@ -84,8 +91,8 @@ public class CraftMenuManager : MonoBehaviour
     {
         foreach(Item.Ingredient ingredient in itemToCraft.recipe.ingredients)
         {
-            if (player.GetItemFromInventory(ingredient.item.itemID) == null) return false;
-            if (player.GetItemFromInventory(ingredient.item.itemID).stack < ingredient.amount) return false;
+            if (player.GetItemFromInventory(ingredient.item.data.name) == null) return false;
+            if (player.GetItemFromInventory(ingredient.item.data.name).stack < ingredient.amount) return false;
         }
 
         return true;
@@ -97,7 +104,7 @@ public class CraftMenuManager : MonoBehaviour
 
 
         GameObject newDroppedObject = new GameObject();
-        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(Instantiate(itemToCraft));
+        newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(itemToCraft.data);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
         Rigidbody2D droppedItemRB = newDroppedObject.AddComponent<Rigidbody2D>();
         droppedItemRB.gravityScale = 0f;
@@ -114,8 +121,8 @@ public class CraftMenuManager : MonoBehaviour
     public void UpdatePreview(Item itemSelection)
     {
         previewName.text = itemSelection.name;
-        previewDescription.text = itemSelection.description;
-        previewIcon.sprite = itemSelection.icon;
+        previewDescription.text = itemSelection.data.description;
+        previewIcon.sprite = Item.GetItemIcon(itemSelection.data);
 
         foreach(Transform child in recipePreviewContainer)
         {
@@ -125,7 +132,7 @@ public class CraftMenuManager : MonoBehaviour
         foreach (Item.Ingredient ingredient in itemSelection.recipe.ingredients)
         {
             GameObject newIngredient = Instantiate(ingredientObject);
-            newIngredient.GetComponentInChildren<Image>().sprite = ingredient.item.icon;
+            newIngredient.GetComponentInChildren<Image>().sprite = Item.GetItemIcon(ingredient.item.data);
             newIngredient.GetComponentInChildren<TextMeshProUGUI>().text = ingredient.item.name + " (" + ingredient.amount + ")";
             newIngredient.transform.SetParent(recipePreviewContainer);
         }

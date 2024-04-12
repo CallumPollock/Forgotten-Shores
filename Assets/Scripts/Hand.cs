@@ -12,7 +12,7 @@ public class Hand : MonoBehaviour
     float handDirectionOffset;
 
     [SerializeField] private GameObject equippedItemGO;
-    [SerializeField] private Item equippedItem;
+    [SerializeField] private ItemData equippedItem;
     Collider2D equippedItemCollider;
 
     [SerializeField] private SpriteRenderer equippedItemSprite;
@@ -50,13 +50,13 @@ public class Hand : MonoBehaviour
             transform.position = Vector2.Lerp(transform.position, transform.parent.TransformPoint(offset), Time.deltaTime * 5f);
     }
 
-    public Item GetEquippedItem() { return equippedItem; }
+    public ItemData GetEquippedItem() { return equippedItem; }
     public Transform GetEquippedItemTransform() { return equippedItemGO.transform; }
     public float GetHandDirectionOffset() { return handDirectionOffset; }
     
     public bool GetIsHitting() { return isHitting; }
 
-    public void SetEquippedItem(Item item)
+    public void SetEquippedItem(ItemData item)
     {
         if(item == null)
         {
@@ -69,12 +69,12 @@ public class Hand : MonoBehaviour
         equippedItem = item;
 
         if (equippedItemSprite != null)
-            equippedItemSprite.sprite = item.icon;
+            equippedItemSprite.sprite = Item.GetItemIcon(item);
 
         if (equippedItemCollider != null)
             Destroy(equippedItemCollider);
 
-        if(item.GetType() == typeof(BuildingItem))
+        if(item.itemType == Item.ItemType.placeable)
         {
             equippedItemSprite.color = new Color(0.5f, 0.5f, 1f, 0.8f);
         }
@@ -108,12 +108,11 @@ public class Hand : MonoBehaviour
     public void PlaceBuilding()
     {
         if (equippedItem == null) return;
-        if (equippedItem.GetType() != typeof(BuildingItem)) return;
 
         GameObject newBuilding = new GameObject();
 
-        newBuilding.AddComponent<Workbench>().SetItem(equippedItem as BuildingItem);
-        newBuilding.AddComponent<SpriteRenderer>().sprite = equippedItem.icon;
+        newBuilding.AddComponent<Workbench>().SetItem(equippedItem);
+        newBuilding.AddComponent<SpriteRenderer>().sprite = Item.GetItemIcon(equippedItem);
         newBuilding.AddComponent<BoxCollider2D>().isTrigger = true;
         newBuilding.transform.position = equippedItemGO.transform.position;
         newBuilding.name = equippedItem.name;
@@ -127,12 +126,12 @@ public class Hand : MonoBehaviour
     {
         if (equippedItem != null)
         {
-            switch (equippedItem.GetType().ToString())
+            switch (equippedItem.itemType)
             {
-                case "BuildingItem":
+                case Item.ItemType.placeable:
                     PlaceBuilding();
                     return;
-                case "RangedWeapon":
+                case Item.ItemType.ranged:
                     entity.DropItem(entity.GetHands()[1].GetEquippedItem(), entity.GetHands()[1].transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - entity.GetHands()[1].transform.position, 7f);
                     return;
             }

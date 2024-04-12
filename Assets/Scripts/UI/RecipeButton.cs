@@ -14,8 +14,8 @@ public class RecipeButton : MonoBehaviour
     public void InitialiseRecipeButton(Item item)
     {
         itemName.text = item.name;
-        description.text = item.description;
-        icon.sprite = item.icon;
+        description.text = item.data.description;
+        icon.sprite = Item.GetItemIcon(item.data);
     }
 
 

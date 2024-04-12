@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BuildingEntity : Entity
 {
-    [SerializeField] BuildingItem buildingItem;
     public void Interaction(Player player)
     {
-        buildingItem.Interact(player, buildingItem.interactionMethod);
+        data.Interact(player, data.interactionMethod);
     }
 
-    public void SetItem(BuildingItem item)
+    public void SetItem(Data _data)
     {
-        buildingItem = item;
-        AddToInventory(item);
+        data.name = _data.name;
+        data.color = _data.color;
+        data.interactionMethod = _data.interactionMethod;
+        data.craftsExclusively = _data.craftsExclusively;
+        //AddToInventory(_data as ItemData);
     }
 }

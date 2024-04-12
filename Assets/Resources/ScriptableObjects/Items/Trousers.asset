@@ -12,11 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23ba0fbbfb564244827cdd465bfc549, type: 3}
   m_Name: Trousers
   m_EditorClassIdentifier: 
-  description: 
-  icon: {fileID: 21300000, guid: 247297ff014f8f542aa82d151722c82c, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  stack: 1
-  itemType: 0
-  itemID: 550f9adf-9f97-43a3-992d-0ec7f2d61f32
-  recipe: []
-  advancedRecipe: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  data:
+    name: Trousers
+    color: {r: 1, g: 1, b: 1, a: 1}
+    stack: 1
+    description: 
+    icon: {fileID: 21300000, guid: 247297ff014f8f542aa82d151722c82c, type: 3}
+    damage: 0
+    itemType: 0
+    itemID: 6305f6d1-b838-4115-a500-7571d502654a
+    pickupSound: {fileID: 0}
+  recipe:
+    ingredients: []
+    requiredBuilding: {fileID: 0}

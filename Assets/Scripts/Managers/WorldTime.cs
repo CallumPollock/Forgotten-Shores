@@ -20,7 +20,19 @@ public class WorldTime : MonoBehaviour
     private void Awake()
     {
         globalLight = GetComponent<Light2D>();
-        currentTime = TimeSpan.FromHours(startTime);
+        //currentTime = TimeSpan.FromHours(startTime);
+        SaveLoadJSON.worldLoaded += LoadTime;
+    }
+
+    public long GetTicks()
+    {
+        return currentTime.Ticks;
+    }
+
+    private void LoadTime(WorldData worldData)
+    {
+        currentTime = TimeSpan.FromTicks(worldData.ticks);
+        StartCoroutine(AddMinute());
     }
 
     private IEnumerator AddMinute()

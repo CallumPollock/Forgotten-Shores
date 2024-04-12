@@ -14,7 +14,7 @@ public class Player : Humanlike
 
     public static Action<int, int> OnExpUp;
     public static Action<int> OnLevelUp;
-    public static Action<List<Item>, int> PlayerInventoryChanged;
+    public static Action<List<ItemData>, int> PlayerInventoryChanged;
 
     BuildingEntity nearBuilding;
     [SerializeField] SpriteRenderer headgear;
@@ -58,13 +58,13 @@ public class Player : Humanlike
     {
         foreach (Item.Ingredient ingredient in _item.recipe.ingredients)
         {
-            DestroyItemInInventory(ingredient.item, ingredient.amount);
+            DestroyItemInInventory(ingredient.item.data, ingredient.amount);
         }
     }
 
-    public void OpenCraftingMenu(BuildingItem buildingItem)
+    public void OpenCraftingMenu(Data _data)
     {
-        PlayerController.ToggleInventory?.Invoke(buildingItem);
+        PlayerController.ToggleInventory?.Invoke(_data);
     }
 
     public void IncreaseExp(int amount)
@@ -94,7 +94,7 @@ public class Player : Humanlike
             nearBuilding.Interaction(this);
     }
 
-    public override bool AddToInventory(Item newItem)
+    public override bool AddToInventory(ItemData newItem)
     {
         if(newItem.name.Contains("EXP"))
         {

@@ -1097,6 +1097,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c4cdfb78652144196de61f25fba7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldData:
+    player:
+      name: 
+      health: 0
+      maxHealth: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
+      level: 0
+      experience: 0
+      experienceToNextLevel: 0
+      defence: 0
+      speed: 0
+      worldPosition: {x: 0, y: 0}
+      inventory: []
+    unlockedRecipes: []
+    entites: []
+    objectives: []
+    ticks: 0
+  newSaveData:
+    player:
+      name: New Player
+      health: 100
+      maxHealth: 100
+      color: {r: 0.23718406, g: 0.6063409, b: 0.7735849, a: 1}
+      damage: 1
+      interactionMethod: 
+      craftsExclusively: 0
+      level: 0
+      experience: 0
+      experienceToNextLevel: 10
+      defence: 0
+      speed: 8
+      worldPosition: {x: -47.1, y: -72.89}
+      inventory: []
+    unlockedRecipes: []
+    entites: []
+    objectives:
+    - Talk to Trevor
+    ticks: 307800000000
   variableStorage: {fileID: 0}
   startingObjective: {fileID: 11400000, guid: de71daf87de9d6941a07dfa54ba68219, type: 2}
 --- !u!114 &978546423
