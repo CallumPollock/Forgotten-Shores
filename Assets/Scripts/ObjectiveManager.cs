@@ -75,6 +75,7 @@ public class ObjectiveManager : MonoBehaviour
         if (objectives.Contains(_objective)) return;
 
         Objective objective = Objective.Instantiate(_objective);
+        objective.name = _objective.name;
         objectives.Add(objective);
 
         CreateObjectiveObject(objective);
@@ -95,7 +96,6 @@ public class ObjectiveManager : MonoBehaviour
             AddObjective(nextObjective);
         }
         CompletedObjective?.Invoke(_objective);
-        Destroy(_objective);
 
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
 
-    public Entity target;
+    //public Entity target;
     public float maxSightDistance;
     public float followDistance;
     public float speed;
@@ -37,12 +37,12 @@ public class FollowTarget : MonoBehaviour
             }
             if(possibleTargets.Count > 0)
             {
-                target = entity.GetBestTargetEntity(possibleTargets);
+                entity.SetTarget(entity.GetBestTargetEntity(possibleTargets));
 
-                if (target != null)
+                if (entity.GetTarget() != null)
                 {
-                    if (Vector2.Distance(transform.position, target.transform.position) > followDistance)
-                        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, Time.deltaTime * speed);
+                    if (Vector2.Distance(transform.position, entity.GetTarget().transform.position) > followDistance)
+                        transform.position = Vector2.MoveTowards(transform.position, entity.GetTarget().transform.position, Time.deltaTime * speed);
                 }
             }
             

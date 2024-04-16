@@ -43,9 +43,19 @@ public class DroppedItem : FollowTarget
 
     public void SetAsNewItem(ItemData newItem)
     {
-        item = newItem;
-        if(item.name.EndsWith("(Clone)"))
-            item.name = item.name.Substring(0, item.name.Length - 7);
+        item = new ItemData();
+
+        item.name = newItem.name;
+        item.health = newItem.health;
+        item.maxHealth = newItem.maxHealth;
+        item.color = newItem.color;
+        item.damage = newItem.damage;
+        item.interactionMethod = newItem.interactionMethod;
+        item.craftsExclusively = newItem.craftsExclusively;
+        item.stack = newItem.stack;
+        item.description = newItem.description;
+        item.itemType = newItem.itemType;
+        item.pickupSoundName = newItem.pickupSoundName;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.material = GameState.instance.defaultLitSprite;

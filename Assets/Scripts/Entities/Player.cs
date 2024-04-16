@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Tilemaps;
 
 public class Player : Humanlike
 {
@@ -24,20 +25,21 @@ public class Player : Humanlike
 
     [SerializeField] PlayerController playerController;
 
-    public override void Start()
+    void Start()
     {
-        base.Start();
-
         OnEntityDied += OnPlayerDied;
+        OnEntityDied += _ => PlayerDied();
         InventoryChanged += PlayerInventoryChanged;
         CraftMenuManager.ItemCrafted += ItemCrafted;
+        
+        SaveLoadJSON.playerLoaded += LoadEntityData;
         OnPlayerSpawn?.Invoke(this);
-        SaveLoadJSON.worldLoaded += LoadPlayer;
     }
 
-    private void LoadPlayer(WorldData worldData)
+    private void PlayerDied()
     {
-        LoadEntityData(worldData.player);
+        SaveLoadJSON.playerLoaded -= LoadEntityData;
+        CraftMenuManager.ItemCrafted -= ItemCrafted;
     }
 
     public void ScrollEquippedItem(int handIndex, int scrollValue)

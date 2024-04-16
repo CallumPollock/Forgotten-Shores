@@ -25,7 +25,6 @@ public class Item : SerializedScriptableObject
     public static Sprite GetItemIcon(ItemData item) { return Resources.Load<Sprite>("Icons/" + item.name); }
     public static AudioClip GetItemPickupSound(string audioName) { return Resources.Load<AudioClip>("Icons/" + audioName); }
 
-    [SerializeField]
     public ItemData data;
 
     public enum ItemType { normal, spear, placeable, ranged }

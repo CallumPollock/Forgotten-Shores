@@ -152,6 +152,7 @@ public class UIManager : MonoBehaviour
     void EnableDeathScreen(Entity _entity)
     {
         respawnScreen.SetActive(true);
+        OnRespawnButtonClick += _entity.RespawnEntity;
     }
 
     void UpdateExp(int _experience, int _experienceToNextLevel)

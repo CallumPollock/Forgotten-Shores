@@ -26,7 +26,7 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    damage: 0
+    damage: 6
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
@@ -34,5 +34,9 @@ MonoBehaviour:
     itemType: 0
     pickupSoundName: 
   recipe:
-    ingredients: []
+    ingredients:
+    - item: {fileID: 11400000, guid: 11d1bd5eed9acc54fb1a8abb1e6701bb, type: 2}
+      amount: 4
+    - item: {fileID: 11400000, guid: 92938ad42b3251842a6c39a6a62691f6, type: 2}
+      amount: 1
     requiredBuilding: {fileID: 11400000, guid: 9b66141aaead16f4d9cf34119d029f4e, type: 2}

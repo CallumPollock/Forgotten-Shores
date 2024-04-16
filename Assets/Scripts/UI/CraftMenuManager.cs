@@ -7,7 +7,7 @@ using System;
 
 public class CraftMenuManager : MonoBehaviour
 {
-    [SerializeField] public static List<Item> recipeBook = new List<Item>();
+    [SerializeField] public List<Item> recipeBook = new List<Item>();
     [SerializeField] GameObject recipeButton;
     [SerializeField] GameObject ingredientObject;
     [SerializeField] Transform viewport;
@@ -54,11 +54,16 @@ public class CraftMenuManager : MonoBehaviour
 
         foreach (Item item in recipeBook)
         {
-            if(item.recipe.requiredBuilding == null)
-                if(!_data.craftsExclusively)
+            if(item.recipe.requiredBuilding != null)
+            {
+                if (item.recipe.requiredBuilding.name == _data.name)
                     CreateRecipeButtonUI(item);
-            else if (item.recipe.requiredBuilding.name == _data.name)
+            }
+            else
+            {
                 CreateRecipeButtonUI(item);
+            }
+                
         }
     }
 

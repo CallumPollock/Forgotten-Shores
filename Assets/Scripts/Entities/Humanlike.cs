@@ -9,6 +9,8 @@ public class Humanlike : Entity
 
     [SerializeField] List<Hand> hands = new List<Hand>();
     private AudioSource audioSource;
+    
+    bool isHitting = false;
 
     public virtual void Awake()
     {
@@ -17,6 +19,40 @@ public class Humanlike : Entity
             hands.Add(hand);
         }
        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    public override void Update()
+    {
+        if(this.GetType() != typeof(Player))
+        {
+            if (GetTarget() == null) return;
+            Vector2 direction = GetTarget().transform.position - transform.position;
+            float angle = Vector2.SignedAngle(Vector2.right, direction);
+
+            foreach (Hand hand in GetHands())
+            {
+                hand.transform.eulerAngles = new Vector3(0, 0, angle + hand.GetHandDirectionOffset());
+
+            }
+
+            if (Vector2.Distance(transform.position, GetTarget().transform.position) <= 3f && !isHitting)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+        
+
+        base.Update();
+    }
+
+    
+
+    public IEnumerator Attack()
+    {
+        GetHands()[UnityEngine.Random.Range(0, GetHands().Count)].Hit();
+        isHitting = true;
+        yield return new WaitForSeconds(0.3f);
+        isHitting = false;
     }
 
     public List<Hand> GetHands() { return hands; }
@@ -58,7 +94,7 @@ public class Humanlike : Entity
         if (hands.Count > 0)
             if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(item);
 
-        if (item.pickupSoundName != null)
+        if (Item.GetItemPickupSound(item.pickupSoundName) != null)
             audioSource.PlayOneShot(Item.GetItemPickupSound(item.pickupSoundName));
         else
             audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
@@ -68,5 +104,10 @@ public class Humanlike : Entity
         return true;
 
 
+    }
+
+    public override void OnAttacked(Entity entity)
+    {
+        SetTarget(entity);
     }
 }

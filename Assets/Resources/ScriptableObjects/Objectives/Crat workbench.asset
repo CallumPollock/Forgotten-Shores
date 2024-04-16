@@ -15,10 +15,11 @@ MonoBehaviour:
   description: Craft a <color=blue>workbench</color> to unlock more advanced recipes
   type: 1
   item: {fileID: 11400000, guid: 9b66141aaead16f4d9cf34119d029f4e, type: 2}
-  amountNeeded: 1
+  amountNeeded: -1
   gameObject: {fileID: 0}
   nextObjective:
   - {fileID: 11400000, guid: b1baf6435e7d72f4580321d1d8736172, type: 2}
   unlocksRecipes:
   - {fileID: 11400000, guid: 4349197a674826341ae09b78a235f7ce, type: 2}
   - {fileID: 11400000, guid: 02452423b7e2789418c9087835b5b7fa, type: 2}
+  - {fileID: 11400000, guid: ed47b78c21fe4624382c71f46ee214e5, type: 2}

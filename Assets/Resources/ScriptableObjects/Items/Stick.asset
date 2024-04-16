@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -23,12 +23,15 @@ MonoBehaviour:
     SerializationNodes: []
   data:
     name: Stick
+    health: 0
+    maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 3
+    interactionMethod: 
+    craftsExclusively: 0
     stack: 1
     description: 
-    damage: 3
     itemType: 1
-    itemID: fc90582b-7221-4040-92fc-83ee86855688
     pickupSoundName: 
   recipe:
     ingredients:

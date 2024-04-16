@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Yarn.Unity;
 
 public class GameState : MonoBehaviour
@@ -28,7 +29,7 @@ public class GameState : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SpawnEnemy());
-        UIManager.OnRespawnButtonClick += RespawnPlayer;
+        //UIManager.OnRespawnButtonClick += RespawnPlayer;
         Player.OnPlayerDied += SpawnEntityZombie;
 
         
@@ -50,6 +51,7 @@ public class GameState : MonoBehaviour
     public GameObject playerPrefab;
 
     public Grid grid;
+    public Tilemap tilemap;
 
     IEnumerator SpawnEnemy()
     {

@@ -8,9 +8,8 @@ public class NPC : Humanlike
     Rigidbody2D rb;
     [SerializeField] Vector2 movement;
 
-    public override void Start()
+    void Start()
     {
-        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 

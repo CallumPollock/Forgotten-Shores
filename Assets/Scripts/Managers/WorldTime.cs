@@ -44,7 +44,6 @@ public class WorldTime : MonoBehaviour
 
     private void CheckDayOrNight()
     {
-        Debug.Log(currentTime.Hours + isDay.ToString());
         if (isDay)
         {
             if (currentTime.Hours >= 22)

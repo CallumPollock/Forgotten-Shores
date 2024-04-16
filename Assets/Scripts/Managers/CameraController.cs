@@ -12,9 +12,15 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPos;
     [SerializeField] float xOffset, yOffset;
 
-    public void EndOfDialogue()
+    private void Start()
     {
         Player.OnPlayerSpawn += UpdatePlayerTransform;
+    }
+
+
+    public void EndOfDialogue()
+    {
+        
         target = GameObject.Find("Player").transform;
     }
 

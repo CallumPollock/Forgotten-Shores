@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using static UnityEngine.GraphicsBuffer;
 
 [Serializable]
 [SerializeField]
@@ -13,6 +16,8 @@ public class EntityData : Data
 
     public int defence;
     public float speed;
+
+    public Vector2 entitySize;
 
     public Vector2 worldPosition;
 
@@ -26,6 +31,7 @@ public abstract class Entity : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
+    [SerializeField] Transform body;
 
     public int equippedIndex;
     
@@ -39,44 +45,71 @@ public abstract class Entity : MonoBehaviour
     public Action<int, int> OnHealthModified;
     public static Action<Entity> TriggerEntityInfo;
 
-    [SerializeField] Item requiredItem;
-
+    [SerializeField] Item[] requiredItem;
+    Entity target;
     public List<ItemData> GetInventory() { return data.inventory; }
 
     public static event Action<ItemData> OnEntityDropItem;
 
-    public virtual void Start()
-    {
+    bool isDrowning;
 
-        /*for (int i = 0; i < data.inventory.Count; i++)
-        {
-            Item newItem = Instantiate(data.inventory[i]);
-            newItem.name = data.inventory[i].name;
-            data.inventory[i] = newItem;
-        }*/
-    }
+    [SerializeField] SpriteRenderer[] hiddenInWater;
 
     public void LoadEntityData(EntityData _data)
     {
         data = _data;
         transform.position = data.worldPosition;
-
-        /*List<Item> loadedInventory = new List<Item>();
-
-        foreach(Item item in data.inventory)
+        if(body != null )
         {
-            Item newItem = Instantiate(Resources.Load<Item>("ScriptableObjects/Items/" + item.name));
-            if (newItem == null) continue;
-            newItem.data = item.data;
-            loadedInventory.Add(newItem);
+            body.localScale = _data.entitySize;
         }
-        data.inventory.Clear();
-        data.inventory.AddRange(loadedInventory);*/
     }
 
     public virtual void Update()
     {
         data.worldPosition = transform.position;
+
+        if(GameState.instance.tilemap != null)
+        {
+            TileBase tile = GameState.instance.tilemap.GetTile(GameState.instance.tilemap.WorldToCell(Vector3Int.RoundToInt(transform.position)));
+            if(tile != null)
+            {
+                if (tile.name == "Ocean")
+                {
+                    if (!isDrowning)
+                    {
+                        isDrowning = true;
+                        StartCoroutine(EntityDrowning());
+                        foreach (SpriteRenderer sr in hiddenInWater)
+                        {
+                            sr.enabled = false;
+                        }
+                    }
+
+                }
+                else
+                {
+                    isDrowning = false;
+                    StopCoroutine(EntityDrowning());
+                    foreach (SpriteRenderer sr in hiddenInWater)
+                    {
+                        sr.enabled = true;
+                    }
+                }
+            }
+            
+
+        }
+    }
+
+    IEnumerator EntityDrowning()
+    {
+        yield return new WaitForSeconds(1f);
+        ModifyHealth(-3);
+        if(isDrowning) 
+        { 
+            StartCoroutine(EntityDrowning());
+        }
     }
 
     public virtual void ModifyHealth(int val)
@@ -139,13 +172,14 @@ public abstract class Entity : MonoBehaviour
     public void DestroyItemInInventory(ItemData item, int amount)
     {
         ItemData itemToBeRemoved = GetItemFromInventory(item.name);
-        itemToBeRemoved.stack -= amount;
+            itemToBeRemoved.stack -= amount;
 
         if (itemToBeRemoved.stack <= 0)
         {
             RemoveItem(itemToBeRemoved);
             //Destroy(itemToBeRemoved);
         }
+        InventoryChanged?.Invoke(data.inventory, equippedIndex);
     }
 
     public ItemData GetItemFromInventory(String itemName)
@@ -180,19 +214,27 @@ public abstract class Entity : MonoBehaviour
 
     }
 
+    public abstract void OnAttacked(Entity entity);
+
     public void AttackEntity(Entity entity, ItemData item)
     {
         if (entity == this)
             return;
 
-        if (entity.requiredItem != null)
-            if (entity.requiredItem.data.name != item.name)
+        if (entity.requiredItem.Length > 0)
+        {
+            if(entity.requiredItem.Where(i => i.name == item.name) == null)
+            {
                 return;
+            }
+        }
 
         if(item == null)
             entity.ModifyHealth(-data.damage);
         else
             entity.ModifyHealth(-(data.damage +item.damage));
+
+        entity.OnAttacked(this);
     }
 
     public Entity GetBestTargetEntity(List<Entity> entitiesInSight)
@@ -207,10 +249,13 @@ public abstract class Entity : MonoBehaviour
         return null;
     }
 
-
+    public void SetTarget(Entity _entity){ target = _entity; }
+    public Entity GetTarget() { return target; }
     public virtual void OnDeath()
     {
         OnEntityDied?.Invoke(this);
+
+        StopAllCoroutines();
 
         foreach(ItemData item in data.inventory.ToArray())
         {
@@ -224,7 +269,13 @@ public abstract class Entity : MonoBehaviour
         if (deathSprite != null && spriteRenderer != null)
             spriteRenderer.sprite = deathSprite;
         else
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+    }
+
+    public void RespawnEntity()
+    {
+        gameObject.SetActive(true);
+        data.health = data.maxHealth;
     }
 
     public virtual void RemoveItem(ItemData item)
@@ -237,7 +288,7 @@ public abstract class Entity : MonoBehaviour
     {
         if (item == null) return;
 
-        ItemData droppedItem;
+        ItemData droppedItem = new ItemData();
 
         if (item.stack > 1)
         {

@@ -23,13 +23,15 @@ MonoBehaviour:
     SerializationNodes: []
   data:
     name: EXP
+    health: 0
+    maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    stack: 10
-    description: 
-    iconName: gem
     damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
+    stack: 0
+    description: 
     itemType: 0
-    itemID: 5aa5bb03-b7c5-41bc-aefd-fc7135247ebf
     pickupSoundName: 
   recipe:
     ingredients: []

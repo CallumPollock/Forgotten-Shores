@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Sheep : Entity
 {
+    public override void OnAttacked(Entity entity)
+    {
+        
+    }
+
     void Start()
     {
         data.maxHealth = 30;

@@ -23,13 +23,15 @@ MonoBehaviour:
     SerializationNodes: []
   data:
     name: Stone
+    health: 0
+    maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
     stack: 1
     description: 
-    iconName: Stone
-    damage: 0
     itemType: 0
-    itemID: 1c911772-8449-4088-a6d7-140a45550343
     pickupSoundName: 
   recipe:
     ingredients: []

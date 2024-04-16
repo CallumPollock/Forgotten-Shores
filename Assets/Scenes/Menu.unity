@@ -442,7 +442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UNTITLED SURVIVAL GAME
+  m_text: Forgotten Shores
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}
   m_sharedMaterial: {fileID: -2493076515357509030, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}

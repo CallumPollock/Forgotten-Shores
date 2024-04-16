@@ -29,7 +29,7 @@ MonoBehaviour:
     damage: 0
     interactionMethod: 
     craftsExclusively: 0
-    stack: 0
+    stack: 1
     description: 
     itemType: 0
     pickupSoundName: 

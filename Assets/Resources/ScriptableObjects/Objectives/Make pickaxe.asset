@@ -20,3 +20,4 @@ MonoBehaviour:
   nextObjective: []
   unlocksRecipes:
   - {fileID: 11400000, guid: 5f82f8988769e0f48a40baaf06176797, type: 2}
+  - {fileID: 11400000, guid: c90113c9d3e3f4a4f88a1b582b597177, type: 2}

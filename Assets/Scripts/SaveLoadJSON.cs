@@ -7,12 +7,13 @@ using Yarn.Unity;
 using Yarn;
 using Unity.VisualScripting;
 using OdinSerializer;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 [SerializeField]
 public class WorldData
 {
-    public EntityData player;
+    public Vector2 respawnPos;
     public List<string> unlockedRecipes;
     public EntityData[] entites;
     public List<String> objectives;
@@ -23,44 +24,45 @@ public class SaveLoadJSON : MonoBehaviour
 {
 
     public WorldData worldData;
+    public EntityData playerData;
     public static Action<WorldData> worldLoaded;
+    public static Action<EntityData> playerLoaded;
 
     [SerializeField] private WorldData newSaveData;
-
-    string saveFilePath;
+    [SerializeField] private EntityData newPlayerData;
 
     //public static Action<EntityData> LoadedPlayer;
     //public static Action<List<String>, List<String>> LoadedObjectives;
 
-
+    [SerializeField] CraftMenuManager craftMenuManager;
 
     [SerializeField] VariableStorageBehaviour variableStorage;
     [SerializeField] Objective startingObjective;
 
     void Start()
     {
-        saveFilePath = Application.persistentDataPath + "/player.data";
+        if (SceneManager.GetActiveScene().name != "Game") return;
+
         LoadGame();
 
-        Player.OnPlayerSpawn += OnPlayerRespawn;
+        Player.OnPlayerSpawn += _ => LoadPlayer();
+        Player.OnPlayerDied += SavePlayer;
+        Player.OnPlayerDied += _ => ResetSpawnOnDeath();
 
         //variableStorage = GameObject.FindObjectOfType<InMemoryVariableStorage>();
         
     }
 
-    void OnPlayerRespawn(Entity entity)
+    private void ResetSpawnOnDeath()
     {
-        worldData.player = entity.data;
+        playerData.worldPosition = worldData.respawnPos;
     }
 
-    public void CreateGame(string playerName)
+    private void SavePlayer(Entity entity)
     {
-        worldData = newSaveData;
-        worldData.player.name = playerName;
+        playerData = entity.data;
 
-        string saveWorldData = JsonUtility.ToJson(worldData);
-        File.WriteAllText(saveFilePath, saveWorldData);
-        Debug.Log("Created game at " + saveFilePath);
+        SaveData(playerData, "player");
     }
 
     public void SaveGame()
@@ -71,25 +73,33 @@ public class SaveLoadJSON : MonoBehaviour
         {
             worldData.objectives.Add(objective.name);
         }
-        foreach (Item item in CraftMenuManager.recipeBook)
+        foreach (Item item in craftMenuManager.recipeBook)
         {
             worldData.unlockedRecipes.Add(item.name);
         }
 
         worldData.ticks = FindAnyObjectByType<WorldTime>().GetTicks();
 
-        string saveWorldData = JsonUtility.ToJson(worldData);
-        File.WriteAllText(saveFilePath, saveWorldData);
+        SaveData(worldData, "world");
+        SaveData(playerData, "player");
         //byte[] bytes = SerializationUtility.SerializeValue(worldData, DataFormat.Binary);
         //File.WriteAllBytes(saveFilePath, bytes);
-        Debug.Log("Saved to " + saveFilePath);
+        //Debug.Log("Saved to " + saveFilePath);
     }
 
-    public void LoadGame()
+    public void SaveData(object data, string fileName)
     {
-        if (File.Exists(saveFilePath))
+        string saveData = JsonUtility.ToJson(data);
+        File.WriteAllText(String.Format("{0}/{1}.data", Application.persistentDataPath, fileName), saveData);
+    }
+
+    private void LoadWorld()
+    {
+        string filePath = String.Format("{0}/{1}.data", Application.persistentDataPath, "world");
+
+        if (File.Exists(filePath))
         {
-            string loadWorldData = File.ReadAllText(saveFilePath);
+            string loadWorldData = File.ReadAllText(filePath);
             worldData = JsonUtility.FromJson<WorldData>(loadWorldData);
 
             //byte[] bytes = File.ReadAllBytes(saveFilePath);
@@ -97,14 +107,42 @@ public class SaveLoadJSON : MonoBehaviour
 
             worldLoaded?.Invoke(worldData);
             //LoadedObjectives?.Invoke(worldData.objectives, worldData.completedObjectives);
-            Debug.Log("Loaded " + saveFilePath);
-
-            variableStorage.SetValue("$name", worldData.player.name);
+            Debug.Log("Loaded " + filePath);
         }
+    }
+
+    private void LoadPlayer()
+    {
+        string filePath = String.Format("{0}/{1}.data", Application.persistentDataPath, "player");
+
+        if (File.Exists(filePath))
+        {
+            string loadPlayerData = File.ReadAllText(filePath);
+            playerData = JsonUtility.FromJson<EntityData>(loadPlayerData);
+
+            //byte[] bytes = File.ReadAllBytes(saveFilePath);
+            //worldData = SerializationUtility.DeserializeValue<WorldData>(bytes, DataFormat.Binary);
+
+            playerLoaded?.Invoke(playerData);
+            //LoadedObjectives?.Invoke(worldData.objectives, worldData.completedObjectives);
+            Debug.Log("Loaded " + filePath);
+
+            variableStorage.SetValue("$name", playerData.name);
+        }
+    }
+
+    public void LoadGame()
+    {
+        LoadWorld();
+        LoadPlayer();
     }
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            SaveGame();
+        }
+        
     }
 }
