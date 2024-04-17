@@ -12,6 +12,7 @@ public class CharacterCreator : MonoBehaviour
     [SerializeField] SpriteRenderer trousers;
     private SaveLoadJSON saveLoadJSON;
     EntityData playerData;
+    WorldData worldData;
 
     private void Start()
     {
@@ -23,6 +24,14 @@ public class CharacterCreator : MonoBehaviour
         playerData.damage = 1;
         playerData.speed = 8;
         playerData.experienceToNextLevel = 10;
+        playerData.worldPosition = new Vector2(-47.1f, -72.89f);
+
+        worldData = new WorldData();
+        worldData.objectives = new List<string>
+        {
+            "Talk to Trevor"
+        };
+        worldData.ticks = 30780000000;
     }
 
     public void NameFieldChange(string name)
@@ -52,6 +61,7 @@ public class CharacterCreator : MonoBehaviour
     public void ConfirmCharacter()
     {
         saveLoadJSON.SaveData(playerData, "player");
+        saveLoadJSON.SaveData(worldData, "world");
         SceneManager.LoadScene("Game");
     }
 }

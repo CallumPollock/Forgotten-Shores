@@ -1130,29 +1130,6 @@ MonoBehaviour:
     entitySize: {x: 0, y: 0}
     worldPosition: {x: 0, y: 0}
     inventory: []
-  newSaveData:
-    respawnPos: {x: 0, y: 0}
-    unlockedRecipes: []
-    entites: []
-    objectives:
-    - Talk to Trevor
-    ticks: 307800000000
-  newPlayerData:
-    name: New Player
-    health: 100
-    maxHealth: 100
-    color: {r: 0.3726415, g: 0.65106094, b: 1, a: 1}
-    damage: 1
-    interactionMethod: 
-    craftsExclusively: 0
-    level: 0
-    experience: 0
-    experienceToNextLevel: 10
-    defence: 0
-    speed: 8
-    entitySize: {x: 0, y: 0}
-    worldPosition: {x: -47.1, y: -72.89}
-    inventory: []
   craftMenuManager: {fileID: 0}
   variableStorage: {fileID: 0}
   startingObjective: {fileID: 11400000, guid: de71daf87de9d6941a07dfa54ba68219, type: 2}
@@ -1555,6 +1532,18 @@ PrefabInstance:
     - target: {fileID: 2130943084915617136, guid: 4214b57e615806c448ba9d993d629531, type: 3}
       propertyPath: multiInstance
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130943084915617136, guid: 4214b57e615806c448ba9d993d629531, type: 3}
+      propertyPath: startingColor.b
+      value: 0.9568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130943084915617136, guid: 4214b57e615806c448ba9d993d629531, type: 3}
+      propertyPath: startingColor.g
+      value: 0.39607847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130943084915617136, guid: 4214b57e615806c448ba9d993d629531, type: 3}
+      propertyPath: startingColor.r
+      value: 0.3647059
       objectReference: {fileID: 0}
     - target: {fileID: 2130943084915617136, guid: 4214b57e615806c448ba9d993d629531, type: 3}
       propertyPath: onColorChange.m_PersistentCalls.m_Calls.Array.size

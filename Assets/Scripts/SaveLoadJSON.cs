@@ -28,9 +28,6 @@ public class SaveLoadJSON : MonoBehaviour
     public static Action<WorldData> worldLoaded;
     public static Action<EntityData> playerLoaded;
 
-    [SerializeField] private WorldData newSaveData;
-    [SerializeField] private EntityData newPlayerData;
-
     //public static Action<EntityData> LoadedPlayer;
     //public static Action<List<String>, List<String>> LoadedObjectives;
 

@@ -79,15 +79,5 @@ public class WorldTime : MonoBehaviour
         return (float)timeSpan.TotalMinutes % 1440 / 1440;
     }
 
-    public void PauseTime()
-    {
-        StopCoroutine(AddMinute());
-    }
-
-    public void ResumeTime()
-    {
-        StartCoroutine(AddMinute());
-    }    
-
     public TimeSpan GetCurrentTime() { return currentTime; }
 }
