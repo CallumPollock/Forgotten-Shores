@@ -26,12 +26,13 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    damage: 0
+    damage: 5
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
-    itemType: 0
+    description: Like a stick, but with a more refined end. Good for jabbing from
+      a distance.
+    itemType: 1
     pickupSoundName: 
   recipe:
     ingredients:

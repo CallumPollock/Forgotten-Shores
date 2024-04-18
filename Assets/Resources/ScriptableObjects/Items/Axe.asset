@@ -30,7 +30,7 @@ MonoBehaviour:
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: Useful for chopping down trees, also makes a good weapon.
     itemType: 0
     pickupSoundName: 
   recipe:

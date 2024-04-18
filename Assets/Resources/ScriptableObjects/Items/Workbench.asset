@@ -30,7 +30,7 @@ MonoBehaviour:
     interactionMethod: OpenCraftingMenu
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: Allows crafting some more advanced recipes.
     itemType: 2
     pickupSoundName: 
   recipe:

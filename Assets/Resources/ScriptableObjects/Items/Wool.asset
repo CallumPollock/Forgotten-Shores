@@ -23,13 +23,15 @@ MonoBehaviour:
     SerializationNodes: []
   data:
     name: Wool
+    health: 0
+    maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    stack: 1
-    description: 
-    iconName: Wool
     damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
+    stack: 1
+    description: Comes from a sheep.
     itemType: 0
-    itemID: 499b4571-279d-40b6-a7ea-8d68242b1fa3
     pickupSoundName: 
   recipe:
     ingredients: []

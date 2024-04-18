@@ -30,8 +30,8 @@ MonoBehaviour:
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
-    itemType: 0
+    description: A ranged weapon for shooting arrows.
+    itemType: 3
     pickupSoundName: 
   recipe:
     ingredients:

@@ -30,7 +30,7 @@ MonoBehaviour:
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: A basic, flimsy weapon.
     itemType: 0
     pickupSoundName: 
   recipe:

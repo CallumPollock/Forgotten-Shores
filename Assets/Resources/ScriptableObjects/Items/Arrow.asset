@@ -23,13 +23,15 @@ MonoBehaviour:
     SerializationNodes: []
   data:
     name: Arrow
+    health: 0
+    maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    stack: 1
-    description: 
-    iconName: arrow
     damage: 3
+    interactionMethod: 
+    craftsExclusively: 0
+    stack: 1
+    description: Ammunition for a bow.
     itemType: 0
-    itemID: 148d0220-ffd7-4f41-a1c6-4229f8f5cf75
     pickupSoundName: 
   recipe:
     ingredients:

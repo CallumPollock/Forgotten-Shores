@@ -21,6 +21,8 @@ public class CraftMenuManager : MonoBehaviour
     [SerializeField] Button craftButton;
 
     [SerializeField] private Player player;
+    private AudioSource audioSource;
+    [SerializeField] AudioClip craftingClip;
 
     public static Action<Item> ItemCrafted;
 
@@ -32,6 +34,8 @@ public class CraftMenuManager : MonoBehaviour
 
         ObjectiveManager.CompletedObjective += UnlockNewRecipe;
         SaveLoadJSON.worldLoaded += LoadRecipes;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void LoadRecipes(WorldData worldData)
@@ -121,6 +125,7 @@ public class CraftMenuManager : MonoBehaviour
 
         ItemCrafted?.Invoke(itemToCraft);
         UpdatePreview(itemToCraft);
+        audioSource.PlayOneShot(craftingClip);
     }
 
     public void UpdatePreview(Item itemSelection)

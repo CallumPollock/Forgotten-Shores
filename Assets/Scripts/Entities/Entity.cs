@@ -189,7 +189,7 @@ public abstract class Entity : MonoBehaviour
                 }
                 else if(droppedItem.GetVelocity().magnitude <= 0.1f)
                 {
-                    if (AddToInventory(droppedItem.item))
+                    if (AddToInventory(droppedItem))
                     {
                         Destroy(collision.gameObject);
                     }
@@ -201,7 +201,7 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    public virtual bool AddToInventory(ItemData newItem)
+    public virtual bool AddToInventory(DroppedItem newItem)
     {
         return false;
     }

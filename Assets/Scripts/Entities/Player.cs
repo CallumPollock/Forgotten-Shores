@@ -97,11 +97,11 @@ public class Player : Humanlike
             nearBuilding.Interaction(this);
     }
 
-    public override bool AddToInventory(ItemData newItem)
+    public override bool AddToInventory(DroppedItem newItem)
     {
         if(newItem.name.Contains("EXP"))
         {
-            IncreaseExp(newItem.stack);
+            IncreaseExp(newItem.item.stack);
             return true;
         }
 

@@ -30,7 +30,8 @@ MonoBehaviour:
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: Can be used to jab things in lieu of an actual weapon. Also used
+      in many recipes for tools.
     itemType: 1
     pickupSoundName: 
   recipe:

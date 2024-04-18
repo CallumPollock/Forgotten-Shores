@@ -77,28 +77,32 @@ public class Humanlike : Entity
     }
 
 
-    public override bool AddToInventory(ItemData item)
+    public override bool AddToInventory(DroppedItem droppedItem)
     {
 
-        if (item.stack <= 0) return true;
-        if (item.name.Contains("EXP")) return false;
+        if (droppedItem.item.stack <= 0) return true;
+        if (droppedItem.item.name.Contains("EXP")) return false;
 
-        if (GetInventory().Any(i => i.name == item.name))
+        if (GetInventory().Any(i => i.name == droppedItem.item.name))
         {
-            GetItemFromInventory(item.name).stack += item.stack;
+            GetItemFromInventory(droppedItem.item.name).stack += droppedItem.item.stack;
         }
         else
         {
-            GetInventory().Add(item);
+            GetInventory().Add(droppedItem.item);
         }
         
-        CreateInfoText(String.Format("+{0} {1} ({2})", item.stack, item.name, GetItemFromInventory(item.name).stack), Color.white, 4f, 1f);
+        CreateInfoText(String.Format("+{0} {1} ({2})", droppedItem.item.stack, droppedItem.item.name, GetItemFromInventory(droppedItem.item.name).stack), Color.white, 4f, 1f);
 
         if (hands.Count > 0)
-            if (hands[0].GetEquippedItem().stack == 0) hands[0].SetEquippedItem(item);
+            if (hands[0].GetEquippedItem().stack == 0) hands[0].SetEquippedItem(droppedItem.item);
 
-        if (Item.GetItemPickupSound(item.pickupSoundName) != null)
-            pickupSource.PlayOneShot(Item.GetItemPickupSound(item.pickupSoundName));
+        if (droppedItem.pickupSound != null)
+        {
+            AudioClip newPickupSound = droppedItem.pickupSound;
+            pickupSource.PlayOneShot(newPickupSound, 1f);
+        }
+            
         else
             pickupSource.PlayOneShot(GameState.instance.defaultPickupSound);
 

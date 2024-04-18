@@ -30,7 +30,7 @@ MonoBehaviour:
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: A fairly primitive weapon, but more robust than its wooden counterpart.
     itemType: 0
     pickupSoundName: 
   recipe:

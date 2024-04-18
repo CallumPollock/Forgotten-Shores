@@ -10,6 +10,7 @@ public class DroppedItem : FollowTarget
     private SpriteRenderer spriteRenderer;
 
     Rigidbody2D rb;
+    public AudioClip pickupSound;
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class DroppedItem : FollowTarget
         item.stack = newItem.stack;
         item.description = newItem.description;
         item.itemType = newItem.itemType;
-        item.pickupSoundName = newItem.pickupSoundName;
+        pickupSound = Item.GetItemPickupSound(newItem.pickupSoundName);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.material = GameState.instance.defaultLitSprite;

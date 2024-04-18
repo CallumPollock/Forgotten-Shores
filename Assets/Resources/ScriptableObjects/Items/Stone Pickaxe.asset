@@ -26,11 +26,11 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    damage: 0
+    damage: 3
     interactionMethod: 
     craftsExclusively: 0
     stack: 1
-    description: 
+    description: A fairly primitive pickaxe, but can mine some ores.
     itemType: 0
     pickupSoundName: 
   recipe:
