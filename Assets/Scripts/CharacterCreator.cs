@@ -14,6 +14,9 @@ public class CharacterCreator : MonoBehaviour
     EntityData playerData;
     WorldData worldData;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip[] voiceClips;
+
     private void Start()
     {
         saveLoadJSON = GetComponent<SaveLoadJSON>();
@@ -24,6 +27,8 @@ public class CharacterCreator : MonoBehaviour
         playerData.damage = 1;
         playerData.speed = 8;
         playerData.experienceToNextLevel = 10;
+        playerData.voicePitch = 1f;
+        playerData.color = new Color(0.3647059f, 0.3960785f, 0.9568628f);
         playerData.worldPosition = new Vector2(-47.1f, -72.89f);
 
         worldData = new WorldData();
@@ -31,7 +36,9 @@ public class CharacterCreator : MonoBehaviour
         {
             "Talk to Trevor"
         };
-        worldData.ticks = 30780000000;
+        worldData.ticks = 288180000000;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public void NameFieldChange(string name)
@@ -56,6 +63,13 @@ public class CharacterCreator : MonoBehaviour
     {
         body.localScale = new Vector3(body.localScale.x, value);
         playerData.entitySize.y = value;
+    }
+
+    public void VoicePitch(float value)
+    {
+        audioSource.pitch = value;
+        audioSource.PlayOneShot(voiceClips[Random.Range(0, voiceClips.Length)]);
+        playerData.voicePitch = value;
     }
 
     public void ConfirmCharacter()

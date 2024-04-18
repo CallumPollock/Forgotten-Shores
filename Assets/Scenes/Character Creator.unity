@@ -312,8 +312,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 579459823}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.508, y: 0}
-  m_AnchorMax: {x: 0.508, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -452,12 +452,12 @@ GameObject:
   - component: {fileID: 462761761}
   - component: {fileID: 462761760}
   m_Layer: 5
-  m_Name: Height
+  m_Name: Voice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &462761759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Height
+  m_text: Voice Pitch
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}
   m_sharedMaterial: {fileID: -2493076515357509030, guid: 7b98d16d3a783bf4dbfbb9f8ba8652fa, type: 2}
@@ -1128,6 +1128,7 @@ MonoBehaviour:
     defence: 0
     speed: 0
     entitySize: {x: 0, y: 0}
+    voicePitch: 0
     worldPosition: {x: 0, y: 0}
     inventory: []
   craftMenuManager: {fileID: 0}
@@ -1148,6 +1149,8 @@ MonoBehaviour:
   body: {fileID: 1399589443}
   nameField: {fileID: 1275839850}
   trousers: {fileID: 317844471}
+  voiceClips:
+  - {fileID: 8300000, guid: 4f1037e8c7efe2047b24dd2bc1457ff1, type: 3}
 --- !u!4 &978546424
 Transform:
   m_ObjectHideFlags: 0
@@ -1196,7 +1199,7 @@ RectTransform:
   m_Father: {fileID: 704650950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.508, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2135,7 +2138,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 978546423}
         m_TargetAssemblyTypeName: CharacterCreator, Assembly-CSharp
-        m_MethodName: HeightSlider
+        m_MethodName: VoicePitch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

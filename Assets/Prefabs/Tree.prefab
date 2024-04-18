@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 9045830562592108708}
   - component: {fileID: 8813971827625497568}
   - component: {fileID: 8187978824012016731}
+  - component: {fileID: 4104340897656025752}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -136,7 +137,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -184,117 +185,144 @@ MonoBehaviour:
     name: 
     health: 500
     maxHealth: 500
+    color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
     level: 1
     experience: 0
     experienceToNextLevel: 0
-    damage: 0
     defence: 0
     speed: 0
+    entitySize: {x: 0, y: 0}
     worldPosition: {x: 0, y: 0}
     inventory:
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
     - name: Wood
+      health: 0
+      maxHealth: 0
       color: {r: 1, g: 1, b: 1, a: 1}
+      damage: 0
+      interactionMethod: 
+      craftsExclusively: 0
       stack: 1
       description: 
-      icon: {fileID: 21300000, guid: f7aa2316337619d4f98190e4f8aa598a, type: 3}
-      damage: 0
       itemType: 0
-      itemID: 948e0788-0a95-47fd-aec7-8ac18cf34421
-      pickupSound: {fileID: 0}
+      pickupSoundName: 
   deathSprite: {fileID: 21300000, guid: 83c703f77b8ccbd4d9c6f25c545a0201, type: 3}
+  body: {fileID: 0}
+  entitySounds: []
   equippedIndex: 0
   dropChance: 0.05
   requiredItem:
-    name: 
-    color: {r: 1, g: 1, b: 1, a: 1}
-    stack: 0
-    description: 
-    icon: {fileID: 0}
-    damage: 0
-    itemType: 0
-    itemID: 
-    pickupSound: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hiddenInWater: []
 --- !u!60 &8187978824012016731
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -451,3 +479,19 @@ PolygonCollider2D:
       - {x: 1.435, y: 0.08}
       - {x: 1.355, y: 0.13}
   m_UseDelaunayMesh: 0
+--- !u!114 &4104340897656025752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235166829028185201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33aa309b2c91b5b4085a95b69a6629a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 0.2844654, g: 0.22964507, b: 0.12747271, a: 1}
+  flashTime: 0.25
+  spriteRenderers: []
+  materials: []

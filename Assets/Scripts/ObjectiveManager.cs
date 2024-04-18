@@ -19,6 +19,7 @@ public class ObjectiveManager : MonoBehaviour
     public static Action<Objective> NewObjective;
     public static Action<Objective> CompletedObjective;
     [SerializeField] DialogueRunner dialogueRunner;
+    [SerializeField] VariableStorageBehaviour variableStorage;
 
     private int woodCounter;
 
@@ -96,6 +97,11 @@ public class ObjectiveManager : MonoBehaviour
             AddObjective(nextObjective);
         }
         CompletedObjective?.Invoke(_objective);
+
+        if(_objective.name == "Make a sword")
+        {
+            variableStorage.SetValue("$isPrepared", true);
+        }
 
     }
 

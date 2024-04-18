@@ -29,10 +29,10 @@ MonoBehaviour:
     damage: 0
     interactionMethod: 
     craftsExclusively: 0
-    stack: 0
+    stack: 10
     description: 
     itemType: 0
-    pickupSoundName: 
+    pickupSoundName: EXP
   recipe:
     ingredients: []
     requiredBuilding: {fileID: 0}

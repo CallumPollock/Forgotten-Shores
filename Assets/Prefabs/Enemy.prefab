@@ -119,7 +119,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -207,7 +207,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,9 +254,21 @@ MonoBehaviour:
   entity: {fileID: 0}
   offset: {x: -1.17, y: 1.71}
   equippedItemGO: {fileID: 4462105586997785457}
-  equippedItem: {fileID: 0}
+  equippedItem:
+    name: 
+    health: 0
+    maxHealth: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
+    stack: 0
+    description: 
+    itemType: 0
+    pickupSoundName: 
   equippedItemSprite: {fileID: 0}
   defaultItemPosition: {x: 0, y: 0}
+  defaultItemRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!61 &6960735597150146215
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -357,7 +369,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -476,7 +488,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -561,7 +573,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -684,7 +696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   maxSightDistance: 15
   followDistance: 2
   speed: 2
@@ -704,20 +715,31 @@ MonoBehaviour:
     name: 
     health: 50
     maxHealth: 50
+    color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 6
+    interactionMethod: 
+    craftsExclusively: 0
     level: 1
     experience: 0
     experienceToNextLevel: 0
-    damage: 6
     defence: 0
     speed: 2
-    transform: {fileID: 0}
+    entitySize: {x: 0, y: 0}
+    worldPosition: {x: 0, y: 0}
     inventory: []
   deathSprite: {fileID: 0}
+  body: {fileID: 463365226122289096}
+  idleSounds:
+  - {fileID: 8300000, guid: 87463a75722ee2848b8903f3e2d0ec6b, type: 3}
+  - {fileID: 8300000, guid: bcc7ca0e53fdd6746b464b32141e16ee, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: bcc7ca0e53fdd6746b464b32141e16ee, type: 3}
   equippedIndex: 0
   dropChance: 0
-  requiredItem: {fileID: 0}
+  requiredItem:
+  - {fileID: 0}
+  hiddenInWater: []
   hands: []
-  body: {fileID: 463365226122289096}
 --- !u!210 &6300676246341247162
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -786,7 +808,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -833,9 +855,21 @@ MonoBehaviour:
   entity: {fileID: 0}
   offset: {x: 1.17, y: 1.71}
   equippedItemGO: {fileID: 6176295649890872746}
-  equippedItem: {fileID: 0}
+  equippedItem:
+    name: 
+    health: 0
+    maxHealth: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
+    stack: 0
+    description: 
+    itemType: 0
+    pickupSoundName: 
   equippedItemSprite: {fileID: 0}
   defaultItemPosition: {x: 0, y: 0}
+  defaultItemRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!61 &5318583244034701885
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -933,7 +967,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1018,7 +1052,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1114,7 +1148,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1201,7 +1235,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1320,7 +1354,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1404,7 +1438,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

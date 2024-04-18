@@ -28,7 +28,6 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemy());
         //UIManager.OnRespawnButtonClick += RespawnPlayer;
         Player.OnPlayerDied += SpawnEntityZombie;
 
@@ -40,7 +39,7 @@ public class GameState : MonoBehaviour
     public Item experienceGem;
 
     public Player player;
-    [SerializeField] GameObject enemy;
+    
 
     [SerializeField] private WorldTime worldTime;
 
@@ -53,28 +52,11 @@ public class GameState : MonoBehaviour
     public Grid grid;
     public Tilemap tilemap;
 
-    IEnumerator SpawnEnemy()
-    {
-        if (worldTime.GetCurrentTime().Hours >= 22 || worldTime.GetCurrentTime().Hours <= 6)
-        {
-            GameObject newEnemy = Instantiate(enemy);
-            if(player != null)
-                newEnemy.transform.position = new Vector2(player.transform.position.x, player.transform.position.y) + Random.insideUnitCircle * 20f;
-        }
-            
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnEnemy());
-    }
+    
 
     private void SpawnEntityZombie(Entity _entity)
     {
-        Zombie newZombie = Instantiate(enemy).GetComponent<Zombie>();
-        newZombie.transform.position = _entity.transform.position;
-
-        newZombie.data.name = "Zombie " + _entity.data.name;
-        newZombie.data.maxHealth = _entity.data.maxHealth;
-        newZombie.data.health = _entity.data.maxHealth;
-        newZombie.data.level = _entity.data.level;
+        
         
     }
 

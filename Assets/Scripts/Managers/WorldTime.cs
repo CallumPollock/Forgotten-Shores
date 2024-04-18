@@ -64,6 +64,11 @@ public class WorldTime : MonoBehaviour
         }
     }
 
+    public void AddTime(float minutes)
+    {
+        currentTime += TimeSpan.FromMinutes(minutes);
+    }
+
     private IEnumerator AddMinute()
     {
         currentTime += TimeSpan.FromMinutes(1);
@@ -77,6 +82,16 @@ public class WorldTime : MonoBehaviour
     private float PercentOfDay(TimeSpan timeSpan)
     {
         return (float)timeSpan.TotalMinutes % 1440 / 1440;
+    }
+
+    public void PauseTime()
+    {
+        StopAllCoroutines();
+    }
+
+    public void ResumeTime()
+    {
+        StartCoroutine(AddMinute());
     }
 
     public TimeSpan GetCurrentTime() { return currentTime; }

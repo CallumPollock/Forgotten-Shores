@@ -746,6 +746,9 @@ MonoBehaviour:
     inventory: []
   deathSprite: {fileID: 0}
   body: {fileID: 7017219534941314966}
+  idleSounds: []
+  hitSounds:
+  - {fileID: 8300000, guid: 4f1037e8c7efe2047b24dd2bc1457ff1, type: 3}
   equippedIndex: 0
   dropChance: 0
   requiredItem:

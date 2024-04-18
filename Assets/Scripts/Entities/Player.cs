@@ -25,7 +25,7 @@ public class Player : Humanlike
 
     [SerializeField] PlayerController playerController;
 
-    void Start()
+    public override void Start()
     {
         OnEntityDied += OnPlayerDied;
         OnEntityDied += _ => PlayerDied();
@@ -34,6 +34,7 @@ public class Player : Humanlike
         
         SaveLoadJSON.playerLoaded += LoadEntityData;
         OnPlayerSpawn?.Invoke(this);
+        base.Start();
     }
 
     private void PlayerDied()

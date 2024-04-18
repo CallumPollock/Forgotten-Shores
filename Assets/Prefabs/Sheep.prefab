@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -205,18 +205,29 @@ MonoBehaviour:
     name: 
     health: 0
     maxHealth: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+    damage: 0
+    interactionMethod: 
+    craftsExclusively: 0
     level: 1
     experience: 0
     experienceToNextLevel: 0
-    damage: 0
     defence: 0
     speed: 0
-    transform: {fileID: 0}
+    entitySize: {x: 1, y: 1}
+    worldPosition: {x: 0, y: 0}
     inventory: []
   deathSprite: {fileID: 0}
+  body: {fileID: 0}
+  idleSounds:
+  - {fileID: 8300000, guid: 4ad1b1baac27bff4baa9ea05ce0ce8d8, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 4ad1b1baac27bff4baa9ea05ce0ce8d8, type: 3}
   equippedIndex: 0
   dropChance: 0.8
-  requiredItem: {fileID: 0}
+  requiredItem:
+  - {fileID: 0}
+  hiddenInWater: []
 --- !u!114 &3185929117149869954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84997537029087a4c85a1c3fea1419dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   maxSightDistance: 6
   followDistance: 0
   speed: -5

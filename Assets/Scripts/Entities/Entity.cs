@@ -3,10 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEngine.GraphicsBuffer;
 
 [Serializable]
 [SerializeField]
@@ -18,6 +16,7 @@ public class EntityData : Data
     public float speed;
 
     public Vector2 entitySize;
+    public float voicePitch;
 
     public Vector2 worldPosition;
 
@@ -32,6 +31,9 @@ public abstract class Entity : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public Sprite deathSprite;
     [SerializeField] Transform body;
+    [SerializeField] AudioClip[] idleSounds;
+    [SerializeField] AudioClip[] hitSounds;
+    private AudioSource audioSource;
 
     public int equippedIndex;
     
@@ -54,6 +56,32 @@ public abstract class Entity : MonoBehaviour
     bool isDrowning;
 
     [SerializeField] SpriteRenderer[] hiddenInWater;
+
+    private DamageFlash damageFlash;
+
+    public virtual void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f;
+        audioSource.maxDistance = 25f;
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.pitch = 2f-data.entitySize.x;
+        if (idleSounds.Length > 0)
+        {
+            StartCoroutine(MakeSound());
+        }
+
+        damageFlash = gameObject.GetComponent<DamageFlash>();
+        if(damageFlash == null)
+            damageFlash = gameObject.AddComponent<DamageFlash>();
+    }
+
+    IEnumerator MakeSound()
+    {
+        audioSource.PlayOneShot(idleSounds[UnityEngine.Random.Range(0, idleSounds.Length)]);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(4f, 15f));
+        StartCoroutine(MakeSound());
+    }
 
     public void LoadEntityData(EntityData _data)
     {
@@ -116,7 +144,16 @@ public abstract class Entity : MonoBehaviour
     {
 
         if (val < 0)
+        {
             val = Mathf.Min(val + data.defence, 0);
+            if(damageFlash != null)
+                damageFlash.CallDamageFlash();
+            if(hitSounds.Length > 0)
+            {
+                audioSource.PlayOneShot(hitSounds[UnityEngine.Random.Range(0, hitSounds.Length)]);
+            }
+        }
+            
 
         data.health = Mathf.Clamp(data.health + val, 0, data.maxHealth);
 
@@ -132,7 +169,7 @@ public abstract class Entity : MonoBehaviour
         }
 
         OnHealthModified?.Invoke(data.health, data.maxHealth);
-        
+
 
         if (val < 0 && data.inventory.Count > 0)
             if (UnityEngine.Random.value/-val <= dropChance)
@@ -146,7 +183,7 @@ public abstract class Entity : MonoBehaviour
             if (collision.GetComponent<DroppedItem>().item != null)
             {
                 DroppedItem droppedItem = collision.GetComponent<DroppedItem>();
-                if (droppedItem.GetVelocity().magnitude >= 0.2f)
+                if (droppedItem.GetVelocity().magnitude >= 0.3f)
                 {
                     ModifyHealth(-droppedItem.item.damage);
                 }
@@ -239,14 +276,13 @@ public abstract class Entity : MonoBehaviour
 
     public Entity GetBestTargetEntity(List<Entity> entitiesInSight)
     {
-        foreach(Entity entity in entitiesInSight)
+        Entity bestTarget = entitiesInSight.Where(e => e.GetType() == typeof(Player)).FirstOrDefault();
+        if(bestTarget == null)
         {
-            if(entity != this)
-            {
-                return entity;
-            }
+            bestTarget = entitiesInSight.FirstOrDefault();
         }
-        return null;
+
+        return bestTarget;
     }
 
     public void SetTarget(Entity _entity){ target = _entity; }
@@ -262,7 +298,7 @@ public abstract class Entity : MonoBehaviour
             DropItem(item, transform.position, Vector2.zero, 0);
         }
 
-        DropItem(GameState.instance.experienceGem.data, transform.position, Vector2.zero, 0);
+        CreateDroppedItem(GameState.instance.experienceGem.data, transform.position, Vector2.zero, 0f);
         data.defence = 100;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -302,11 +338,23 @@ public abstract class Entity : MonoBehaviour
             RemoveItem(item);
         }
 
+
+        CreateDroppedItem(droppedItem, startPos, direction, velocity);
+        
+
+        if (item.stack <= 0) RemoveItem(item);
+
+        OnEntityDropItem?.Invoke(item);
+        InventoryChanged?.Invoke(data.inventory, equippedIndex);
+    }
+
+    private void CreateDroppedItem(ItemData droppedItem, Vector2 startPos, Vector2 direction, float velocity)
+    {
         GameObject newDroppedObject = new GameObject();
-        newDroppedObject.name = item.name;
+        newDroppedObject.name = droppedItem.name;
         newDroppedObject.AddComponent<DroppedItem>().SetAsNewItem(droppedItem);
         newDroppedObject.AddComponent<PolygonCollider2D>().isTrigger = true;
-        
+
 
         newDroppedObject.transform.position = startPos;
         newDroppedObject.transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
@@ -315,12 +363,5 @@ public abstract class Entity : MonoBehaviour
         droppedItemRB.gravityScale = 0f;
         droppedItemRB.velocity = direction * velocity;
         droppedItemRB.drag = 5f;
-
-        
-
-        if (item.stack <= 0) RemoveItem(item);
-
-        OnEntityDropItem?.Invoke(item);
-        InventoryChanged?.Invoke(data.inventory, equippedIndex);
     }
 }

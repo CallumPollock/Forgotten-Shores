@@ -1,0 +1,17 @@
+﻿title: FirstNight
+tags:
+---
+<<declare $isPrepared = false>>
+Trevor: Hey, <b><color=blue>{$name}</b></color>, wait!
+Trevor: Have you been preparing for your first night? How did it go?
+
+<<if $isPrepared>>
+Trevor: Well done, you look prepared. But don't take it for granted, the night will still be rough.
+<<else>>
+Trevor: Hmm... I fear you have not taken this seriously enough.
+Trevor: You should work towards crafting a <color=blue><b>Stone Sword</b></color> at least.
+<<endif>>
+
+Trevor: Once night falls the <b><color=blue>monsters</b></color> will rise.
+Trevor: Look, I'd stay but I have... matters to tend to. See you later.
+===

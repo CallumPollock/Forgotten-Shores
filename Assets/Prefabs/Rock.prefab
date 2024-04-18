@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 3145586000186404485}
   - component: {fileID: 4762378155879029122}
   - component: {fileID: 5361445321905936530}
+  - component: {fileID: 3491243391676007620}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -132,7 +133,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d70d6f10a4723704c8ead6d16ed7dc4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -259,6 +260,7 @@ MonoBehaviour:
     experienceToNextLevel: 0
     defence: 0
     speed: 0
+    entitySize: {x: 0, y: 0}
     worldPosition: {x: 0, y: 0}
     inventory:
     - name: Stone
@@ -372,6 +374,26 @@ MonoBehaviour:
       itemType: 0
       pickupSoundName: 
   deathSprite: {fileID: 0}
+  body: {fileID: 0}
+  entitySounds: []
   equippedIndex: 0
   dropChance: 0.1
-  requiredItem: {fileID: 0}
+  requiredItem:
+  - {fileID: 0}
+  hiddenInWater: []
+--- !u!114 &3491243391676007620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076504017577099292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33aa309b2c91b5b4085a95b69a6629a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 0.2844654, g: 0.22964507, b: 0.12747271, a: 1}
+  flashTime: 0.25
+  spriteRenderers: []
+  materials: []

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public static Action DebugKey;
     public static Action<Entity> SpawnHealthBar;
 
+    public static Action<Transform> TriggerTestCutscene;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -64,8 +66,6 @@ public class PlayerController : MonoBehaviour
 
         body.velocity = movement * player.data.speed;
 
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
         if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             player.GetHands()[0].Hit();
@@ -104,6 +104,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F2))
         {
             SpawnHealthBar?.Invoke(player);
+        }
+
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            TriggerTestCutscene?.Invoke(transform);
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)

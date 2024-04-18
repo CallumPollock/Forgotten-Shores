@@ -8,7 +8,7 @@ public class Humanlike : Entity
 {
 
     [SerializeField] List<Hand> hands = new List<Hand>();
-    private AudioSource audioSource;
+    private AudioSource pickupSource;
     
     bool isHitting = false;
 
@@ -18,7 +18,10 @@ public class Humanlike : Entity
         {
             hands.Add(hand);
         }
-       audioSource = gameObject.AddComponent<AudioSource>();
+        pickupSource = gameObject.AddComponent<AudioSource>();
+        pickupSource.spatialBlend = 1f;
+        pickupSource.maxDistance = 25f;
+        pickupSource.rolloffMode = AudioRolloffMode.Linear;
     }
 
     public override void Update()
@@ -92,12 +95,12 @@ public class Humanlike : Entity
         CreateInfoText(String.Format("+{0} {1} ({2})", item.stack, item.name, GetItemFromInventory(item.name).stack), Color.white, 4f, 1f);
 
         if (hands.Count > 0)
-            if (hands[0].GetEquippedItem() == null) hands[0].SetEquippedItem(item);
+            if (hands[0].GetEquippedItem().stack == 0) hands[0].SetEquippedItem(item);
 
         if (Item.GetItemPickupSound(item.pickupSoundName) != null)
-            audioSource.PlayOneShot(Item.GetItemPickupSound(item.pickupSoundName));
+            pickupSource.PlayOneShot(Item.GetItemPickupSound(item.pickupSoundName));
         else
-            audioSource.PlayOneShot(GameState.instance.defaultPickupSound);
+            pickupSource.PlayOneShot(GameState.instance.defaultPickupSound);
 
 
         InventoryChanged?.Invoke(GetInventory(), GetInventory().IndexOf(hands[0].GetEquippedItem()));

@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yarn.Unity;
 
 public class NPC : Humanlike
 {
 
     Rigidbody2D rb;
     [SerializeField]Vector2 moveToPos;
+    [SerializeField] DialogueRunner dr;
 
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        PlayerController.TriggerTestCutscene += TestCutscene;
+        base.Start();
     }
 
     void TestCutscene(Transform player)
     {
-        transform.position = player.position;
+        moveToPos = player.position + Vector3.up;
+        dr.StartDialogue("FirstNight");
     }
 
     public override void Update()

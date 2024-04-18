@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Zombie : Humanlike
 {
-    void Start()
+    public override void Start()
     {
         StartCoroutine(Attack());
+        base.Start();
 
     }
     

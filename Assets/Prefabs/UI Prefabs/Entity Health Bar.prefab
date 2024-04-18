@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 9053412158447091055}
   - component: {fileID: 6490351238924149928}
   - component: {fileID: 3341345065279538937}
+  - component: {fileID: 3310770695567660614}
   m_Layer: 5
   m_Name: Entity Health Bar
   m_TagString: Untagged
@@ -306,6 +307,18 @@ MonoBehaviour:
   entityInfoText: {fileID: 6116874087617841880}
   healthBar: {fileID: 7707451687245952096}
   healthText: {fileID: 6796829407596934601}
+--- !u!225 &3310770695567660614
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289108565306822871}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &6831316635104843907
 GameObject:
   m_ObjectHideFlags: 0
