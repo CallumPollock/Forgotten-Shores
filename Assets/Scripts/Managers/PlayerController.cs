@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
     public static Action DebugKey;
     public static Action<Entity> SpawnHealthBar;
 
-    public static Action<Transform> TriggerTestCutscene;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -108,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.F3))
         {
-            TriggerTestCutscene?.Invoke(transform);
+            WorldTime.OnFirstNightBegin?.Invoke();
         }
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)

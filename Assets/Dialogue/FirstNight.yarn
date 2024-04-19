@@ -2,7 +2,9 @@
 tags:
 ---
 <<declare $isPrepared = false>>
+<<wait 1>>
 Trevor: Hey, <b><color=blue>{$name}</b></color>, wait!
+<<wait 2>>
 Trevor: Have you been preparing for your first night? How did it go?
 
 <<if $isPrepared>>
@@ -13,5 +15,6 @@ Trevor: You should work towards crafting a <color=blue><b>Stone Sword</b></color
 <<endif>>
 
 Trevor: Once night falls the <b><color=blue>monsters</b></color> will rise.
+Trevor: You have <b><color=blue>2 hours</b></color>.
 Trevor: Look, I'd stay but I have... matters to tend to. See you later.
 ===

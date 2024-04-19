@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform worldSpaceCanvas;
     [SerializeField] GameObject entityHealthBarPrefab;
 
+    [SerializeField] GameObject craftPreviewGO;
+    [SerializeField] GameObject craftButtonGO;
+    [SerializeField] ScrollRect scrollRect;
 
     [SerializeField] TextMeshProUGUI nowPlayingText;
 
@@ -199,18 +203,26 @@ public class UIManager : MonoBehaviour
         //hotbarContainer.GetChild(hotbarContainer.childCount / 2 % 100).GetChild(0).GetComponent<Image>().sprite = inventory[currentEquippedIndex].icon;
     }
 
+    public void TurnOffInventoryOnDialogue()
+    {
+        if(inventoryScreen.activeSelf)
+        {
+            ToggleInventory(null);
+        }
+    }
+
     void ToggleInventory(Data _data)
     {
         inventoryScreen.SetActive(!inventoryScreen.activeSelf);
-        
 
-        if(inventoryScreen.activeSelf)
+
+        if (inventoryScreen.activeSelf)
         {
             OnOpenCraftingMenu?.Invoke(_data);
 
             Color color;
 
-            if(_data == null)
+            if (_data == null)
             {
                 color = new Color(0f, 0.682353f, 1f);
             }
@@ -224,18 +236,27 @@ public class UIManager : MonoBehaviour
                 image.color = color;
             }
 
-        }
 
-        if(_data != null)
-        {
-            buildingItemGO.SetActive(inventoryScreen.activeSelf);
-            buildingItemText.text = _data.name;
-            SetActiveTab(content.GetChild(1));
+            if (_data.name == "Workbench" || _data.name == "Furnace")
+            {
+                buildingItemGO.SetActive(inventoryScreen.activeSelf);
+                buildingItemText.text = _data.name;
+                SetActiveTab(content.GetChild(1));
+            }
+            else
+            {
+                SetActiveTab(content.GetChild(0));
+            }
+            scrollRect.verticalNormalizedPosition = 1;
+
         }
         else
         {
-            SetActiveTab(content.GetChild(0));
+            craftButtonGO.SetActive(false);
+            craftPreviewGO.SetActive(false);
         }
+
+        
     }
 
     private void DebugSpawnItem(Item item)

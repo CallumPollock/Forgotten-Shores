@@ -26,7 +26,7 @@ MonoBehaviour:
     health: 0
     maxHealth: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    damage: 0
+    damage: 5
     interactionMethod: 
     craftsExclusively: 0
     stack: 1

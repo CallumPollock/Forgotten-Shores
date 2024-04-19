@@ -13,13 +13,15 @@ public class NPC : Humanlike
     public override void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        PlayerController.TriggerTestCutscene += TestCutscene;
+        WorldTime.OnFirstNightBegin += FirstNightCutscene;
         base.Start();
     }
 
-    void TestCutscene(Transform player)
+    private void FirstNightCutscene()
     {
-        moveToPos = player.position + Vector3.up;
+        //moveToPos = player.position + Vector3.up;
+        //transform.position = Camera.main.ScreenToWorldPoint(Vector3.up);
+        moveToPos = Camera.main.transform.position + (Vector3.up *0.4f);
         dr.StartDialogue("FirstNight");
     }
 

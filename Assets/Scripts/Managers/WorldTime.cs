@@ -19,6 +19,8 @@ public class WorldTime : MonoBehaviour
 
     public static Action<bool> OnDayBegin;
     bool isDay;
+    bool hasFirstNightHappened = false;
+    public static Action OnFirstNightBegin;
 
     private void Awake()
     {
@@ -61,6 +63,15 @@ public class WorldTime : MonoBehaviour
                 OnDayBegin?.Invoke(isDay);
             }
 
+        }
+
+        if(!hasFirstNightHappened)
+        {
+            if(currentTime.Hours == 20 && currentTime.Days == 0)
+            {
+                OnFirstNightBegin?.Invoke();
+                hasFirstNightHappened = true;
+            }
         }
     }
 

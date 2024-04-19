@@ -18,6 +18,9 @@ public class CraftMenuManager : MonoBehaviour
     [SerializeField] Image previewIcon;
     [SerializeField] Transform recipePreviewContainer;
 
+    [SerializeField] GameObject previewGO;
+    [SerializeField] GameObject craftGO;
+
     [SerializeField] Button craftButton;
 
     [SerializeField] private Player player;
@@ -130,6 +133,9 @@ public class CraftMenuManager : MonoBehaviour
 
     public void UpdatePreview(Item itemSelection)
     {
+        previewGO.SetActive(true);
+        craftGO.SetActive(true);
+
         previewName.text = itemSelection.name;
         previewDescription.text = itemSelection.data.description;
         previewIcon.sprite = Item.GetItemIcon(itemSelection.data);

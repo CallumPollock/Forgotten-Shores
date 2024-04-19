@@ -28,8 +28,6 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
-        //UIManager.OnRespawnButtonClick += RespawnPlayer;
-        Player.OnPlayerDied += SpawnEntityZombie;
 
         
     }
@@ -51,18 +49,5 @@ public class GameState : MonoBehaviour
 
     public Grid grid;
     public Tilemap tilemap;
-
-    
-
-    private void SpawnEntityZombie(Entity _entity)
-    {
-        
-        
-    }
-
-    public void RespawnPlayer()
-    {
-        Instantiate(playerPrefab);
-    }
 
 }

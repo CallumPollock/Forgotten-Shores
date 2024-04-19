@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Furnace
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -27,7 +27,7 @@ MonoBehaviour:
     maxHealth: 0
     color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
     damage: 0
-    interactionMethod: 
+    interactionMethod: OpenCraftingMenu
     craftsExclusively: 1
     stack: 1
     description: Used for smelting ores into usable ingots.
